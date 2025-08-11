@@ -1,26 +1,38 @@
 @import "tailwindcss";
+@import "tw-animate-css";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
-}
-
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
+@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: "Lato", Arial, Helvetica, sans-serif;
+}
+
+@theme {
+  --color-everies-primary-10: #1c352d;
+  --color-everies-primary-20: #4a6b5d;
+  --color-everies-primary-30: #8fa599;
+
+  --color-everies-secondary-10: #faf9ee;
+  --color-everies-secondary-20: #fcfbf4;
+  --color-everies-secondary-30: #fefcf9;
+
+  --color-everies-light-10: #faf7f3;
+  --color-everies-light-20: #fcfaf7;
+  --color-everies-light-30: #fefdfc;
+
+  --color-everies-dark-10: #4a4b63;
+  --color-everies-dark-20: #3e3f54;
+  --color-everies-dark-30: #333446;
+
+  --breakpoint-md: 748px;
+}
+
+@layer utilities {
+  .flex-center {
+    @apply flex justify-center items-center;
+  }
+
+  .flex-start {
+    @apply flex items-start;
+  }
 }
