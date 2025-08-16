@@ -2,12 +2,13 @@
 @import "tw-animate-css";
 
 @import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Bungee:wght@400;700&display=swap");
 
 body {
   font-family: "Lato", Arial, Helvetica, sans-serif;
 }
 
-@theme {
+@theme inline {
   --color-everies-primary-10: #1c352d;
   --color-everies-primary-20: #4a6b5d;
   --color-everies-primary-30: #8fa599;
@@ -15,6 +16,7 @@ body {
   --color-everies-secondary-10: #faf9ee;
   --color-everies-secondary-20: #fcfbf4;
   --color-everies-secondary-30: #fefcf9;
+  --color-everies-secondary-40: #dbe4c9;
 
   --color-everies-light-10: #faf7f3;
   --color-everies-light-20: #fcfaf7;
@@ -25,6 +27,8 @@ body {
   --color-everies-dark-30: #333446;
 
   --breakpoint-md: 748px;
+
+  --font-bitcount: var(--font-bitcount);
 }
 
 @layer utilities {
@@ -34,5 +38,9 @@ body {
 
   .flex-start {
     @apply flex items-start;
+  }
+
+  .flex-between {
+    @apply flex justify-between items-center;
   }
 }

@@ -1,3 +1,12 @@
+import Banner from "@/components/banner";
+import Layout from "@/components/layout";
+import Products from "./(components)/Products";
+
 export default function Home() {
-  return <main className="">HOME</main>;
+  return (
+    <Layout>
+      <Banner />
+      <Products />
+    </Layout>
+  );
 }

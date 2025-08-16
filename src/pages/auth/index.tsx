@@ -12,8 +12,8 @@ const AuthPage = () => {
   const { section } = useAuthStore((state) => state);
 
   return (
-    <Layout className="bg-everies-secondary-10">
-      <div className="px-6 py-12 h-screen flex-center">
+    <main className="flex-center bg-everies-secondary-10">
+      <div className="px-6 w-[1440px] py-12 h-screen flex-center">
         <div className="hidden w-full md:flex flex-col items-center justify-center h-full">
           <div className="flex items-center flex-col">
             <Image
@@ -47,7 +47,7 @@ const AuthPage = () => {
           </div>
         </div>
       </div>
-    </Layout>
+    </main>
   );
 };
 
