@@ -6,9 +6,11 @@
 
 body {
   font-family: "Lato", Arial, Helvetica, sans-serif;
+  overflow-x: hidden;
 }
 
 @theme inline {
+  --text-2xs: 10px;
   --color-everies-primary-10: #1c352d;
   --color-everies-primary-20: #4a6b5d;
   --color-everies-primary-30: #8fa599;

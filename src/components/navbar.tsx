@@ -12,7 +12,7 @@ const Navbar = () => {
   const [searchActive, setSearchActive] = useState(false);
   return (
     <>
-      <div className="absolute max-w-[1440px] w-screen text-xs h-12 top-0 p-8 flex flex-row justify-between">
+      <div className="absolute max-w-[1440px] w-screen text-xs h-12 z-40 top-0 p-8 flex flex-row items-center justify-between bg-everies-secondary-10">
         <div className="flex  items-center justify-center flex-row gap-3">
           <p>SHOP</p>
           <p>MEN</p>

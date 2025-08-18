@@ -28,15 +28,14 @@ const Layout = ({
   return (
     <main
       className={cn(
-        "flex justify-center items-center w-full bg-everies-secondary-10",
-        monsterrat.className,
-        className
+        "flex justify-center items-center w-full ",
+        monsterrat.className
       )}
       {...props}
     >
       <div className="max-w-[1440px] w-screen">
         <Navbar />
-        {children}
+        <div className={cn("mt-16", className)}>{children}</div>
       </div>
     </main>
   );

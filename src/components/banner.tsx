@@ -11,7 +11,7 @@ import { AiFillShopping } from "react-icons/ai";
 
 const Banner = () => {
   return (
-    <div className="h-screen gap-6 flex-col bg-everies-secondary-10 bg-[url('/images/banner2.png')] bg-no-repeat bg-position-[center_top_15rem] bg-contain flex items-center justify-start">
+    <div className="h-[calc(100vh-48px)] gap-6 flex-col bg-everies-secondary-10 bg-[url('/images/banner2.png')] bg-no-repeat bg-position-[center_top_15rem] bg-contain flex items-center justify-start">
       <div className="flex flex-col gap-4 items-center mt-28">
         <h1
           className={cn(
@@ -41,7 +41,7 @@ const Banner = () => {
         )}
       >
         {/* <AiFillShopping className="size-10" /> */}
-        <div className="w-30 ">
+        <div className="w-24 ">
           <span style={{ wordBreak: "break-word" }}>CATEGORIES</span>
         </div>
       </div>
