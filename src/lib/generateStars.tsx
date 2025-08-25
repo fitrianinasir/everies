@@ -5,10 +5,16 @@ import React from "react";
 export interface GeneratedStarsProps
   extends React.HTMLAttributes<HTMLDivElement> {
   stars: number;
+  size?: "small" | "default" | "large";
 }
 
 const GeneratedStars = React.forwardRef<HTMLDivElement, GeneratedStarsProps>(
-  ({ className, stars = 0, ...props }, ref) => {
+  ({ className, size = "default", stars = 0, ...props }, ref) => {
+    const sizeClasses: { [key: string]: string } = {
+      small: "text-xs",
+      default: "text-sm",
+      large: "text-lg",
+    };
     return (
       <div>
         <div>
@@ -17,7 +23,11 @@ const GeneratedStars = React.forwardRef<HTMLDivElement, GeneratedStarsProps>(
               {Array.from({ length: stars }, (_, index) => (
                 <FaStar
                   key={index}
-                  className={cn("text-2xs text-yellow-400", className)}
+                  className={cn(
+                    "text-yellow-400",
+                    sizeClasses[size],
+                    className
+                  )}
                 />
               ))}
             </div>
@@ -26,11 +36,15 @@ const GeneratedStars = React.forwardRef<HTMLDivElement, GeneratedStarsProps>(
               {Array.from({ length: Math.floor(stars) }, (_, index) => (
                 <FaStar
                   key={index}
-                  className={cn("text-2xs text-yellow-400", className)}
+                  className={cn(
+                    "text-yellow-400",
+                    sizeClasses[size],
+                    className
+                  )}
                 />
               ))}
               <FaRegStarHalfStroke
-                className={cn("text-2xs text-yellow-400", className)}
+                className={cn("text-yellow-400", sizeClasses[size], className)}
               />
             </div>
           )}

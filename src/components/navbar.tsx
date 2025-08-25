@@ -6,38 +6,51 @@ import { Popover, PopoverContent, PopoverTrigger } from "./ui/popover";
 import { Input } from "./ui/input";
 import { GoPerson, GoPersonFill } from "react-icons/go";
 import { CgShoppingBag } from "react-icons/cg";
+import { useWindowSize } from "@uidotdev/usehooks";
+import MobileSidebar from "./sidebar";
+import Image from "next/image";
+import LogoImage from "./logo";
 
 const Navbar = () => {
+  const { width } = useWindowSize();
   const [show, setShow] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
   return (
     <>
       <div className="absolute max-w-[1440px] w-screen text-xs h-12 z-40 top-0 p-8 flex flex-row items-center justify-between bg-everies-secondary-10">
-        <div className="flex  items-center justify-center flex-row gap-3">
-          <p>SHOP</p>
-          <p>MEN</p>
-          <p>WOMEN</p>
-          <p>TRENDING</p>
-        </div>
-        {show ? (
+        {width && width > 576 ? (
           <div className="flex items-center justify-center flex-row gap-3">
-            <div
-              className="flex flex-row items-center justify-center bg-everies-secondary-40 p-1.5 text-everies-primary-20 rounded-full cursor-pointer"
-              onClick={() => setSearchActive(true)}
-            >
-              <FiSearch className="size-4" />
-            </div>
-            <Popover>
-              <PopoverTrigger>
-                <RiNotification2Line className="size-5 text-everies-primary-20" />
-              </PopoverTrigger>
-              <PopoverContent className="mr-4">HENLO</PopoverContent>
-            </Popover>
-            <CgShoppingBag className="text-everies-primary-20 size-5 cursor-pointer" />
-            <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
+            <p>SHOP</p>
+            <p>MEN</p>
+            <p>WOMEN</p>
+            <p>TRENDING</p>
           </div>
         ) : (
-          <Button onClick={() => setShow(!show)}>LOGIN</Button>
+          <LogoImage />
+        )}
+        {width && width > 576 ? (
+          show ? (
+            <div className="flex items-center justify-center flex-row gap-3">
+              <div
+                className="flex flex-row items-center justify-center bg-everies-secondary-40 p-1.5 text-everies-primary-20 rounded-full cursor-pointer"
+                onClick={() => setSearchActive(true)}
+              >
+                <FiSearch className="size-4" />
+              </div>
+              <Popover>
+                <PopoverTrigger>
+                  <RiNotification2Line className="size-5 text-everies-primary-20" />
+                </PopoverTrigger>
+                <PopoverContent className="mr-4">HENLO</PopoverContent>
+              </Popover>
+              <CgShoppingBag className="text-everies-primary-20 size-5 cursor-pointer" />
+              <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
+            </div>
+          ) : (
+            <Button onClick={() => setShow(!show)}>LOGIN</Button>
+          )
+        ) : (
+          <MobileSidebar />
         )}
       </div>
       {searchActive && (

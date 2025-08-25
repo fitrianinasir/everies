@@ -9,6 +9,15 @@ body {
   overflow-x: hidden;
 }
 
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+.scrollbar-hide {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}
+
 @theme inline {
   --text-2xs: 10px;
   --color-everies-primary-10: #1c352d;
@@ -28,6 +37,7 @@ body {
   --color-everies-dark-20: #3e3f54;
   --color-everies-dark-30: #333446;
 
+  --breakpoint-sm: 576px;
   --breakpoint-md: 748px;
 
   --font-bitcount: var(--font-bitcount);
