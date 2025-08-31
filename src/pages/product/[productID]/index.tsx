@@ -1,15 +1,21 @@
 import Layout from "@/components/layout";
-import React from "react";
 import ImagesSection from "./ImagesSection";
 import { DummyProduct } from "@/lib/dummy";
 import GeneratedStars from "@/lib/generateStars";
 import { formatToRupiah } from "@/lib/utils";
+import { useEffect } from "react";
+import { useProductStore } from "@/store/useProductStore";
 
 const ProductDetail = () => {
   const dummyData = DummyProduct; // Assuming you want to display the first product's details
+  const { setProduct } = useProductStore((state) => state);
+  useEffect(() => {
+    setProduct(dummyData);
+  }, [dummyData]);
+
   return (
     <Layout className="p-8 flex flex-col md:flex-row  gap-10">
-      <ImagesSection className="w-full md:w-[35vw]" images={dummyData.img} />
+      <ImagesSection className="w-full md:w-[35vw]" />
       <div className="col-span-2 flex flex-col gap-4">
         <div className="">
           <h1 className="font-bold text-2xl">{dummyData.name}</h1>

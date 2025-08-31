@@ -21,7 +21,7 @@ const buttonVariants = cva(
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
-        sm: "h-8 rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
+        sm: "h-8 text-2xs font-semibold rounded-md gap-1.5 px-3 has-[>svg]:px-2.5",
         lg: "h-10 rounded-md px-6 has-[>svg]:px-4",
         icon: "size-9",
       },
@@ -33,13 +33,21 @@ const buttonVariants = cva(
   }
 );
 
+interface ButtonProps extends React.ComponentProps<"button"> {
+  leftNode?: React.ReactNode;
+  rightNode?: React.ReactNode;
+}
+
 function Button({
+  children,
   className,
   variant,
   size,
   asChild = false,
+  leftNode,
+  rightNode,
   ...props
-}: React.ComponentProps<"button"> &
+}: ButtonProps &
   VariantProps<typeof buttonVariants> & {
     asChild?: boolean;
   }) {
@@ -50,7 +58,11 @@ function Button({
       data-slot="button"
       className={cn(buttonVariants({ variant, size, className }))}
       {...props}
-    />
+    >
+      {leftNode}
+      {children}
+      {rightNode}
+    </Comp>
   );
 }
 

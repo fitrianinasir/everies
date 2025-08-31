@@ -59,6 +59,12 @@ export const DummyProduct: TProductDetail = {
     "/images/products/blouse1.webp",
     "/images/products/blouse2.webp",
     "/images/products/blouse3.webp",
+    "/images/products/blouse1.webp",
+    "/images/products/blouse2.webp",
+    "/images/products/blouse3.webp",
+    "/images/products/blouse1.webp",
+    "/images/products/blouse2.webp",
+    "/images/products/blouse3.webp",
   ],
   variation_by_color: [
     {
