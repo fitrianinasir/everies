@@ -37,8 +37,12 @@ body {
   --color-everies-dark-20: #3e3f54;
   --color-everies-dark-30: #333446;
 
+  --color-everies-pink-10: #e5beb5;
+  --color-everies-pink-20: #d6a99d;
+
   --breakpoint-sm: 576px;
   --breakpoint-md: 748px;
+  --breakpoint-lg: 848px;
 
   --font-bitcount: var(--font-bitcount);
 }

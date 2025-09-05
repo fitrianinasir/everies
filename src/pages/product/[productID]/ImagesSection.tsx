@@ -38,7 +38,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
 
   return (
     <div className={cn("flex flex-col gap-4", className)}>
-      {width && width > 576 ? (
+      {width && width >= 576 ? (
         <ImagesDetail />
       ) : (
         <>
@@ -56,7 +56,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
         </div>
         <div
           ref={containerRef}
-          className="scrollbar-hide max-w-96 overflow-auto flex flex-row flex-wrap"
+          className="scrollbar-hide overflow-auto flex flex-row flex-wrap"
         >
           <div className=" flex flex-row gap-3 px-4 py-2">
             {product?.img?.map((image, index) => (

@@ -135,10 +135,12 @@ function Carousel({
 }
 
 interface CarouselContentProps extends React.ComponentProps<"div"> {
+  showLabel?: boolean;
   highlight?: number;
   setHighlight?: (index: number) => void;
 }
 function CarouselContent({
+  showLabel = false,
   highlight,
   setHighlight,
   className,
@@ -157,17 +159,15 @@ function CarouselContent({
   return (
     <div
       ref={carouselRef}
-      className="overflow-hidden"
+      className="overflow-hidden relative"
       data-slot="carousel-content"
     >
-      <div
-        className={cn(
-          "flex",
-          // orientation === "horizontal" ? "-ml-4" : "-mt-4 flex-col",
-          className
-        )}
-        {...props}
-      />
+      <div className={cn("flex", className)} {...props} />
+      {showLabel && (
+        <div className="absolute px-3 py-0.5 bg-slate-700/40 bottom-1 right-1 rounded-2xl text-white text-2xs">
+          {(highlight as number) + 1}/{(props.children as number[])?.length}
+        </div>
+      )}
     </div>
   );
 }

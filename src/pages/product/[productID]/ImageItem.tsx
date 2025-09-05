@@ -1,3 +1,8 @@
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+} from "@/components/ui/carousel";
 import { useProductStore } from "@/store/useProductStore";
 import Image from "next/image";
 
@@ -8,15 +13,26 @@ const ImageItem = ({ ...props }: ImageItemProps) => {
     (state) => state
   );
   return (
-    <div className="" {...props}>
-      <Image
-        src={product.img?.[activeImageIndex]}
-        alt="Product Image"
-        className="w-full cursor-pointer h-auto object-cover rounded-2xl"
-        width={500}
-        height={500}
-      />
-    </div>
+    <Carousel {...props}>
+      <CarouselContent
+        showLabel
+        highlight={activeImageIndex}
+        setHighlight={setActiveImageIndex}
+        className="flex flex-row gap-4"
+      >
+        {product?.img?.map((_, index) => (
+          <CarouselItem key={index} className="w-full">
+            <Image
+              src={product.img[index]}
+              alt="Product Image"
+              className="w-full h-full object-cover"
+              width={400}
+              height={400}
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
   );
 };
 
