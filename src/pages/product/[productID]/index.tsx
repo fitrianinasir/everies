@@ -2,7 +2,13 @@ import Layout from "@/components/layout";
 import ImagesSection from "./ImagesSection";
 import { DummyProduct } from "@/lib/dummy";
 import GeneratedStars from "@/lib/generateStars";
-import { formatToRupiah } from "@/lib/utils";
+import {
+  cn,
+  formatToRupiah,
+  maxStockHandler,
+  variationByColorHandler,
+  variationBySizeHandler,
+} from "@/lib/utils";
 import { useEffect, useState } from "react";
 import { useProductStore } from "@/store/useProductStore";
 import { useWindowSize } from "@/hooks/useWindowSize";
@@ -16,7 +22,7 @@ import {
 } from "@/components/ui/accordion";
 import { FaStar } from "react-icons/fa6";
 import ReviewDetail from "./ReviewDetail";
-
+import { BsBag } from "react-icons/bs";
 import {
   Pagination,
   PaginationContent,
@@ -26,21 +32,50 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
+import { TVariationByColor, TVariationBySize } from "@/lib/model";
+import { VariationColor, VariationSize } from "./Variation";
+import { CounterMedium } from "@/components/pages/Counter";
+import { Button } from "@/components/ui/button";
+import useAddToCartHandler from "@/hooks/useAddToCart";
 
 const ProductDetail = () => {
   const { width } = useWindowSize();
   const [isFavorite, setIsFavorite] = useState(false);
   const dummyData = DummyProduct; // Assuming you want to display the first product's details
-  const { setProduct } = useProductStore((state) => state);
+  const { setProduct, selectedColor, selectedSize } = useProductStore(
+    (state) => state
+  );
+  const { handleAddToCart } = useAddToCartHandler();
+
+  const [count, setCount] = useState<number>(1);
+  const [maxStock, setMaxStock] = useState<number | undefined>();
+  const [variationByColor, setVariationByColor] =
+    useState<TVariationByColor[]>();
+  const [variationBySize, setVariationBySize] = useState<TVariationBySize[]>();
+
   useEffect(() => {
     setProduct(dummyData);
+    setVariationByColor(variationByColorHandler(dummyData.variation_by_color));
+    setVariationBySize(variationBySizeHandler(dummyData.variation_by_size));
   }, [dummyData]);
+
+  useEffect(() => {
+    setMaxStock(
+      maxStockHandler({
+        colors: variationByColor || [],
+        selectedColor: selectedColor,
+        selectedSize: selectedSize,
+      })
+    );
+  }, [selectedColor, selectedSize]);
 
   const ReviewSection = () => (
     <>
       <div>
-        <h1 className="font-bold text-xs sm:text-sm">Penilaian Produk</h1>
-        <div className="flex text-2xs items-center flex-row gap-1 font-semibold">
+        <h1 className="font-bold text-xs sm:text-sm text-everies-pink-20">
+          Penilaian Produk
+        </h1>
+        <div className="flex text-2xs items-center mt-1 flex-row gap-1 font-semibold">
           <FaStar className="size-4 sm:size-5  text-yellow-400" />
           <span> {dummyData.rate}/5.0 | 1.5k orang memberikan penilaian</span>
         </div>
@@ -50,46 +85,88 @@ const ProductDetail = () => {
       <ReviewDetail />
     </>
   );
+
+  useEffect(() => {
+    console.log("selectedColor", selectedColor);
+  }, [selectedColor]);
+
   return (
     <Layout className="p-8">
-      <div className="flex flex-col md:flex-row gap-4 sm:gap-10 md:mb-10">
-        <ImagesSection className="w-full" />
+      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:mb-10">
+        <ImagesSection id="image-section" className="w-full" />
         <div className="col-span-2 flex flex-col w-full gap-1">
-          <div className="flex flex-row justify-between">
-            <div>
-              <h1 className="font-bold text-sm md:text-2xl">
-                {dummyData.name}
-              </h1>
-              <div className="flex flex-row gap-2 items-center">
-                <GeneratedStars
-                  stars={dummyData.rate}
-                  size={width >= 576 ? "default" : "small"}
+          <div className="flex flex-col justify-between h-full pb-5">
+            {/* TITLE SECTION */}
+            <div className="max-w-xl space-y-3 sm:space-y-5">
+              <div className="flex flex-row justify-between">
+                <div>
+                  <h1 className="font-bold text-sm md:text-2xl">
+                    {dummyData.name}
+                  </h1>
+                  <div className="flex flex-row gap-2 items-center">
+                    <GeneratedStars
+                      stars={dummyData.rate}
+                      size={width >= 576 ? "default" : "small"}
+                    />
+                    <span className="text-xs sm:text-sm font-semibold text-gray-500">
+                      {dummyData.sold} Sold
+                    </span>
+                  </div>
+                </div>
+                {isFavorite ? (
+                  <MdFavorite
+                    className="size-5 text-everies-pink-10 cursor-pointer"
+                    onClick={() => setIsFavorite(false)}
+                  />
+                ) : (
+                  <MdFavoriteBorder
+                    className="size-5 text-everies-pink-10 cursor-pointer"
+                    onClick={() => setIsFavorite(true)}
+                  />
+                )}
+              </div>
+              <p className="bg-everies-pink-20  text-everies-dark-30 rounded-xl px-4 py-3 font-bold text-base md:text-2xl">
+                {formatToRupiah(dummyData.price)}
+              </p>
+              <VariationColor variation={variationByColor} />
+              <VariationSize variation={variationBySize} />
+            </div>
+            <div className="hidden flex-col gap-3 md:flex">
+              <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-w-fit">
+                <p className="h1-bold">Atur Kuantitas</p>
+                <p className="h1-bold">Subtotal</p>
+                <CounterMedium
+                  count={count}
+                  setCount={setCount}
+                  maxStock={maxStock}
                 />
-                <span className="text-xs sm:text-sm font-semibold text-gray-500">
-                  {dummyData.sold} Sold
-                </span>
+                <div className="text-everies-pink-20 font-extrabold flex items-end">
+                  {formatToRupiah(count * (dummyData?.price || 0))}
+                </div>
+              </div>
+              <div className="flex flex-row gap-5 max-w-sm">
+                <Button
+                  onClick={handleAddToCart}
+                  variant="secondary"
+                  className={cn(
+                    "flex md:w-48 cursor-pointer items-center text-xs font-semibold hover:scale-110"
+                  )}
+                >
+                  ADD TO BAG{" "}
+                  <BsBag className="size-4 text-everies-primary-20" />
+                </Button>
+                <Button className="md:w-48 cursor-pointer text-xs font-semibold hover:scale-110">
+                  BUY NOW
+                </Button>
               </div>
             </div>
-            {isFavorite ? (
-              <MdFavorite
-                className="size-5 text-everies-pink-10 cursor-pointer"
-                onClick={() => setIsFavorite(false)}
-              />
-            ) : (
-              <MdFavoriteBorder
-                className="size-5 text-everies-pink-10 cursor-pointer"
-                onClick={() => setIsFavorite(true)}
-              />
-            )}
           </div>
-
-          <div className="bg-everies-pink-20 text-everies-dark-30 rounded-xl px-4 py-3 font-bold text-base md:text-2xl">
-            {formatToRupiah(dummyData.price)}
-          </div>
-          {width < 748 && (
+          {width < 576 && (
             <Accordion type="single" collapsible>
               <AccordionItem value="item-1">
-                <AccordionTrigger>Deskripsi</AccordionTrigger>
+                <AccordionTrigger className="text-everies-pink-20">
+                  Deskripsi
+                </AccordionTrigger>
                 <AccordionContent>
                   Lorem ipsum dolor sit, amet consectetur adipisicing elit.
                   Consequatur autem atque reprehenderit perspiciatis harum,
@@ -100,13 +177,15 @@ const ProductDetail = () => {
             </Accordion>
           )}
 
-          {width < 748 && <ReviewSection />}
+          {width < 576 && <ReviewSection />}
         </div>
       </div>
-      {width >= 748 && (
+      {width >= 576 && (
         <>
           <div className="mb-5">
-            <h1 className="font-bold text-sm">Deskripsi</h1>
+            <h1 className="font-bold text-sm text-everies-pink-20">
+              Deskripsi
+            </h1>
             <span className="text-xs">
               Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quo
               sequi, blanditiis harum nemo commodi omnis sunt aut qui

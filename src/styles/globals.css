@@ -59,4 +59,8 @@ body {
   .flex-between {
     @apply flex justify-between items-center;
   }
+
+  .h1-bold {
+    @apply text-xs md:text-sm font-bold text-everies-primary-20;
+  }
 }

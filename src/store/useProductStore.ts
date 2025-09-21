@@ -8,6 +8,10 @@ type ProductStore = {
   setActiveImageIndex: (index: number) => void;
   mobileImagesPreview: boolean;
   setMobileImagesPreview: (value: boolean) => void;
+  selectedColor: string;
+  setSelectedColor: (selectedColor: string) => void;
+  selectedSize: string;
+  setSelectedSize: (selectedSize: string) => void;
 };
 export const useProductStore = create<ProductStore>((set) => ({
   product: {} as TProductDetail,
@@ -16,4 +20,8 @@ export const useProductStore = create<ProductStore>((set) => ({
   setActiveImageIndex: (index) => set({ activeImageIndex: index }),
   mobileImagesPreview: false,
   setMobileImagesPreview: (value) => set({ mobileImagesPreview: value }),
+  selectedColor: "",
+  setSelectedColor: (selectedColor) => set({ selectedColor }),
+  selectedSize: "",
+  setSelectedSize: (selectedSize) => set({ selectedSize }),
 }));

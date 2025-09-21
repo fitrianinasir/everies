@@ -37,7 +37,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
   }, [scrollDir]);
 
   return (
-    <div className={cn("flex flex-col gap-4", className)}>
+    <div className={cn("flex flex-col gap-4 max-w-[484px]", className)}>
       {width && width >= 576 ? (
         <ImagesDetail />
       ) : (

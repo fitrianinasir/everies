@@ -69,7 +69,7 @@ export const DummyProduct: TProductDetail = {
   variation_by_color: [
     {
       color: "White",
-      preview_img: "/images/products/blouse1.webp",
+      preview_img: "/images/products/blouse3.webp",
       stock: { S: 10, M: 5, L: 0 },
       is_sold_out: false,
     },
