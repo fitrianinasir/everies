@@ -1,5 +1,4 @@
 import Layout from "@/components/layout";
-import ImagesSection from "./ImagesSection";
 import { DummyProduct } from "@/lib/dummy";
 import GeneratedStars from "@/lib/generateStars";
 import {
@@ -37,6 +36,8 @@ import { VariationColor, VariationSize } from "./Variation";
 import { CounterMedium } from "@/components/pages/Counter";
 import { Button } from "@/components/ui/button";
 import useAddToCartHandler from "@/hooks/useAddToCart";
+import ImagesSection from "./ImagesSection";
+import Footer from "./Footer";
 
 const ProductDetail = () => {
   const { width } = useWindowSize();
@@ -49,9 +50,12 @@ const ProductDetail = () => {
 
   const [count, setCount] = useState<number>(1);
   const [maxStock, setMaxStock] = useState<number | undefined>();
-  const [variationByColor, setVariationByColor] =
-    useState<TVariationByColor[]>();
-  const [variationBySize, setVariationBySize] = useState<TVariationBySize[]>();
+  const [variationByColor, setVariationByColor] = useState<TVariationByColor[]>(
+    []
+  );
+  const [variationBySize, setVariationBySize] = useState<TVariationBySize[]>(
+    []
+  );
 
   useEffect(() => {
     setProduct(dummyData);
@@ -90,12 +94,14 @@ const ProductDetail = () => {
     console.log("selectedColor", selectedColor);
   }, [selectedColor]);
 
+  const mobileSize = 576;
+
   return (
-    <Layout className="p-8">
+    <Layout className="sm:pb-8 p-8 pb-16">
       <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:mb-10">
         <ImagesSection id="image-section" className="w-full" />
         <div className="col-span-2 flex flex-col w-full gap-1">
-          <div className="flex flex-col justify-between h-full pb-5">
+          <div className="flex flex-col justify-between h-full sm:pb-5">
             {/* TITLE SECTION */}
             <div className="max-w-xl space-y-3 sm:space-y-5">
               <div className="flex flex-row justify-between">
@@ -129,37 +135,41 @@ const ProductDetail = () => {
                 {formatToRupiah(dummyData.price)}
               </p>
               <VariationColor variation={variationByColor} />
-              <VariationSize variation={variationBySize} />
+              {width >= mobileSize && (
+                <VariationSize variation={variationBySize} />
+              )}
             </div>
-            <div className="hidden flex-col gap-3 md:flex">
-              <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-w-fit">
-                <p className="h1-bold">Atur Kuantitas</p>
-                <p className="h1-bold">Subtotal</p>
-                <CounterMedium
-                  count={count}
-                  setCount={setCount}
-                  maxStock={maxStock}
-                />
-                <div className="text-everies-pink-20 font-extrabold flex items-end">
-                  {formatToRupiah(count * (dummyData?.price || 0))}
+            {width >= mobileSize && (
+              <div className="flex-col gap-3">
+                <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-w-fit">
+                  <p className="h1-bold">Atur Kuantitas</p>
+                  <p className="h1-bold">Subtotal</p>
+                  <CounterMedium
+                    count={count}
+                    setCount={setCount}
+                    maxStock={maxStock}
+                  />
+                  <div className="text-everies-pink-20 font-extrabold flex items-end">
+                    {formatToRupiah(count * (dummyData?.price || 0))}
+                  </div>
+                </div>
+                <div className="flex flex-row gap-5 max-w-sm">
+                  <Button
+                    onClick={handleAddToCart}
+                    variant="secondary"
+                    className={cn(
+                      "flex md:w-48 cursor-pointer items-center text-xs font-semibold hover:scale-110"
+                    )}
+                  >
+                    ADD TO BAG{" "}
+                    <BsBag className="size-4 text-everies-primary-20" />
+                  </Button>
+                  <Button className="md:w-48 cursor-pointer text-xs font-semibold hover:scale-110">
+                    BUY NOW
+                  </Button>
                 </div>
               </div>
-              <div className="flex flex-row gap-5 max-w-sm">
-                <Button
-                  onClick={handleAddToCart}
-                  variant="secondary"
-                  className={cn(
-                    "flex md:w-48 cursor-pointer items-center text-xs font-semibold hover:scale-110"
-                  )}
-                >
-                  ADD TO BAG{" "}
-                  <BsBag className="size-4 text-everies-primary-20" />
-                </Button>
-                <Button className="md:w-48 cursor-pointer text-xs font-semibold hover:scale-110">
-                  BUY NOW
-                </Button>
-              </div>
-            </div>
+            )}
           </div>
           {width < 576 && (
             <Accordion type="single" collapsible>
@@ -221,6 +231,13 @@ const ProductDetail = () => {
           </PaginationItem>
         </PaginationContent>
       </Pagination>
+
+      {width < mobileSize && (
+        <Footer
+          variationByColor={variationByColor}
+          variationBySize={variationBySize}
+        />
+      )}
     </Layout>
   );
 };

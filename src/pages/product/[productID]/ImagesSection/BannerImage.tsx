@@ -8,7 +8,7 @@ import Image from "next/image";
 
 interface ImageItemProps extends React.HTMLAttributes<HTMLDivElement> {}
 
-const ImageItem = ({ ...props }: ImageItemProps) => {
+const BannerImage = ({ ...props }: ImageItemProps) => {
   const { activeImageIndex, setActiveImageIndex, product } = useProductStore(
     (state) => state
   );
@@ -36,4 +36,4 @@ const ImageItem = ({ ...props }: ImageItemProps) => {
   );
 };
 
-export default ImageItem;
+export default BannerImage;

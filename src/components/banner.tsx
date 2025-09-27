@@ -9,9 +9,10 @@ import { cn } from "@/lib/utils";
 import { bitcount } from "./layout";
 import { AiFillShopping } from "react-icons/ai";
 
+interface BannerProps extends React.HTMLAttributes<HTMLDivElement> {}
 const Banner = () => {
   return (
-    <div className="h-[calc(100vh-48px)] gap-6 flex-col bg-everies-secondary-10 bg-[url('/images/banner2.png')] bg-no-repeat bg-position-[center_top_15rem] bg-contain flex items-center justify-start">
+    <div className="relative h-[calc(100vh-48px)] w-full max-w-[1440px] gap-6 flex-col  bg-[url('/images/banner2.png')] bg-no-repeat bg-position-[center_top_15rem] bg-contain flex items-center justify-start">
       <div className="flex flex-col gap-4 items-center mt-28">
         <h1
           className={cn(
@@ -25,24 +26,26 @@ const Banner = () => {
           Special discount up to 62%
         </h2>
       </div>
-      <h1
-        className={cn(
-          "text-4xl absolute cursor-pointer bottom-16 left-16 text-everies-primary-20",
-          bitcount.className
-        )}
-      >
-        SHOP <br />
-        NOW
-      </h1>
-      <div
-        className={cn(
-          "text-4xl text-right font-bitcount flex-center cursor-pointer absolute bottom-16 right-16 text-everies-primary-20",
-          bitcount.className
-        )}
-      >
-        {/* <AiFillShopping className="size-10" /> */}
-        <div className="w-24 ">
-          <span style={{ wordBreak: "break-word" }}>CATEGORIES</span>
+      <div className="absolute bottom-48 flex flex-row justify-between items-center w-full max-w-[calc(100%-120px)]">
+        <h1
+          className={cn(
+            "text-4xl cursor-pointer  text-everies-primary-20",
+            bitcount.className
+          )}
+        >
+          SHOP <br />
+          NOW
+        </h1>
+        <div
+          className={cn(
+            "text-4xl text-right font-bitcount flex-center cursor-pointer  text-everies-primary-20",
+            bitcount.className
+          )}
+        >
+          {/* <AiFillShopping className="size-10" /> */}
+          <div className="w-24 ">
+            <span style={{ wordBreak: "break-word" }}>CATEGORIES</span>
+          </div>
         </div>
       </div>
     </div>

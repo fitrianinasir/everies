@@ -5,7 +5,9 @@ import Products from "./product/Products";
 export default function Home() {
   return (
     <Layout>
-      <Banner />
+      <div className="bg-everies-secondary-10 w-full flex items-center justify-center">
+        <Banner />
+      </div>
       <Products />
     </Layout>
   );

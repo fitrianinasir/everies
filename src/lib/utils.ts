@@ -9,7 +9,7 @@ export function cn(...inputs: ClassValue[]) {
 export function formatToRupiah(amount: number) {
   // Convert to string and format with commas
   const formattedAmount = amount
-    .toString()
+    ?.toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, ".");
   return `Rp. ${formattedAmount}`;
 }

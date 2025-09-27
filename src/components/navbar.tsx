@@ -17,41 +17,43 @@ const Navbar = () => {
   const [searchActive, setSearchActive] = useState(false);
   return (
     <>
-      <div className="absolute max-w-[1440px] w-screen text-xs h-12 z-40 top-0 p-8 flex flex-row items-center justify-between bg-everies-secondary-10">
-        {width && width > 576 ? (
-          <div className="flex items-center justify-center flex-row gap-3">
-            <p>SHOP</p>
-            <p>MEN</p>
-            <p>WOMEN</p>
-            <p>TRENDING</p>
-          </div>
-        ) : (
-          <LogoImage />
-        )}
-        {width && width > 576 ? (
-          show ? (
+      <div className="absolute w-screen text-xs h-12 z-40 top-0 flex justify-center items-center p-8 bg-everies-secondary-10">
+        <div className="flex flex-row w-full items-center justify-between max-w-[1440px]">
+          {width && width > 576 ? (
             <div className="flex items-center justify-center flex-row gap-3">
-              <div
-                className="flex flex-row items-center justify-center bg-everies-secondary-40 p-1.5 text-everies-primary-20 rounded-full cursor-pointer"
-                onClick={() => setSearchActive(true)}
-              >
-                <FiSearch className="size-4" />
-              </div>
-              <Popover>
-                <PopoverTrigger>
-                  <RiNotification2Line className="size-5 text-everies-primary-20" />
-                </PopoverTrigger>
-                <PopoverContent className="mr-4">HENLO</PopoverContent>
-              </Popover>
-              <CgShoppingBag className="text-everies-primary-20 size-5 cursor-pointer" />
-              <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
+              <p>SHOP</p>
+              <p>MEN</p>
+              <p>WOMEN</p>
+              <p>TRENDING</p>
             </div>
           ) : (
-            <Button onClick={() => setShow(!show)}>LOGIN</Button>
-          )
-        ) : (
-          <MobileSidebar />
-        )}
+            <LogoImage />
+          )}
+          {width && width > 576 ? (
+            show ? (
+              <div className="flex items-center justify-center flex-row gap-3">
+                <div
+                  className="flex flex-row items-center justify-center bg-everies-secondary-40 p-1.5 text-everies-primary-20 rounded-full cursor-pointer"
+                  onClick={() => setSearchActive(true)}
+                >
+                  <FiSearch className="size-4" />
+                </div>
+                <Popover>
+                  <PopoverTrigger>
+                    <RiNotification2Line className="size-5 text-everies-primary-20" />
+                  </PopoverTrigger>
+                  <PopoverContent className="mr-4">HENLO</PopoverContent>
+                </Popover>
+                <CgShoppingBag className="text-everies-primary-20 size-5 cursor-pointer" />
+                <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
+              </div>
+            ) : (
+              <Button onClick={() => setShow(!show)}>LOGIN</Button>
+            )
+          ) : (
+            <MobileSidebar />
+          )}
+        </div>
       </div>
       {searchActive && (
         <div

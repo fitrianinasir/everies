@@ -2,9 +2,9 @@ import { cn } from "@/lib/utils";
 import Image from "next/image";
 import React, { useEffect, useRef, useState } from "react";
 import { IoIosArrowBack, IoIosArrowForward } from "react-icons/io";
-import ImagesDetail, { ImagesDetailMobile } from "./ImagesDetail";
+import ImagesDetail, { ImagesDetailMobile } from "./ImagesSection/ImagesDetail";
 import { useWindowSize } from "@uidotdev/usehooks";
-import ImageItem from "./ImageItem";
+import BannerImage from "./ImagesSection/BannerImage";
 import { useProductStore } from "@/store/useProductStore";
 
 interface ImagesSectionProps extends React.HTMLAttributes<HTMLDivElement> {}
@@ -36,13 +36,21 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
     };
   }, [scrollDir]);
 
+  useEffect(() => {
+    if (mobileImagesPreview) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflowY = "auto";
+    }
+  }, [mobileImagesPreview]);
+
   return (
     <div className={cn("flex flex-col gap-4 max-w-[484px]", className)}>
       {width && width >= 576 ? (
         <ImagesDetail />
       ) : (
         <>
-          <ImageItem onClick={() => setMobileImagesPreview(true)} />
+          <BannerImage onClick={() => setMobileImagesPreview(true)} />
           {mobileImagesPreview && <ImagesDetailMobile />}
         </>
       )}

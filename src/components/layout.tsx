@@ -33,10 +33,8 @@ const Layout = ({
       )}
       {...props}
     >
-      <div className="max-w-[1440px] w-screen">
-        <Navbar />
-        <div className={cn("mt-16", className)}>{children}</div>
-      </div>
+      <Navbar />
+      <div className={cn("mt-16", className)}>{children}</div>
     </main>
   );
 };

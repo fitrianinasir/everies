@@ -17,7 +17,7 @@ import {
 
 import { cn, formatToRupiah } from "@/lib/utils";
 import Image from "next/image";
-import ImageItem from "./ImageItem";
+import ImageItem from "./BannerImage";
 import { useProductStore } from "@/store/useProductStore";
 import { IoIosArrowBack } from "react-icons/io";
 import { Button } from "@/components/ui/button";
@@ -60,6 +60,34 @@ const ImagesDetail = () => {
 
 export default ImagesDetail;
 
+export const ImageCarousel = () => {
+  const { activeImageIndex, setActiveImageIndex, product } = useProductStore(
+    (state) => state
+  );
+
+  return (
+    <Carousel>
+      <CarouselContent
+        highlight={activeImageIndex}
+        setHighlight={setActiveImageIndex}
+        className="flex flex-row gap-4"
+      >
+        {product?.img?.map((_, index) => (
+          <CarouselItem key={index} className="w-full">
+            <Image
+              src={product.img[index]}
+              alt="Product Image"
+              className="w-full h-full object-cover rounded-2xl"
+              width={400}
+              height={400}
+            />
+          </CarouselItem>
+        ))}
+      </CarouselContent>
+    </Carousel>
+  );
+};
+
 export const ImagesDetailMobile = () => {
   const {
     activeImageIndex,
@@ -69,7 +97,7 @@ export const ImagesDetailMobile = () => {
   } = useProductStore((state) => state);
 
   return (
-    <div className="absolute inset-0 z-50 flex flex-col justify-between w-screen sm:p-6 text-white h-screen bg-black">
+    <div className="fixed inset-0 z-[99999] flex flex-col justify-between w-screen sm:p-6 text-white h-screen bg-black">
       <div className="flex flex-col items-start justify-between gap-3 p-6">
         <p
           className="text-sm flex items-center gap-2 cursor-pointer"
@@ -77,32 +105,16 @@ export const ImagesDetailMobile = () => {
         >
           <IoIosArrowBack /> <span>Back</span>
         </p>
-        <Carousel>
-          <CarouselContent
-            highlight={activeImageIndex}
-            setHighlight={setActiveImageIndex}
-            className="flex flex-row gap-4"
-          >
-            {product?.img?.map((_, index) => (
-              <CarouselItem key={index} className="w-full">
-                <Image
-                  src={product.img[index]}
-                  alt="Product Image"
-                  className="w-full h-full object-cover rounded-2xl"
-                  width={400}
-                  height={400}
-                />
-              </CarouselItem>
-            ))}
-          </CarouselContent>
-        </Carousel>
       </div>
-      <>
+      <div className="">
+        <ImageCarousel />
         <div className="p-3">
           <div className="px-1.5 py-1 bg-white/50 text-xs rounded-md w-fit">
             {activeImageIndex + 1}/{product.img.length}
           </div>
         </div>
+      </div>
+      <div className="">
         <Carousel className="">
           <CarouselContent className="gap-2" highlight={activeImageIndex}>
             {product?.img?.map((img, index) => (
@@ -130,7 +142,7 @@ export const ImagesDetailMobile = () => {
             Add to Cart
           </Button>
         </div>
-      </>
+      </div>
     </div>
   );
 };

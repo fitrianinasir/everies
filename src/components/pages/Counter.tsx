@@ -61,13 +61,16 @@ const CounterSmall = ({
 }: CounterProps) => {
   return (
     <div>
-      <div className="flex flex-row items-center gap-1 text-lg text-everies-pink-10 md:gap-2">
+      <div className="flex flex-row items-end gap-1 text-lg text-everies-pink-10 md:gap-2">
         <button
           onClick={() => {
             count > 0 && setCount(count - 1);
             onDecrementHandler && onDecrementHandler();
           }}
-          className={cn(count === 0 && "pointer-events-none text-gray-400")}
+          className={cn(
+            "cursor-pointer",
+            count === 0 && "pointer-events-none text-everies-dark-10/10"
+          )}
         >
           -
         </button>
@@ -85,6 +88,7 @@ const CounterSmall = ({
           />
         </div>
         <button
+          className="cursor-pointer"
           onClick={() => {
             setCount(count + 1);
             onIncrementHandler && onIncrementHandler();
