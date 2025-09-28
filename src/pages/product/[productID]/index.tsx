@@ -32,8 +32,11 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import { TVariationByColor, TVariationBySize } from "@/lib/model";
-import { VariationColor, VariationSize } from "./Variation";
-import { CounterMedium } from "@/components/pages/Counter";
+import {
+  VariationColor,
+  VariationSize,
+} from "../../../components/pages/Variation";
+import { CounterMedium, CounterSmall } from "@/components/pages/Counter";
 import { Button } from "@/components/ui/button";
 import useAddToCartHandler from "@/hooks/useAddToCart";
 import ImagesSection from "./ImagesSection";
@@ -98,15 +101,15 @@ const ProductDetail = () => {
 
   return (
     <Layout className="sm:pb-8 p-8 pb-16">
-      <div className="flex flex-col sm:flex-row gap-4 sm:gap-10 sm:mb-10">
-        <ImagesSection id="image-section" className="w-full" />
+      <div className="flex flex-col sm:flex-row gap-4 sm:mb-10">
+        <ImagesSection id="image-section" className="" />
         <div className="col-span-2 flex flex-col w-full gap-1">
-          <div className="flex flex-col justify-between h-full sm:pb-5">
+          <div className="flex flex-col justify-between md:justify-normal gap-5 h-full pb-5 sm:pb-0">
             {/* TITLE SECTION */}
-            <div className="max-w-xl space-y-3 sm:space-y-5">
+            <div className="max-w-xl space-y-3">
               <div className="flex flex-row justify-between">
                 <div>
-                  <h1 className="font-bold text-sm md:text-2xl">
+                  <h1 className="font-bold text-sm md:text-xl">
                     {dummyData.name}
                   </h1>
                   <div className="flex flex-row gap-2 items-center">
@@ -114,7 +117,7 @@ const ProductDetail = () => {
                       stars={dummyData.rate}
                       size={width >= 576 ? "default" : "small"}
                     />
-                    <span className="text-xs sm:text-sm font-semibold text-gray-500">
+                    <span className="text-xs font-semibold text-gray-500">
                       {dummyData.sold} Sold
                     </span>
                   </div>
@@ -131,20 +134,18 @@ const ProductDetail = () => {
                   />
                 )}
               </div>
-              <p className="bg-everies-pink-20  text-everies-dark-30 rounded-xl px-4 py-3 font-bold text-base md:text-2xl">
+              <p className="bg-everies-pink-20  text-everies-dark-30 rounded-xl px-4 py-3 font-bold text-sm md:text-base">
                 {formatToRupiah(dummyData.price)}
               </p>
               <VariationColor variation={variationByColor} />
-              {width >= mobileSize && (
-                <VariationSize variation={variationBySize} />
-              )}
+              <VariationSize variation={variationBySize} />
             </div>
             {width >= mobileSize && (
-              <div className="flex-col gap-3">
+              <div className="flex text-sm flex-col gap-3">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-w-fit">
                   <p className="h1-bold">Atur Kuantitas</p>
                   <p className="h1-bold">Subtotal</p>
-                  <CounterMedium
+                  <CounterSmall
                     count={count}
                     setCount={setCount}
                     maxStock={maxStock}

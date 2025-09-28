@@ -21,20 +21,18 @@ const VariationColor = React.forwardRef<HTMLDivElement, VariationProps>(
         className={cn("flex flex-col gap-1 text-left md:gap-3", className)}
         {...props}
       >
-        <p className="text-xs sm:text-sm font-bold text-everies-primary-20">
-          Variasi
-        </p>
+        <p className="text-xs font-bold text-everies-primary-20">Variasi</p>
         <div className="flex flex-row gap-3">
           {variation?.map((i, idx) => {
             return (
               <div
                 key={idx}
                 className={cn(
-                  " flex cursor-pointer flex-row items-center sm:flex-col gap-1",
+                  " flex cursor-pointer flex-row items-center md:flex-col gap-1",
                   (i.is_sold_out || i.stock[selectedSize] === 0) &&
                     "pointer-events-none border-none opacity-50",
                   selectedColor === i.color &&
-                    "border pr-1 rounded-xs sm:border-none border-everies-primary-20"
+                    "border pr-1 rounded-xs md:border-none border-everies-primary-20"
                 )}
                 onClick={() => {
                   if (i.color === selectedColor) {
@@ -50,14 +48,14 @@ const VariationColor = React.forwardRef<HTMLDivElement, VariationProps>(
                   width={100}
                   height={100}
                   className={cn(
-                    "size-6 sm:size-16 object-cover",
+                    "size-6 md:size-12 object-cover",
                     selectedColor === i.color &&
-                      "sm:rounded-sm sm:border-2 sm:border-everies-primary-20"
+                      "md:rounded-sm md:border-2 md:border-everies-primary-20"
                   )}
                 />
                 <p
                   className={cn(
-                    "text-2xs block font-normal sm:font-semibold capitalize text-everies-primary-20",
+                    "text-2xs block font-normal md:font-semibold capitalize text-everies-primary-20",
                     (i.is_sold_out || i.stock[selectedSize] === 0) &&
                       "text-everies-dark-30"
                   )}
@@ -83,18 +81,16 @@ const VariationSize = React.forwardRef<HTMLDivElement, SizeProps>(
         className={cn("flex flex-col gap-1 text-left md:gap-3", className)}
         {...props}
       >
-        <p className="text-xs sm:text-sm font-bold text-everies-primary-20">
-          Size
-        </p>
+        <p className="text-xs font-bold text-everies-primary-20">Size</p>
         <div className="flex flex-row gap-5">
           {variation?.map((i, idx) => (
             <div
               key={idx}
               className={cn(
-                "flex h-6 w-16 cursor-pointer items-center justify-center bg-everies-secondary-10 text-2xs sm:font-semibold md:text-xs",
+                "flex h-6 w-16 cursor-pointer items-center justify-center bg-everies-secondary-10 text-2xs md:font-semibold",
 
                 selectedSize === i.size &&
-                  "rounded-sm border sm:border-2 border-everies-primary-20",
+                  "rounded-sm border md:border-2 border-everies-primary-20",
                 (i.is_sold_out || i.stock[selectedColor] === 0) &&
                   "pointer-events-none border-none opacity-50"
               )}

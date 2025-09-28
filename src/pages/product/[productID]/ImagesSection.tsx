@@ -45,7 +45,12 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
   }, [mobileImagesPreview]);
 
   return (
-    <div className={cn("flex flex-col gap-4 max-w-[484px]", className)}>
+    <div
+      className={cn(
+        "grid grid-cols-1 gap-2 max-w-full md:max-w-md md:max-h-md xl:max-w-xl max-h-full xl:max-h-xl ",
+        className
+      )}
+    >
       {width && width >= 576 ? (
         <ImagesDetail />
       ) : (
@@ -56,7 +61,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
       )}
       <div className="hidden relative sm:flex flex-row">
         <div
-          className="absolute flex items-center justify-center text-white p-0.5 h-[90%] top-[5%] hover:bg-black/30 bg-black/20 cursor-pointer"
+          className="absolute flex items-center justify-center text-white p-0.5 h-full hover:bg-black/30 bg-black/20 cursor-pointer"
           onMouseEnter={() => setScrollDir("left")}
           onMouseLeave={() => setScrollDir(null)}
         >
@@ -66,7 +71,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
           ref={containerRef}
           className="scrollbar-hide overflow-auto flex flex-row flex-wrap"
         >
-          <div className=" flex flex-row gap-3 px-4 py-2">
+          <div className=" flex flex-row gap-3 px-4">
             {product?.img?.map((image, index) => (
               <Image
                 aria-selected={index === activeImageIndex}
@@ -83,7 +88,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
           </div>
         </div>
         <div
-          className="absolute flex items-center justify-center text-white p-0.5 h-[90%] right-0 top-[5%] hover:bg-black/30 bg-black/20 cursor-pointer"
+          className="absolute flex items-center justify-center text-white p-0.5 h-full right-0 hover:bg-black/30 bg-black/20 cursor-pointer"
           onMouseEnter={() => setScrollDir("right")}
           onMouseLeave={() => setScrollDir(null)}
         >
