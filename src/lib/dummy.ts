@@ -101,3 +101,13 @@ export const DummyProduct: TProductDetail = {
     },
   ],
 };
+
+export const dummyBag = [
+  {
+    count: 1,
+    size: "L",
+    variant: "White",
+    total: 320000,
+    product: DummyProduct,
+  },
+];

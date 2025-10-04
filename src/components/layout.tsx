@@ -3,6 +3,7 @@ import React from "react";
 import Navbar from "./navbar";
 import Banner from "./banner";
 import { Montserrat, Bitcount_Grid_Double, Michroma } from "next/font/google";
+import { useRouter } from "next/router";
 export const monsterrat = Montserrat({
   weight: ["400"],
   subsets: ["latin"],
@@ -20,21 +21,27 @@ export const michroma = Michroma({
   subsets: ["latin"],
   display: "swap",
 });
-const Layout = ({
-  children,
-  className,
-  ...props
-}: React.HTMLAttributes<HTMLDivElement>) => {
+
+interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
+  backUrl?: string;
+}
+const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
+  const router = useRouter();
   return (
     <main
       className={cn(
-        "flex justify-center items-center w-full ",
+        "flex flex-col justify-center items-center w-full",
         monsterrat.className
       )}
       {...props}
     >
-      <Navbar />
-      <div className={cn("mt-16", className)}>{children}</div>
+      <Navbar backUrl={backUrl} />
+      {router.pathname === "/" && (
+        <div className="bg-everies-secondary-10 w-full">
+          <Banner />
+        </div>
+      )}
+      <div className={cn("w-full p-4 sm:p-8", className)}>{children}</div>
     </main>
   );
 };

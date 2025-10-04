@@ -6,10 +6,7 @@ const ProductLayout = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <main
-      className={cn("p-8 lg:p-16 w-screen h-screen bg-white", className)}
-      {...props}
-    >
+    <main className={cn("bg-white mt-16", className)} {...props}>
       {children}
     </main>
   );

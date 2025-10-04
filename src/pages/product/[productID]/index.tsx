@@ -100,7 +100,7 @@ const ProductDetail = () => {
   const mobileSize = 576;
 
   return (
-    <Layout className="sm:pb-8 p-8 pb-16">
+    <Layout className="sm:pb-8 pb-16 mt-16" backUrl="/">
       <div className="flex flex-col sm:flex-row gap-4 sm:mb-10">
         <ImagesSection id="image-section" className="" />
         <div className="col-span-2 flex flex-col w-full gap-1">
@@ -159,13 +159,13 @@ const ProductDetail = () => {
                     onClick={handleAddToCart}
                     variant="secondary"
                     className={cn(
-                      "flex md:w-48 cursor-pointer items-center text-xs font-semibold hover:scale-110"
+                      "flex cursor-pointer items-center text-xs font-semibold hover:scale-110"
                     )}
                   >
                     ADD TO BAG{" "}
                     <BsBag className="size-4 text-everies-primary-20" />
                   </Button>
-                  <Button className="md:w-48 cursor-pointer text-xs font-semibold hover:scale-110">
+                  <Button className="cursor-pointer text-xs font-semibold hover:scale-110">
                     BUY NOW
                   </Button>
                 </div>

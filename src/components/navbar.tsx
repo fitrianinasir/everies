@@ -8,16 +8,22 @@ import { GoPerson, GoPersonFill } from "react-icons/go";
 import { CgShoppingBag } from "react-icons/cg";
 import { useWindowSize } from "@uidotdev/usehooks";
 import MobileSidebar from "./sidebar";
-import Image from "next/image";
 import LogoImage from "./logo";
+import { useRouter } from "next/router";
+import { IoMdArrowBack } from "react-icons/io";
 
-const Navbar = () => {
+type NavbarProps = {
+  backUrl?: string;
+};
+const Navbar = ({ backUrl }: NavbarProps) => {
   const { width } = useWindowSize();
   const [show, setShow] = useState(false);
   const [searchActive, setSearchActive] = useState(false);
+
+  const router = useRouter();
   return (
     <>
-      <div className="absolute w-screen text-xs h-12 z-40 top-0 flex justify-center items-center p-8 bg-everies-secondary-10">
+      <div className="fixed w-screen text-xs h-12 z-40 top-0 flex justify-center items-center p-8 bg-everies-secondary-10">
         <div className="flex flex-row w-full items-center justify-between max-w-[1440px]">
           {width && width > 576 ? (
             <div className="flex items-center justify-center flex-row gap-3">
@@ -26,8 +32,15 @@ const Navbar = () => {
               <p>WOMEN</p>
               <p>TRENDING</p>
             </div>
-          ) : (
+          ) : !backUrl ? (
             <LogoImage />
+          ) : (
+            <button
+              className="flex flex-row items-center gap-1 text-sm"
+              onClick={() => router.push(backUrl)}
+            >
+              <IoMdArrowBack /> <span>Back</span>
+            </button>
           )}
           {width && width > 576 ? (
             show ? (
