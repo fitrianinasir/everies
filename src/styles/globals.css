@@ -20,6 +20,12 @@ body {
 
 @theme inline {
   --text-2xs: 10px;
+
+  --container-sm: 576px;
+  --container-md: 748px;
+  --container-lg: 848px;
+  --container-xl: 1048px;
+
   --color-everies-primary-10: #1c352d;
   --color-everies-primary-20: #4a6b5d;
   --color-everies-primary-30: #8fa599;

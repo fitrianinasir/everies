@@ -5,7 +5,7 @@ import {
   DrawerFooter,
   DrawerTrigger,
 } from "@/components/ui/drawer";
-import { TProduct } from "@/lib/model";
+import { TProduct, TVariationByColor, TVariationBySize } from "@/lib/model";
 import { formatToRupiah } from "@/lib/utils";
 import Image from "next/image";
 import { CounterSmall } from "./Counter";
@@ -20,6 +20,8 @@ type DrawerProductProps = {
   product: TProduct;
   count: number;
   setCount: Dispatch<SetStateAction<number>>;
+  variationByColor: TVariationByColor[];
+  variationBySize: TVariationBySize[];
 };
 const DrawerProduct = ({
   open,
@@ -29,6 +31,8 @@ const DrawerProduct = ({
   product,
   count,
   setCount,
+  variationByColor,
+  variationBySize,
 }: DrawerProductProps) => {
   return (
     <Drawer open={open} onOpenChange={onOpenChange}>
@@ -42,7 +46,7 @@ const DrawerProduct = ({
               height={100}
               alt={product.name}
               className="size-full cursor-pointer"
-              //   onClick={() => setMobileImagesPreview(true)}
+              // onClick={() => setMobileImagesPreview(true)}
             />
           </div>
           <div className="col-span-3 flex flex-col text-sm justify-between text-everies-dark-30">
@@ -55,8 +59,8 @@ const DrawerProduct = ({
             <CounterSmall count={count} setCount={setCount} maxStock={100} />
           </div>
         </div>
-        <VariationColor variation={[]} />
-        <VariationSize variation={[]} />
+        <VariationColor variation={variationByColor} />
+        <VariationSize variation={variationBySize} />
         <DrawerFooter className="pt-4">
           <DrawerClose asChild>{footerButton}</DrawerClose>
         </DrawerFooter>
