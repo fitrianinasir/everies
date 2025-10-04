@@ -4,17 +4,6 @@ import Image from "next/image";
 import React, { useEffect, useState } from "react";
 import { dummyBag } from "@/lib/dummy";
 import { FaTrash } from "react-icons/fa6";
-
-import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-  DrawerTrigger,
-} from "@/components/ui/drawer";
 import DrawerProduct from "@/components/pages/DrawerProduct";
 import { Button } from "@/components/ui/button";
 import { TVariationByColor, TVariationBySize } from "@/lib/model";
