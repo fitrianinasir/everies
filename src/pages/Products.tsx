@@ -1,9 +1,9 @@
 import { michroma } from "@/components/layout";
 import { cn } from "@/lib/utils";
 import React, { useEffect } from "react";
-import ProductLayout from "./layout";
 import { DummyProducts } from "@/lib/dummy";
-import ProductCard from "./ProductCard";
+import ProductCard from "./product/ProductCard";
+import ProductLayout from "@/components/layout.product";
 
 const Products = () => {
   return (
@@ -19,7 +19,7 @@ const Products = () => {
           quibusdam eos hic.
         </p>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4 lg:gap-6">
+      <div className="w-full grid [grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))] lg:grid-cols-5 xl:grid-cols-6 gap-3 lg:gap-4">
         {DummyProducts.map((product) => (
           <ProductCard data={product} />
         ))}
