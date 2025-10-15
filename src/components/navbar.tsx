@@ -57,7 +57,10 @@ const Navbar = ({ backUrl }: NavbarProps) => {
                   </PopoverTrigger>
                   <PopoverContent className="mr-4">HENLO</PopoverContent>
                 </Popover>
-                <CgShoppingBag className="text-everies-primary-20 size-5 cursor-pointer" />
+                <CgShoppingBag
+                  id="cart-icon"
+                  className="text-everies-primary-20 size-5 cursor-pointer"
+                />
                 <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
               </div>
             ) : (

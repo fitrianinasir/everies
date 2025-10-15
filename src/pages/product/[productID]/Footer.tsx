@@ -3,6 +3,9 @@ import { useProductStore } from "@/store/useProductStore";
 import { HTMLAttributes, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DrawerProduct from "@/components/pages/DrawerProduct";
+import { motion, useAnimation } from "framer-motion";
+import { useCartFlyStore } from "@/store/useCartFlyStore";
+import { toast } from "sonner";
 
 type FooterProps = {
   variationByColor: TVariationByColor[];
@@ -41,14 +44,39 @@ const Footer = ({ variationByColor, variationBySize }: FooterProps) => {
   const [openDrawer1, setOpenDrawer1] = useState(false);
   const [openDrawer2, setOpenDrawer2] = useState(false);
 
+  const { triggerFly, setFlyValue } = useCartFlyStore((s) => s);
+
+  const handleClick = () => {
+    const fromEl = document.getElementById("add-to-bag-btn");
+    const toEl = document.getElementById("cart-icon");
+
+    console.clear();
+    console.log(fromEl, toEl);
+    if (fromEl && toEl) {
+      const fromRect = fromEl.getBoundingClientRect();
+      const toRect = toEl.getBoundingClientRect();
+
+      setFlyValue(product.img[0]);
+      triggerFly({
+        from: fromRect,
+        to: toRect,
+        width: fromRect.width,
+        height: fromRect.height,
+        img: product.img[0],
+      });
+    }
+  };
+
   return (
     <div className=" fixed w-screen h-12 grid grid-cols-2 left-0 bottom-0 border-2 text-2xs font-bold text-white border-everies-pink-20 bg-white">
       {selectedColor && selectedSize && !openDrawer1 && !openDrawer2 ? (
         <>
           <AddToBagButton
-            onClick={() =>
-              console.log("add to bag", selectedColor, selectedSize)
-            }
+            id="add-to-bag-btn"
+            onClick={() => {
+              console.log("add to bag", selectedColor, selectedSize);
+              handleClick();
+            }}
           />
           <BuyNowButton
             onClick={() => console.log("buy now", selectedColor, selectedSize)}

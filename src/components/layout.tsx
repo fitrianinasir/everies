@@ -4,6 +4,8 @@ import Navbar from "./navbar";
 import Banner from "./banner";
 import { Montserrat, Bitcount_Grid_Double, Michroma } from "next/font/google";
 import { useRouter } from "next/router";
+import { CartFlyAnimationLayer } from "./pages/CartFlyAnimationLayer";
+import { Toaster } from "./ui/sonner";
 export const monsterrat = Montserrat({
   weight: ["400"],
   subsets: ["latin"],
@@ -35,6 +37,7 @@ const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
       )}
       {...props}
     >
+      <Toaster />
       <Navbar backUrl={backUrl} />
       {router.pathname === "/" && (
         <div className="w-full flex-center bg-everies-secondary-10">
@@ -44,6 +47,7 @@ const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
       <div className={cn("w-full max-w-[1440px] p-4 sm:p-8", className)}>
         {children}
       </div>
+      <CartFlyAnimationLayer />
     </main>
   );
 };

@@ -41,6 +41,7 @@ import { Button } from "@/components/ui/button";
 import useAddToCartHandler from "@/hooks/useAddToCart";
 import ImagesSection from "./ImagesSection";
 import Footer from "./Footer";
+import { useCartFlyStore } from "@/store/useCartFlyStore";
 
 const ProductDetail = () => {
   const { width } = useWindowSize();
@@ -99,6 +100,27 @@ const ProductDetail = () => {
 
   const mobileSize = 576;
 
+  const { triggerFly, setFlyValue } = useCartFlyStore((s) => s);
+
+  const handleClick = () => {
+    const fromEl = document.getElementById("add-to-bag-btn");
+    const toEl = document.getElementById("cart-icon");
+
+    if (fromEl && toEl) {
+      const fromRect = fromEl.getBoundingClientRect();
+      const toRect = toEl.getBoundingClientRect();
+
+      setFlyValue(dummyData.img[0]);
+      triggerFly({
+        from: fromRect,
+        to: toRect,
+        width: fromRect.width,
+        height: fromRect.height,
+        img: dummyData.img[0],
+      });
+    }
+  };
+
   return (
     <Layout className="sm:pb-8 pb-16 mt-16" backUrl="/">
       <div className="flex flex-col sm:flex-row gap-4 sm:mb-10">
@@ -156,7 +178,7 @@ const ProductDetail = () => {
                 </div>
                 <div className="flex flex-row gap-5 max-w-sm">
                   <Button
-                    onClick={handleAddToCart}
+                    onClick={handleClick}
                     variant="secondary"
                     className={cn(
                       "flex cursor-pointer items-center text-xs font-semibold hover:scale-110"

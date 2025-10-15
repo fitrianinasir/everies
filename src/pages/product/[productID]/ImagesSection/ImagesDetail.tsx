@@ -1,36 +1,26 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogDescription,
-  DialogHeader,
-  DialogTitle,
-  DialogTrigger,
-} from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogTrigger } from "@/components/ui/dialog";
 
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
-  CarouselNext,
-  CarouselPrevious,
 } from "@/components/ui/carousel";
 
-import { cn, formatToRupiah } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 import Image from "next/image";
 import ImageItem from "./BannerImage";
 import { useProductStore } from "@/store/useProductStore";
 import { IoIosArrowBack } from "react-icons/io";
-import { Button } from "@/components/ui/button";
-import { FaShoppingCart } from "react-icons/fa";
 
 const ImagesDetail = () => {
   const { activeImageIndex, setActiveImageIndex, product } = useProductStore(
     (state) => state
   );
+
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <ImageItem />
+        <ImageItem id="add-to-bag-btn" />
       </DialogTrigger>
       <DialogContent className="flex w-full">
         <ImageItem className="w-96" />
