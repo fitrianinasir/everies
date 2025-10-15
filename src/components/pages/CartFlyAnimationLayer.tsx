@@ -11,7 +11,7 @@ export const CartFlyAnimationLayer = () => {
     if (!flyPayload) return;
     const timer = setTimeout(() => {
       clearFly();
-      //   toast.success("Added to cart");
+      toast.success("Added to cart");
     }, 1000);
     return () => clearTimeout(timer);
   }, [flyPayload, clearFly]);
