@@ -46,10 +46,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
 
   return (
     <div
-      className={cn(
-        "grid grid-cols-1 gap-2 max-w-full md:max-w-md md:max-h-md xl:max-w-xl max-h-full xl:max-h-xl ",
-        className
-      )}
+      className={cn("grid grid-cols-1 gap-2 max-w-full md:max-w-sm", className)}
     >
       {width && width >= 576 ? (
         <ImagesDetail />

@@ -37,11 +37,13 @@ const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
     >
       <Navbar backUrl={backUrl} />
       {router.pathname === "/" && (
-        <div className="bg-everies-secondary-10 w-full">
+        <div className="w-full flex-center bg-everies-secondary-10">
           <Banner />
         </div>
       )}
-      <div className={cn("w-full p-4 sm:p-8", className)}>{children}</div>
+      <div className={cn("w-full max-w-[1440px] p-4 sm:p-8", className)}>
+        {children}
+      </div>
     </main>
   );
 };
