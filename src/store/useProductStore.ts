@@ -1,9 +1,9 @@
-import { TProduct, TProductDetail } from "@/lib/model";
+import { TProduct } from "@/lib/model";
 import { create } from "zustand";
 
 type ProductStore = {
-  product: TProductDetail;
-  setProduct: (product: TProductDetail) => void;
+  product: TProduct;
+  setProduct: (product: TProduct) => void;
   activeImageIndex: number;
   setActiveImageIndex: (index: number) => void;
   mobileImagesPreview: boolean;
@@ -14,7 +14,7 @@ type ProductStore = {
   setSelectedSize: (selectedSize: string) => void;
 };
 export const useProductStore = create<ProductStore>((set) => ({
-  product: {} as TProductDetail,
+  product: {} as TProduct,
   setProduct: (product) => set({ product }),
   activeImageIndex: 0,
   setActiveImageIndex: (index) => set({ activeImageIndex: index }),

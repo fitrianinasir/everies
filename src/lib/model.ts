@@ -1,18 +1,19 @@
 export type TProduct = {
   id: number;
   name: string;
-  img: string[];
+  preview_img: string;
   price: number;
   rate: number;
   sold: string;
+  detail: TProductDetail;
 };
 
-export type TProductDetail = TProduct & {
-  img: string[];
+export type TProductDetail = {
+  images: string[];
+  description: string;
   total_review: number;
   variation_by_color: TVariationByColor[];
   variation_by_size: TVariationBySize[];
-  description: string;
 };
 
 export type TVariationByColor = {

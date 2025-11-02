@@ -56,13 +56,13 @@ const Footer = ({ variationByColor, variationBySize }: FooterProps) => {
       const fromRect = fromEl.getBoundingClientRect();
       const toRect = toEl.getBoundingClientRect();
 
-      setFlyValue(product.img[0]);
+      setFlyValue(product.detail.images[0]);
       triggerFly({
         from: fromRect,
         to: toRect,
         width: fromRect.width,
         height: fromRect.height,
-        img: product.img[0],
+        img: product.detail.images[0],
       });
     }
   };

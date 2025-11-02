@@ -46,9 +46,11 @@ body {
   --color-everies-pink-10: #e5beb5;
   --color-everies-pink-20: #d6a99d;
 
+  --breakpoint-xs: 360px;
   --breakpoint-sm: 576px;
   --breakpoint-md: 748px;
   --breakpoint-lg: 848px;
+  --breakpoint-xl: 1048px;
 
   --font-bitcount: var(--font-bitcount);
 }

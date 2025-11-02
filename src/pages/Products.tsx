@@ -4,8 +4,15 @@ import React, { useEffect } from "react";
 import { DummyProducts } from "@/lib/dummy";
 import ProductCard from "./product/ProductCard";
 import ProductLayout from "@/components/layout.product";
+import { useGetProducts } from "@/hooks/services/useGetProducts";
 
 const Products = () => {
+  const { data, isLoading, isError, refetch } = useGetProducts();
+
+  useEffect(() => {
+    console.log("data", data);
+  }, [data]);
+
   return (
     <ProductLayout className="space-y-8">
       <div className="space-y-2">
@@ -19,9 +26,16 @@ const Products = () => {
           quibusdam eos hic.
         </p>
       </div>
-      <div className="w-full grid [grid-template-columns:repeat(auto-fit,minmax(9rem,1fr))] lg:grid-cols-5 xl:grid-cols-6 gap-3 lg:gap-4">
-        {DummyProducts.map((product) => (
-          <ProductCard data={product} />
+      <div
+        className={cn(
+          (data?.data || []).length > 1
+            ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
+            : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
+          "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
+        )}
+      >
+        {data?.data.map((product) => (
+          <ProductCard data={product} key={product.id} />
         ))}
       </div>
     </ProductLayout>

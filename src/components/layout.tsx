@@ -6,6 +6,7 @@ import { Montserrat, Bitcount_Grid_Double, Michroma } from "next/font/google";
 import { useRouter } from "next/router";
 import { CartFlyAnimationLayer } from "./pages/CartFlyAnimationLayer";
 import { Toaster } from "./ui/sonner";
+
 export const monsterrat = Montserrat({
   weight: ["400"],
   subsets: ["latin"],

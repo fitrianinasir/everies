@@ -20,10 +20,10 @@ const BannerImage = ({ ...props }: ImageItemProps) => {
         setHighlight={setActiveImageIndex}
         className="flex flex-row gap-4"
       >
-        {product?.img?.map((_, index) => (
+        {product.detail.images.map((_, index) => (
           <CarouselItem key={index} className="w-full">
             <Image
-              src={product.img[index]}
+              src={product.detail.images[index]}
               alt="Product Image"
               className="w-full h-full object-cover"
               width={400}

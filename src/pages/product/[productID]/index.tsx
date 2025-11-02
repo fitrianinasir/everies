@@ -12,7 +12,6 @@ import { useEffect, useState } from "react";
 import { useProductStore } from "@/store/useProductStore";
 import { useWindowSize } from "@/hooks/useWindowSize";
 import { MdFavorite, MdFavoriteBorder } from "react-icons/md";
-import { Separator } from "@/components/ui/separator";
 import {
   Accordion,
   AccordionContent,
@@ -31,23 +30,40 @@ import {
   PaginationNext,
   PaginationPrevious,
 } from "@/components/ui/pagination";
-import { TVariationByColor, TVariationBySize } from "@/lib/model";
+import {
+  TProduct,
+  TProductDetail,
+  TVariationByColor,
+  TVariationBySize,
+} from "@/lib/model";
 import {
   VariationColor,
   VariationSize,
 } from "../../../components/pages/Variation";
-import { CounterMedium, CounterSmall } from "@/components/pages/Counter";
+import { CounterSmall } from "@/components/pages/Counter";
 import { Button } from "@/components/ui/button";
 import useAddToCartHandler from "@/hooks/useAddToCart";
 import ImagesSection from "./ImagesSection";
 import Footer from "./Footer";
 import { useCartFlyStore } from "@/store/useCartFlyStore";
+import { useRouter } from "next/router";
+import { useGetProductById } from "@/hooks/services/useGetProducts";
+import { useParams, useSearchParams } from "next/navigation";
+import { GetServerSidePropsContext } from "next";
+
+export async function getServerSideProps(context: GetServerSidePropsContext) {
+  const { productID } = context.params!;
+  return {
+    props: {
+      productID: Number(productID),
+    },
+  };
+}
 
 const ProductDetail = () => {
   const { width } = useWindowSize();
   const [isFavorite, setIsFavorite] = useState(false);
-  const dummyData = DummyProduct; // Assuming you want to display the first product's details
-  const { setProduct, selectedColor, selectedSize } = useProductStore(
+  const { product, setProduct, selectedColor, selectedSize } = useProductStore(
     (state) => state
   );
   const { handleAddToCart } = useAddToCartHandler();
@@ -61,11 +77,21 @@ const ProductDetail = () => {
     []
   );
 
+  const router = useRouter();
+
+  const { data: result } = useGetProductById(Number(router.query.productID));
+
   useEffect(() => {
-    setProduct(dummyData);
-    setVariationByColor(variationByColorHandler(dummyData.variation_by_color));
-    setVariationBySize(variationBySizeHandler(dummyData.variation_by_size));
-  }, [dummyData]);
+    if (result && result.data) {
+      setProduct(result.data);
+      setVariationByColor(
+        variationByColorHandler(result.data.detail.variation_by_color)
+      );
+      setVariationBySize(
+        variationBySizeHandler(result.data.detail.variation_by_size)
+      );
+    }
+  }, [result]);
 
   useEffect(() => {
     setMaxStock(
@@ -76,27 +102,6 @@ const ProductDetail = () => {
       })
     );
   }, [selectedColor, selectedSize]);
-
-  const ReviewSection = () => (
-    <>
-      <div>
-        <h1 className="font-bold text-xs sm:text-sm text-everies-pink-20">
-          Penilaian Produk
-        </h1>
-        <div className="flex text-2xs items-center mt-1 flex-row gap-1 font-semibold">
-          <FaStar className="size-4 sm:size-5  text-yellow-400" />
-          <span> {dummyData.rate}/5.0 | 1.5k orang memberikan penilaian</span>
-        </div>
-      </div>
-      <ReviewDetail />
-      <ReviewDetail />
-      <ReviewDetail />
-    </>
-  );
-
-  useEffect(() => {
-    console.log("selectedColor", selectedColor);
-  }, [selectedColor]);
 
   const mobileSize = 576;
 
@@ -110,13 +115,13 @@ const ProductDetail = () => {
       const fromRect = fromEl.getBoundingClientRect();
       const toRect = toEl.getBoundingClientRect();
 
-      setFlyValue(dummyData.img[0]);
+      setFlyValue(product.preview_img);
       triggerFly({
         from: fromRect,
         to: toRect,
         width: fromRect.width,
         height: fromRect.height,
-        img: dummyData.img[0],
+        img: product.preview_img,
       });
     }
   };
@@ -132,15 +137,15 @@ const ProductDetail = () => {
               <div className="flex flex-row justify-between">
                 <div>
                   <h1 className="font-bold text-sm md:text-xl">
-                    {dummyData.name}
+                    {product.name}
                   </h1>
                   <div className="flex flex-row gap-2 items-center">
                     <GeneratedStars
-                      stars={dummyData.rate}
+                      stars={product.rate}
                       size={width >= 576 ? "default" : "small"}
                     />
                     <span className="text-xs font-semibold text-gray-500">
-                      {dummyData.sold} Sold
+                      {product.sold} Sold
                     </span>
                   </div>
                 </div>
@@ -157,7 +162,7 @@ const ProductDetail = () => {
                 )}
               </div>
               <p className="bg-everies-pink-20  text-everies-dark-30 rounded-xl px-4 py-3 font-bold text-sm md:text-base">
-                {formatToRupiah(dummyData.price)}
+                {formatToRupiah(product.price)}
               </p>
               <VariationColor variation={variationByColor} />
               <VariationSize variation={variationBySize} />
@@ -173,7 +178,7 @@ const ProductDetail = () => {
                     maxStock={maxStock}
                   />
                   <div className="text-everies-pink-20 font-extrabold flex items-end">
-                    {formatToRupiah(count * (dummyData?.price || 0))}
+                    {formatToRupiah(count * (product?.price || 0))}
                   </div>
                 </div>
                 <div className="flex flex-row gap-5 max-w-sm">
@@ -210,7 +215,7 @@ const ProductDetail = () => {
             </Accordion>
           )}
 
-          {width < 576 && <ReviewSection />}
+          {width < 576 && <ReviewSection data={product} />}
         </div>
       </div>
       {width >= 576 && (
@@ -226,7 +231,7 @@ const ProductDetail = () => {
               architecto totam beatae dolore.
             </span>
           </div>
-          <ReviewSection />
+          <ReviewSection data={product} />
         </>
       )}
       <Pagination>
@@ -266,3 +271,23 @@ const ProductDetail = () => {
 };
 
 export default ProductDetail;
+
+type ReviewSectionProps = {
+  data: TProduct;
+};
+const ReviewSection = ({ data }: ReviewSectionProps) => (
+  <>
+    <div>
+      <h1 className="font-bold text-xs sm:text-sm text-everies-pink-20">
+        Penilaian Produk
+      </h1>
+      <div className="flex text-2xs items-center mt-1 flex-row gap-1 font-semibold">
+        <FaStar className="size-4 sm:size-5  text-yellow-400" />
+        <span> {data.rate}/5.0 | 1.5k orang memberikan penilaian</span>
+      </div>
+    </div>
+    <ReviewDetail />
+    <ReviewDetail />
+    <ReviewDetail />
+  </>
+);

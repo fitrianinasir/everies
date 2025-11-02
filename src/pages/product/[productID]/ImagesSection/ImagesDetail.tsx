@@ -27,7 +27,7 @@ const ImagesDetail = () => {
         <div className="space-y-4">
           <h1>Annisa Blouse</h1>
           <div className="grid grid-cols-4 gap-2">
-            {product?.img?.map((image, index) => (
+            {product?.detail?.images?.map((image, index) => (
               <Image
                 aria-selected={index === activeImageIndex}
                 key={index}
@@ -75,10 +75,10 @@ export const ImagesDetailMobile = () => {
             setHighlight={setActiveImageIndex}
             className="flex flex-row gap-4"
           >
-            {product?.img?.map((_, index) => (
+            {(product.detail.images || []).map((_, index) => (
               <CarouselItem key={index} className="w-full">
                 <Image
-                  src={product.img[index]}
+                  src={(product.detail.images || [])[index]}
                   alt="Product Image"
                   className="w-full h-full object-cover rounded-2xl"
                   width={400}
@@ -90,12 +90,12 @@ export const ImagesDetailMobile = () => {
         </Carousel>
         <div className="p-3">
           <div className="px-1.5 py-1 bg-white/50 text-xs rounded-md w-fit">
-            {activeImageIndex + 1}/{product.img.length}
+            {activeImageIndex + 1}/{(product.detail.images || []).length}
           </div>
         </div>
         <Carousel className="">
           <CarouselContent className="gap-2" highlight={activeImageIndex}>
-            {product?.img?.map((img, index) => (
+            {(product.detail.images || []).map((img, index) => (
               <CarouselItem
                 key={index}
                 aria-selected={index === activeImageIndex}

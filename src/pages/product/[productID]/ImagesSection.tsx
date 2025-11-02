@@ -69,7 +69,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
           className="scrollbar-hide overflow-auto flex flex-row flex-wrap"
         >
           <div className=" flex flex-row gap-3 px-4">
-            {product?.img?.map((image, index) => (
+            {product?.detail?.images?.map((image, index) => (
               <Image
                 aria-selected={index === activeImageIndex}
                 src={image}

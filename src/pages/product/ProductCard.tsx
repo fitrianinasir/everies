@@ -24,7 +24,7 @@ const ProductCard = ({ data }: TProductCard) => {
       <div className="w-full h-48 overflow-hidden group">
         <div
           className="w-full h-full bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
-          style={{ backgroundImage: `url(${data.img[0]})` }}
+          style={{ backgroundImage: `url(${data.preview_img})` }}
         />
       </div>
 

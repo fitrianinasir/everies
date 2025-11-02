@@ -6,7 +6,7 @@ import { dummyBag } from "@/lib/dummy";
 import { FaTrash } from "react-icons/fa6";
 import DrawerProduct from "@/components/pages/DrawerProduct";
 import { Button } from "@/components/ui/button";
-import { TVariationByColor, TVariationBySize } from "@/lib/model";
+import { TProduct, TVariationByColor, TVariationBySize } from "@/lib/model";
 import {
   formatToRupiah,
   variationByColorHandler,
@@ -17,7 +17,7 @@ import { useWindowSize } from "@/hooks/useWindowSize";
 import PopupProduct from "@/components/pages/PopupProduct";
 import { CounterSmall } from "@/components/pages/Counter";
 const BagPage = () => {
-  const data = dummyBag[0];
+  const data: TProduct = {} as TProduct;
   const { width } = useWindowSize();
   const [count, setCount] = useState(0);
 
@@ -30,9 +30,9 @@ const BagPage = () => {
 
   useEffect(() => {
     setVariationByColor(
-      variationByColorHandler(data.product.variation_by_color)
+      variationByColorHandler(data.detail.variation_by_color)
     );
-    setVariationBySize(variationBySizeHandler(data.product.variation_by_size));
+    setVariationBySize(variationBySizeHandler(data.detail.variation_by_size));
   }, [data]);
 
   const [selected, setSelected] = useState<number[]>([]);
@@ -73,19 +73,19 @@ const BagPage = () => {
                 }}
               />
               <Image
-                src={data.product.img[0] || ""}
+                src={data.detail.images[0] || ""}
                 width={100}
                 height={100}
-                alt={data.product.name}
+                alt={data.name}
               />
               <div className="flex flex-col justify-between h-full">
                 <div className="flex flex-col gap-1">
                   <h1 className="text-xs font-semibold text-everies-primary-10">
-                    {data.product.name}
+                    {data.name}
                   </h1>
                   {width && width < 576 ? (
                     <DrawerProduct
-                      product={data.product}
+                      product={data}
                       triggerButton={
                         <Button size="sm" variant="secondary" asSelector>
                           Size L | Variant White
@@ -115,7 +115,7 @@ const BagPage = () => {
                     />
                   )}
                   <p className="text-2xs font-semibold">
-                    {formatToRupiah(data.total)}
+                    {/* {formatToRupiah(data.)} */}
                   </p>
                 </div>
               </div>
