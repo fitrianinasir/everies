@@ -1,18 +1,11 @@
 import { michroma } from "@/components/layout";
 import { cn } from "@/lib/utils";
-import React, { useEffect } from "react";
-import { DummyProducts } from "@/lib/dummy";
 import ProductCard from "./product/ProductCard";
 import ProductLayout from "@/components/layout.product";
 import { useGetProducts } from "@/hooks/services/useGetProducts";
 
 const Products = () => {
-  const { data, isLoading, isError, refetch } = useGetProducts();
-
-  useEffect(() => {
-    console.log("data", data);
-  }, [data]);
-
+  const { data } = useGetProducts();
   return (
     <ProductLayout className="space-y-8">
       <div className="space-y-2">

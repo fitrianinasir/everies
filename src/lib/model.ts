@@ -47,3 +47,13 @@ export type TProductReview = {
   variant: string;
   createdAt: string;
 };
+
+export type TCheckoutData = {
+  productId: number;
+  productName: string;
+  previewImg: string;
+  color: string;
+  size: string;
+  count: number;
+  total: number;
+};

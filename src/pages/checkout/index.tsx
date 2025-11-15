@@ -1,17 +1,37 @@
 import Layout from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { dummyBag, DummyProduct } from "@/lib/dummy";
-import { TProductDetail } from "@/lib/model";
+import { dummyBag } from "@/lib/dummy";
+import { TCheckoutData, TProductDetail } from "@/lib/model";
 import { formatToRupiah } from "@/lib/utils";
 import Image from "next/image";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { MdDiscount } from "react-icons/md";
 
 const CheckoutPage = () => {
-  const data = dummyBag[0].product;
+  const [checkoutData, setCheckoutData] = useState<TCheckoutData[] | null>(
+    null
+  );
+  const [discount, setDiscount] = useState<number>(0);
+
+  useEffect(() => {
+    const raw = localStorage.getItem("checkout_payload");
+    if (!raw) {
+      setCheckoutData([]);
+      return;
+    }
+    const parsed = JSON.parse(raw) as TCheckoutData[];
+    setCheckoutData(parsed);
+  }, []);
+
+  const totalPayment = formatToRupiah(
+    checkoutData?.map((i) => i.total).reduce((a, b) => a + b) || 0
+  );
+
+  const paymentHandler = () => {};
+
   return (
     <Layout backUrl="/" className="space-y-5 max-w-xl mt-16 w-full">
       <div className="max-w-xl w-full space-y-8">
@@ -33,8 +53,31 @@ const CheckoutPage = () => {
         <div className="mt-10">
           <h1 className="font-bold">Order Summary</h1>
           <div className="space-y-3 mt-3">
-            {Array.from({ length: 4 }, (_, index) => (
-              <CheckoutItem key={index} product={data} />
+            {checkoutData?.map((item, index) => (
+              <div key={index} className="flex justify-between">
+                <div className="flex gap-2">
+                  <Image
+                    src={item.previewImg}
+                    height={100}
+                    width={100}
+                    alt={item.productName}
+                  />
+                  <div className="flex flex-col h-full justify-between">
+                    <div className="">
+                      <p className="font-semibold text-everies-primary-10">
+                        {item.productName}
+                      </p>
+                      <p className="text-2xs text-everies-primary-10">
+                        {item.color}, {item.size}
+                      </p>
+                    </div>
+                    <p className="text-2xs font-semibold">
+                      {formatToRupiah(item.total)}
+                    </p>
+                  </div>
+                </div>
+                <span className="text-xs text-everies-primary-10">x1</span>
+              </div>
             ))}
           </div>
         </div>
@@ -62,21 +105,25 @@ const CheckoutPage = () => {
           <div className="text-xs font-semibold">
             <p className="flex-between">
               <span>Subtotal</span>
-              <span>Rp. 1.040.000</span>
+              <span>{totalPayment}</span>
             </p>
-            <p className="flex-between">
-              <span>Discount</span>
-              <span>-Rp. 80.000</span>
-            </p>
+            {discount > 0 && (
+              <p className="flex-between">
+                <span>Discount</span>
+                <span>{discount}</span>
+              </p>
+            )}
             <p className="flex-between">
               <span>Shipping Fee</span>
               <span>Rp. 0</span>
             </p>
             <div className="flex-between p-5 rounded-full text-sm text-white my-6 bg-everies-pink-20">
               <span>TOTAL</span>
-              <span>Rp. 960.000</span>
+              <span>{totalPayment}</span>
             </div>
-            <Button className="float-right">Place Order</Button>
+            <Button className="float-right" onClick={paymentHandler}>
+              Place Order
+            </Button>
           </div>
         </div>
       </div>
@@ -85,30 +132,3 @@ const CheckoutPage = () => {
 };
 
 export default CheckoutPage;
-
-const CheckoutItem = ({ product }: { product: TProductDetail }) => {
-  return (
-    <div className="flex justify-between">
-      <div className="flex gap-2">
-        <Image
-          src={product.img[0]}
-          height={100}
-          width={100}
-          alt={product.name}
-        />
-        <div className="flex flex-col h-full justify-between">
-          <div className="">
-            <p className="font-semibold text-everies-primary-10">
-              {product.name}
-            </p>
-            <p className="text-2xs text-everies-primary-10">White, M</p>
-          </div>
-          <p className="text-2xs font-semibold">
-            {formatToRupiah(product.price * 2)}
-          </p>
-        </div>
-      </div>
-      <span className="text-xs text-everies-primary-10">x1</span>
-    </div>
-  );
-};

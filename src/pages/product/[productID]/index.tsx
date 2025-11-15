@@ -29,6 +29,7 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 import {
+  TCheckoutData,
   TProduct,
   TProductDetail,
   TProductReviewResponse,
@@ -117,7 +118,7 @@ const ProductDetail = () => {
 
   const { triggerFly, setFlyValue } = useCartFlyStore((s) => s);
 
-  const handleClick = () => {
+  const addToCartHandler = () => {
     const fromEl = document.getElementById("add-to-bag-btn");
     const toEl = document.getElementById("cart-icon");
 
@@ -135,9 +136,26 @@ const ProductDetail = () => {
       });
     }
   };
+
+  const buyNowHandler = () => {
+    const payload: TCheckoutData[] = [
+      {
+        productId: product.id,
+        productName: product.name,
+        previewImg: product.preview_img,
+        color: selectedColor,
+        size: selectedSize,
+        count: count,
+        total: count * product.price,
+      },
+    ];
+
+    localStorage.setItem("checkout_payload", JSON.stringify(payload));
+    router.push("/checkout");
+  };
   // const isLoadingReviews = true;
 
-  const limitPagination = window.innerWidth < 576 ? 3 : 7;
+  const limitPagination = width < 576 ? 3 : 7;
   const totalPage = reviews?.data.total_page || 0;
   const firstPaginationSection = Array.from(
     { length: totalPage },
@@ -151,7 +169,7 @@ const ProductDetail = () => {
 
   const renderedFirstPagination =
     middlePaginationSectionState.length > 0
-      ? firstPaginationSection.slice(0, window.innerWidth < 576 ? 0 : -4)
+      ? firstPaginationSection.slice(0, width < 576 ? 0 : -4)
       : firstPaginationSection;
 
   return (
@@ -211,7 +229,7 @@ const ProductDetail = () => {
                 </div>
                 <div className="flex flex-row gap-5 max-w-sm">
                   <Button
-                    onClick={handleClick}
+                    onClick={addToCartHandler}
                     variant="secondary"
                     className={cn(
                       "flex cursor-pointer items-center text-xs font-semibold hover:scale-110"
@@ -220,7 +238,11 @@ const ProductDetail = () => {
                     ADD TO BAG{" "}
                     <BsBag className="size-4 text-everies-primary-20" />
                   </Button>
-                  <Button className="cursor-pointer text-xs font-semibold hover:scale-110">
+                  <Button
+                    className="cursor-pointer text-xs font-semibold hover:scale-110"
+                    onClick={buyNowHandler}
+                    disabled={!selectedColor || !selectedSize}
+                  >
                     BUY NOW
                   </Button>
                 </div>
