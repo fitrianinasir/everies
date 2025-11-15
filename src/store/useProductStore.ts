@@ -14,7 +14,21 @@ type ProductStore = {
   setSelectedSize: (selectedSize: string) => void;
 };
 export const useProductStore = create<ProductStore>((set) => ({
-  product: {} as TProduct,
+  product: {
+    id: 0,
+    name: "",
+    detail: {
+      description: "",
+      images: [],
+      total_review: 0,
+      variation_by_color: [],
+      variation_by_size: [],
+    },
+    preview_img: "",
+    price: 0,
+    rate: 0,
+    sold: "",
+  } as TProduct,
   setProduct: (product) => set({ product }),
   activeImageIndex: 0,
   setActiveImageIndex: (index) => set({ activeImageIndex: index }),

@@ -29,3 +29,21 @@ export type TVariationBySize = {
   stock: { [color: string]: number }; // Maps size to an array of color-quantity objects
   is_sold_out: boolean;
 };
+
+export type TProductReviewResponse = {
+  page: number;
+  total_page: number;
+  total_reviews: number;
+  avg_rate: number;
+  reviews: TProductReview[];
+};
+
+export type TProductReview = {
+  productId: number;
+  username: string;
+  images: string[];
+  rate: number;
+  comment: string;
+  variant: string;
+  createdAt: string;
+};
