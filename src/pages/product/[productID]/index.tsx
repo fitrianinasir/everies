@@ -92,10 +92,6 @@ const ProductDetail = () => {
   });
 
   useEffect(() => {
-    console.log("REVIEWS DATA", reviews);
-  }, [reviews]);
-
-  useEffect(() => {
     if (result && result.data) {
       setProduct(result.data);
       setVariationByColor(
@@ -141,20 +137,21 @@ const ProductDetail = () => {
   };
   // const isLoadingReviews = true;
 
+  const limitPagination = window.innerWidth < 576 ? 3 : 7;
   const totalPage = reviews?.data.total_page || 0;
   const firstPaginationSection = Array.from(
     { length: totalPage },
     (_, i) => i + 1
-  ).slice(0, 7);
+  ).slice(0, limitPagination);
   const lastPaginationSection =
-    totalPage > 7 ? [totalPage! - 1, totalPage] : [];
+    totalPage > limitPagination ? [totalPage! - 1, totalPage] : [];
 
   const [middlePaginationSectionState, setMiddlePaginationSectionState] =
     useState<number[]>([]);
 
   const renderedFirstPagination =
     middlePaginationSectionState.length > 0
-      ? firstPaginationSection.slice(0, -4)
+      ? firstPaginationSection.slice(0, window.innerWidth < 576 ? 0 : -4)
       : firstPaginationSection;
 
   return (
