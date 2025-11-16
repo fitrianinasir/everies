@@ -1,7 +1,14 @@
+import { useGetOrderStatus } from "@/hooks/services/useOrderProduct";
+import { formatToRupiah } from "@/lib/utils";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import Countdown from "react-countdown";
 
 const PaymentPage = () => {
+  const router = useRouter();
+
+  const { data } = useGetOrderStatus(Number(router.query.id));
+
   return (
     <div className="flex-center">
       <div className="h-screen w-full max-w-sm">
@@ -12,7 +19,7 @@ const PaymentPage = () => {
           <div className="flex-center flex-col w-full gap-5 ">
             <Image src="/icon/bca.svg" width={150} height={150} alt="bca" />
             <div className="flex-between w-full text-xs">
-              <span>BCA Virtual Account</span>
+              <span>{data?.data.payment_type} Virtual Account</span>
               <div className="space-x-2">
                 <span className="font-bold">1234567890</span>
                 <span className="border text-2xs border-everies-primary-20 text-everies-primary-20 border-dashed rounded-sm px-2 py-1">
@@ -23,11 +30,15 @@ const PaymentPage = () => {
             <div className="border space-y-2 text-everies-primary-20 border-dashed rounded-md font-semibold w-full p-3 border-everies-primary-30 bg-everies-secondary-10">
               <p className="flex-between text-xs">
                 <span>ORDER ID</span>
-                <span>65897542</span>
+                <span>{data?.data.id}</span>
               </p>
               <p className="flex-between text-xs">
                 <span>TOTAL</span>
-                <span>Rp. 890.000</span>
+                <span>{formatToRupiah(data?.data.total_payment || 0)}</span>
+              </p>
+              <p className="flex-between text-xs">
+                <span>STATUS</span>
+                <span>{data?.data.status}</span>
               </p>
             </div>
           </div>

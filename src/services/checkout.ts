@@ -9,3 +9,16 @@ export const placeOrder = async (data: TOrderData) => {
     .then((res) => res.data)
     .catch((err) => err);
 };
+
+export type OrderStatusResponse = {
+  id: number;
+  status: string;
+  payment_type: string;
+  total_payment: number;
+};
+export const getOrderStatus = async (id: number) => {
+  return gateway
+    .get<TResponse<OrderStatusResponse>>(`/payment/order/${id}`)
+    .then((res) => res.data)
+    .catch((err) => err);
+};
