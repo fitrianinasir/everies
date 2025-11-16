@@ -1,19 +1,22 @@
 import Layout from "@/components/layout";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { dummyBag } from "@/lib/dummy";
-import { TCheckoutData, TProductDetail } from "@/lib/model";
+import { usePlaceOrder } from "@/hooks/services/useOrderProduct";
+import { TCheckoutData, TOrderData } from "@/lib/model";
 import { formatToRupiah } from "@/lib/utils";
 import Image from "next/image";
+import { useRouter } from "next/router";
 import React, { useEffect, useState } from "react";
 import { FaMapMarkerAlt } from "react-icons/fa";
 import { FiEdit } from "react-icons/fi";
 import { MdDiscount } from "react-icons/md";
 
 const CheckoutPage = () => {
+  const router = useRouter();
   const [checkoutData, setCheckoutData] = useState<TCheckoutData[] | null>(
     null
   );
+  const [paymentType, setPaymentType] = useState<string>("BCA");
   const [discount, setDiscount] = useState<number>(0);
 
   useEffect(() => {
@@ -26,11 +29,22 @@ const CheckoutPage = () => {
     setCheckoutData(parsed);
   }, []);
 
-  const totalPayment = formatToRupiah(
-    checkoutData?.map((i) => i.total).reduce((a, b) => a + b) || 0
-  );
+  const totalPayment =
+    checkoutData?.map((i) => i.total).reduce((a, b) => a + b) || 0;
 
-  const paymentHandler = () => {};
+  const { mutateAsync: placeOrder } = usePlaceOrder();
+  const paymentHandler = () => {
+    const payload: TOrderData = {
+      user_id: 1,
+      total_payment: totalPayment,
+      payment_type: paymentType,
+      discount: discount,
+      status: "PENDING",
+      items: checkoutData || [],
+    };
+
+    placeOrder(payload).then((res) => router.push(`/payment/${res.data.id}`));
+  };
 
   return (
     <Layout backUrl="/" className="space-y-5 max-w-xl mt-16 w-full">
@@ -57,15 +71,15 @@ const CheckoutPage = () => {
               <div key={index} className="flex justify-between">
                 <div className="flex gap-2">
                   <Image
-                    src={item.previewImg}
+                    src={item.preview_img}
                     height={100}
                     width={100}
-                    alt={item.productName}
+                    alt={item.product_name}
                   />
                   <div className="flex flex-col h-full justify-between">
                     <div className="">
                       <p className="font-semibold text-everies-primary-10">
-                        {item.productName}
+                        {item.product_name}
                       </p>
                       <p className="text-2xs text-everies-primary-10">
                         {item.color}, {item.size}
@@ -105,7 +119,7 @@ const CheckoutPage = () => {
           <div className="text-xs font-semibold">
             <p className="flex-between">
               <span>Subtotal</span>
-              <span>{totalPayment}</span>
+              <span>{formatToRupiah(totalPayment)}</span>
             </p>
             {discount > 0 && (
               <p className="flex-between">
@@ -119,7 +133,7 @@ const CheckoutPage = () => {
             </p>
             <div className="flex-between p-5 rounded-full text-sm text-white my-6 bg-everies-pink-20">
               <span>TOTAL</span>
-              <span>{totalPayment}</span>
+              <span>{formatToRupiah(totalPayment)}</span>
             </div>
             <Button className="float-right" onClick={paymentHandler}>
               Place Order

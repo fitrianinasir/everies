@@ -12,6 +12,7 @@ type TProductCard = {
 };
 const ProductCard = ({ data }: TProductCard) => {
   const { width } = useWindowSize();
+  console.log("data??", data);
   return (
     <Link
       href={`/product/${data.id}`}

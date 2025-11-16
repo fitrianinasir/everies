@@ -16,19 +16,19 @@ export const initResponseReviews: TProductReviewResponse = {
 };
 
 type useGetProductReviewsProps = {
-  productId: number;
+  product_id: number;
   page: number;
 };
 
 export const useGetProductReviews = ({
-  productId,
+  product_id,
   page,
 }: useGetProductReviewsProps) => {
   return useQuery<TResponse<TProductReviewResponse>, Error>({
     queryKey: ["product_reviews"],
     queryFn: () =>
       getProductReviews({
-        productId,
+        product_id,
         page,
       }),
   });

@@ -39,7 +39,7 @@ export type TProductReviewResponse = {
 };
 
 export type TProductReview = {
-  productId: number;
+  product_id: number;
   username: string;
   images: string[];
   rate: number;
@@ -49,11 +49,20 @@ export type TProductReview = {
 };
 
 export type TCheckoutData = {
-  productId: number;
-  productName: string;
-  previewImg: string;
+  product_id: number;
+  product_name: string;
+  preview_img: string;
   color: string;
   size: string;
   count: number;
   total: number;
+};
+
+export type TOrderData = {
+  user_id: number;
+  total_payment: number;
+  payment_type: string;
+  discount: number;
+  status: string;
+  items: TCheckoutData[];
 };

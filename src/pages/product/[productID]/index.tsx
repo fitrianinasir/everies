@@ -30,8 +30,6 @@ import {
 } from "@/components/ui/pagination";
 import {
   TCheckoutData,
-  TProduct,
-  TProductDetail,
   TProductReviewResponse,
   TVariationByColor,
   TVariationBySize,
@@ -48,8 +46,7 @@ import Footer from "./Footer";
 import { useCartFlyStore } from "@/store/useCartFlyStore";
 import { useRouter } from "next/router";
 import { useGetProductById } from "@/hooks/services/useGetProducts";
-import { useParams, useSearchParams } from "next/navigation";
-import next, { GetServerSidePropsContext } from "next";
+import { GetServerSidePropsContext } from "next";
 import {
   initResponseReviews,
   useGetProductReviews,
@@ -88,7 +85,7 @@ const ProductDetail = () => {
   const { data: result } = useGetProductById(Number(router.query.productID));
 
   const { data: reviews, isLoading: isLoadingReviews } = useGetProductReviews({
-    productId: Number(router.query.productID),
+    product_id: Number(router.query.productID),
     page: 1,
   });
 
@@ -140,9 +137,9 @@ const ProductDetail = () => {
   const buyNowHandler = () => {
     const payload: TCheckoutData[] = [
       {
-        productId: product.id,
-        productName: product.name,
-        previewImg: product.preview_img,
+        product_id: product.id,
+        product_name: product.name,
+        preview_img: product.preview_img,
         color: selectedColor,
         size: selectedSize,
         count: count,

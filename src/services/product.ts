@@ -17,15 +17,15 @@ export const getProductById = async (id: number) => {
 };
 
 export const getProductReviews = async ({
-  productId,
+  product_id,
   page,
 }: {
-  productId: number;
+  product_id: number;
   page: number;
 }) => {
   return gateway
     .get<TResponse<TProductReviewResponse>>(
-      `/product/${productId}/reviews?page=${page}`
+      `/product/${product_id}/reviews?page=${page}`
     )
     .then((res) => {
       return res.data;
