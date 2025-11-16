@@ -4,7 +4,7 @@ export type TProduct = {
   preview_img: string;
   price: number;
   rate: number;
-  sold: string;
+  sold: number;
   detail: TProductDetail;
 };
 
@@ -48,13 +48,22 @@ export type TProductReview = {
   createdAt: string;
 };
 
+export type TUserCart = {
+  product_id: number;
+  user_id: number;
+  color: string;
+  size: string;
+  quantity: number;
+  total: number;
+};
+
 export type TCheckoutData = {
   product_id: number;
   product_name: string;
   preview_img: string;
   color: string;
   size: string;
-  count: number;
+  quantity: number;
   total: number;
 };
 

@@ -90,7 +90,9 @@ const CheckoutPage = () => {
                     </p>
                   </div>
                 </div>
-                <span className="text-xs text-everies-primary-10">x1</span>
+                <span className="text-xs text-everies-primary-10">
+                  x{item.quantity}
+                </span>
               </div>
             ))}
           </div>

@@ -1,6 +1,6 @@
 import { TVariationByColor, TVariationBySize } from "@/lib/model";
 import { useProductStore } from "@/store/useProductStore";
-import { HTMLAttributes, useState } from "react";
+import { Dispatch, HTMLAttributes, SetStateAction, useState } from "react";
 import { Button } from "@/components/ui/button";
 import DrawerProduct from "@/components/pages/DrawerProduct";
 import { motion, useAnimation } from "framer-motion";
@@ -10,37 +10,47 @@ import { toast } from "sonner";
 type FooterProps = {
   variationByColor: TVariationByColor[];
   variationBySize: TVariationBySize[];
+  buyNowHandler: () => void;
+  quantity: number;
+  setQuantity: Dispatch<SetStateAction<number>>;
 };
 
 const AddToBagButton = ({
   className,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => (
-  <div
+}: React.ComponentProps<"button">) => (
+  <button
     className="cursor-pointer text-everies-pink-20 flex justify-center items-center"
     {...props}
   >
     ADD TO BAG
-  </div>
+  </button>
 );
 
-const BuyNowButton = ({
+export const BuyNowButton = ({
   className,
   ...props
-}: HTMLAttributes<HTMLDivElement>) => (
-  <div
-    className="cursor-pointer bg-everies-pink-20 items-center flex justify-center"
+}: React.ComponentProps<"button">) => (
+  <button
+    className={`cursor-pointer bg-everies-pink-20 items-center flex justify-center ${
+      className || ""
+    }`}
     {...props}
   >
     BUY NOW
-  </div>
+  </button>
 );
 
-const Footer = ({ variationByColor, variationBySize }: FooterProps) => {
+const Footer = ({
+  quantity,
+  setQuantity,
+  variationByColor,
+  variationBySize,
+  buyNowHandler,
+}: FooterProps) => {
   const { selectedColor, selectedSize, product } = useProductStore(
     (state) => state
   );
-  const [count, setCount] = useState(0);
   const [openDrawer1, setOpenDrawer1] = useState(false);
   const [openDrawer2, setOpenDrawer2] = useState(false);
 
@@ -79,7 +89,8 @@ const Footer = ({ variationByColor, variationBySize }: FooterProps) => {
             }}
           />
           <BuyNowButton
-            onClick={() => console.log("buy now", selectedColor, selectedSize)}
+            disabled={!selectedColor && !selectedSize}
+            onClick={buyNowHandler}
           />
         </>
       ) : (
@@ -89,8 +100,8 @@ const Footer = ({ variationByColor, variationBySize }: FooterProps) => {
             onOpenChange={setOpenDrawer1}
             product={product}
             triggerButton={<AddToBagButton />}
-            count={count}
-            setCount={setCount}
+            quantity={quantity}
+            setQuantity={setQuantity}
             variationByColor={variationByColor}
             variationBySize={variationBySize}
             footerButton={<Button>ADD TO BAG</Button>}
@@ -100,11 +111,18 @@ const Footer = ({ variationByColor, variationBySize }: FooterProps) => {
             onOpenChange={setOpenDrawer2}
             product={product}
             triggerButton={<BuyNowButton />}
-            count={count}
-            setCount={setCount}
+            quantity={quantity}
+            setQuantity={setQuantity}
             variationByColor={variationByColor}
             variationBySize={variationBySize}
-            footerButton={<Button>BUY NOW</Button>}
+            footerButton={
+              <Button
+                disabled={!selectedColor && !selectedSize}
+                onClick={buyNowHandler}
+              >
+                BUY NOW
+              </Button>
+            }
           />
         </>
       )}

@@ -2,21 +2,21 @@ import React, { Dispatch, SetStateAction, useState } from "react";
 import { cn } from "@/lib/utils";
 
 type CounterProps = {
-  count: number;
-  setCount: Dispatch<SetStateAction<number>>;
+  quantity: number;
+  setQuantity: Dispatch<SetStateAction<number>>;
   maxStock: number | undefined;
   onIncrementHandler?: () => void;
   onDecrementHandler?: () => void;
 };
-const CounterMedium = ({ count, setCount, maxStock }: CounterProps) => {
+const CounterMedium = ({ quantity, setQuantity, maxStock }: CounterProps) => {
   return (
     <div>
       <div className="flex flex-row gap-2 text-lg font-extrabold text-everies-pink-10">
         <button
-          onClick={() => count > 0 && setCount(count - 1)}
+          onClick={() => quantity > 0 && setQuantity(quantity - 1)}
           className={cn(
             "cursor-pointer",
-            count === 0 && "pointer-events-none text-gray-400"
+            quantity === 0 && "pointer-events-none text-gray-400"
           )}
         >
           -
@@ -24,26 +24,29 @@ const CounterMedium = ({ count, setCount, maxStock }: CounterProps) => {
         <div className="w-14">
           <input
             className="h-8 w-full rounded-md border-2 border-everies-pink-10 text-center text-xs font-extrabold outline-none"
-            value={count.toString()}
+            value={quantity.toString()}
             onChange={(e) => {
               if (maxStock) {
                 if (parseInt(e.target.value) > maxStock) {
-                  setCount(maxStock);
+                  setQuantity(maxStock);
                   return;
                 }
               }
-              setCount(parseInt(e.target.value) || 0);
+              setQuantity(parseInt(e.target.value) || 0);
             }}
           />
         </div>
-        <button className="cursor-pointer" onClick={() => setCount(count + 1)}>
+        <button
+          className="cursor-pointer"
+          onClick={() => setQuantity(quantity + 1)}
+        >
           +
         </button>
       </div>
       <span
         className={cn(
           "text-3xs text-red-800",
-          count === maxStock ? "flex" : "hidden h-5"
+          quantity === maxStock ? "flex" : "hidden h-5"
         )}
       >
         *Anda hanya dapat memesan dengan batas maksimum {maxStock} item
@@ -53,8 +56,8 @@ const CounterMedium = ({ count, setCount, maxStock }: CounterProps) => {
 };
 
 const CounterSmall = ({
-  count,
-  setCount,
+  quantity,
+  setQuantity,
   maxStock,
   onIncrementHandler,
   onDecrementHandler,
@@ -64,12 +67,12 @@ const CounterSmall = ({
       <div className="flex flex-row items-end gap-1 text-lg text-everies-pink-10 md:gap-2">
         <button
           onClick={() => {
-            count > 0 && setCount(count - 1);
+            quantity > 0 && setQuantity(quantity - 1);
             onDecrementHandler && onDecrementHandler();
           }}
           className={cn(
             "cursor-pointer",
-            count === 0 && "pointer-events-none text-everies-dark-10/10"
+            quantity === 0 && "pointer-events-none text-everies-dark-10/10"
           )}
         >
           -
@@ -77,20 +80,20 @@ const CounterSmall = ({
         <div className="w-10 md:w-14">
           <input
             className="h-6 w-full rounded-md border-2 border-everies-pink-10 text-center text-xs font-bold outline-none md:h-8 md:font-extrabold"
-            value={count.toString()}
+            value={quantity.toString()}
             onChange={(e) => {
               if (parseInt(e.target.value) > 100) {
-                setCount(100);
+                setQuantity(100);
                 return;
               }
-              setCount(parseInt(e.target.value) || 0);
+              setQuantity(parseInt(e.target.value) || 0);
             }}
           />
         </div>
         <button
           className="cursor-pointer"
           onClick={() => {
-            setCount(count + 1);
+            setQuantity(quantity + 1);
             onIncrementHandler && onIncrementHandler();
           }}
         >
@@ -100,7 +103,7 @@ const CounterSmall = ({
       <span
         className={cn(
           "text-3xs text-red-800",
-          count === 100 ? "flex" : "hidden h-5"
+          quantity === 100 ? "flex" : "hidden h-5"
         )}
       >
         *Anda hanya dapat memesan dengan batas maksimum 100 item

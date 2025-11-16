@@ -31,6 +31,7 @@ import {
 import {
   TCheckoutData,
   TProductReviewResponse,
+  TUserCart,
   TVariationByColor,
   TVariationBySize,
 } from "@/lib/model";
@@ -53,6 +54,8 @@ import {
 } from "@/hooks/services/useGetProductReviews";
 import { Skeleton } from "@/components/ui/skeleton";
 import { format, parseISO } from "date-fns";
+import { useCreateUserCart } from "@/hooks/services/useUserServices";
+import { toast } from "sonner";
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { productID } = context.params!;
   return {
@@ -70,7 +73,7 @@ const ProductDetail = () => {
   );
   const { handleAddToCart } = useAddToCartHandler();
 
-  const [count, setCount] = useState<number>(1);
+  const [quantity, setQuantity] = useState<number>(1);
   const [maxStock, setMaxStock] = useState<number | undefined>();
   const [variationByColor, setVariationByColor] = useState<TVariationByColor[]>(
     []
@@ -115,23 +118,39 @@ const ProductDetail = () => {
 
   const { triggerFly, setFlyValue } = useCartFlyStore((s) => s);
 
+  const { mutateAsync: createUserCart } = useCreateUserCart();
   const addToCartHandler = () => {
-    const fromEl = document.getElementById("add-to-bag-btn");
-    const toEl = document.getElementById("cart-icon");
+    const payload: TUserCart = {
+      product_id: product.id,
+      user_id: 1,
+      color: selectedColor,
+      size: selectedSize,
+      quantity: quantity,
+      total: quantity * product.price,
+    };
 
-    if (fromEl && toEl) {
-      const fromRect = fromEl.getBoundingClientRect();
-      const toRect = toEl.getBoundingClientRect();
+    createUserCart(payload)
+      .then(() => {
+        const fromEl = document.getElementById("add-to-bag-btn");
+        const toEl = document.getElementById("cart-icon");
 
-      setFlyValue(product.preview_img);
-      triggerFly({
-        from: fromRect,
-        to: toRect,
-        width: fromRect.width,
-        height: fromRect.height,
-        img: product.preview_img,
+        if (fromEl && toEl) {
+          const fromRect = fromEl.getBoundingClientRect();
+          const toRect = toEl.getBoundingClientRect();
+
+          setFlyValue(product.preview_img);
+          triggerFly({
+            from: fromRect,
+            to: toRect,
+            width: fromRect.width,
+            height: fromRect.height,
+            img: product.preview_img,
+          });
+        }
+      })
+      .catch(() => {
+        toast.error("Failed to add to cart");
       });
-    }
   };
 
   const buyNowHandler = () => {
@@ -142,8 +161,8 @@ const ProductDetail = () => {
         preview_img: product.preview_img,
         color: selectedColor,
         size: selectedSize,
-        count: count,
-        total: count * product.price,
+        quantity: quantity,
+        total: quantity * product.price,
       },
     ];
 
@@ -216,12 +235,12 @@ const ProductDetail = () => {
                   <p className="h1-bold">Atur Kuantitas</p>
                   <p className="h1-bold">Subtotal</p>
                   <CounterSmall
-                    count={count}
-                    setCount={setCount}
+                    quantity={quantity}
+                    setQuantity={setQuantity}
                     maxStock={maxStock}
                   />
                   <div className="text-everies-pink-20 font-extrabold flex items-end">
-                    {formatToRupiah(count * (product?.price || 0))}
+                    {formatToRupiah(quantity * (product?.price || 0))}
                   </div>
                 </div>
                 <div className="flex flex-row gap-5 max-w-sm">
@@ -384,6 +403,9 @@ const ProductDetail = () => {
 
       {width < mobileSize && (
         <Footer
+          quantity={quantity}
+          setQuantity={setQuantity}
+          buyNowHandler={buyNowHandler}
           variationByColor={variationByColor}
           variationBySize={variationBySize}
         />

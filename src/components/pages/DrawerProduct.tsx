@@ -18,8 +18,8 @@ type DrawerProductProps = {
   triggerButton: React.ReactNode;
   footerButton?: React.ReactNode;
   product: TProduct;
-  count: number;
-  setCount: Dispatch<SetStateAction<number>>;
+  quantity: number;
+  setQuantity: Dispatch<SetStateAction<number>>;
   variationByColor: TVariationByColor[];
   variationBySize: TVariationBySize[];
 };
@@ -29,8 +29,8 @@ const DrawerProduct = ({
   triggerButton,
   footerButton,
   product,
-  count,
-  setCount,
+  quantity,
+  setQuantity,
   variationByColor,
   variationBySize,
 }: DrawerProductProps) => {
@@ -41,7 +41,7 @@ const DrawerProduct = ({
         <div className="grid grid-cols-5 gap-3">
           <div className="col-span-2">
             <Image
-              src={product?.img?.[0]}
+              src={product.preview_img}
               width={100}
               height={100}
               alt={product.name}
@@ -56,7 +56,11 @@ const DrawerProduct = ({
                 {product.sold} Sold
               </span>
             </div>
-            <CounterSmall count={count} setCount={setCount} maxStock={100} />
+            <CounterSmall
+              quantity={quantity}
+              setQuantity={setQuantity}
+              maxStock={100}
+            />
           </div>
         </div>
         <VariationColor variation={variationByColor} />
