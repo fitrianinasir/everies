@@ -60,6 +60,7 @@ const Navbar = ({ backUrl }: NavbarProps) => {
                 <CgShoppingBag
                   id="cart-icon"
                   className="text-everies-primary-20 size-5 cursor-pointer"
+                  onClick={() => router.push("/bag")}
                 />
                 <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
               </div>

@@ -3,6 +3,7 @@ import * as CheckboxPrimitive from "@radix-ui/react-checkbox";
 import { CheckIcon } from "lucide-react";
 
 import { cn } from "@/lib/utils";
+import { GoDash } from "react-icons/go";
 
 interface CheckboxProps
   extends React.ComponentProps<typeof CheckboxPrimitive.Root> {
@@ -21,9 +22,10 @@ function Checkbox({ label, className, ...props }: CheckboxProps) {
       >
         <CheckboxPrimitive.Indicator
           data-slot="checkbox-indicator"
-          className="flex items-center justify-center text-current transition-none"
+          className="group flex items-center justify-center text-current transition-none"
         >
-          <CheckIcon className="size-3.5" />
+          <CheckIcon className="size-3.5 hidden group-data-[state=checked]:flex" />
+          <GoDash className="size-3.5 hidden group-data-[state=indeterminate]:flex" />
         </CheckboxPrimitive.Indicator>
       </CheckboxPrimitive.Root>
       <span className="text-xs text-everies-primary-10">{label}</span>

@@ -16,9 +16,13 @@ import PopupProduct from "@/components/pages/PopupProduct";
 import { CounterSmall } from "@/components/pages/Counter";
 import { useGetUserCart } from "@/hooks/services/useUserServices";
 import { UserCartResponse } from "@/services/checkout";
+
+type SelectedCart = {
+  id: number;
+  total: number;
+};
 const BagPage = () => {
   const { width } = useWindowSize();
-  const [quantity, setQuantity] = useState(0);
 
   const { data: cartData } = useGetUserCart(1);
 
@@ -28,17 +32,31 @@ const BagPage = () => {
     setData(cartData?.data || []);
   }, [cartData]);
 
-  const [selected, setSelected] = useState<number[]>([]);
+  const [selected, setSelected] = useState<SelectedCart[]>([]);
+
+  useEffect(() => {
+    console.log("selected", selected);
+  }, [selected]);
 
   return (
     <Layout backUrl="/" className="space-y-5 max-w-xl mt-16 w-full">
       <div className="w-full grid grid-cols-2">
         <Checkbox
           label="Select All"
-          checked={selected.length === 4}
+          checked={
+            selected.length === data.length ||
+            (selected.length < data.length &&
+              selected.length > 0 &&
+              "indeterminate")
+          }
           onCheckedChange={(val) => {
             if (val) {
-              setSelected([0, 1, 2, 3]);
+              setSelected(
+                data.map((i) => ({
+                  id: i.id,
+                  total: i.total,
+                }))
+              );
             } else {
               setSelected([]);
             }
@@ -52,16 +70,23 @@ const BagPage = () => {
         </span>
       </div>
       <div className="space-y-4">
-        {data.map((i, index) => (
+        {data.map((i) => (
           <div className="flex flex-row justify-between">
             <div className="flex flex-row items-start gap-2 justify-start">
               <Checkbox
-                checked={selected.includes(index)}
+                checked={selected.map((i) => i.id).includes(i.id)}
                 onCheckedChange={(val) => {
+                  console.log("clicked");
                   if (val) {
-                    setSelected((prev) => [...prev, index]);
+                    setSelected((prev) => [
+                      ...prev,
+                      {
+                        id: i.id,
+                        total: i.total,
+                      },
+                    ]);
                   } else {
-                    setSelected((prev) => prev.filter((i) => i !== index));
+                    setSelected((prev) => prev.filter((j) => j.id !== i.id));
                   }
                 }}
               />
@@ -84,8 +109,8 @@ const BagPage = () => {
                           Size L | Variant White
                         </Button>
                       }
-                      quantity={quantity}
-                      setQuantity={setQuantity}
+                      quantity={i.quantity}
+                      setQuantity={() => {}}
                       variationByColor={variationByColorHandler(
                         i.product.detail.variation_by_color
                       )}
@@ -110,8 +135,8 @@ const BagPage = () => {
                 <div className="flex flex-row gap-1 items-center">
                   {width && width > 576 && (
                     <CounterSmall
-                      quantity={quantity}
-                      setQuantity={setQuantity}
+                      quantity={i.quantity}
+                      setQuantity={() => {}}
                       maxStock={10}
                     />
                   )}
@@ -136,7 +161,13 @@ const BagPage = () => {
           <div className="grid grid-cols-5 h-full p-2 text-xs">
             <div className="col-span-3 flex h-full flex-col">
               <p>TOTAL</p>
-              <p>Rp. 890.000</p>
+              <p>
+                {formatToRupiah(
+                  selected.length > 0
+                    ? selected?.map((i) => i.total).reduce((a, b) => a + b)
+                    : 0
+                )}
+              </p>
             </div>
             <div className="col-span-2 flex-col flex items-end">
               <Button className="tracking-widest">CHECKOUT</Button>
