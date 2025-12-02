@@ -1,5 +1,5 @@
 import { Button } from "@/components/ui/button";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Lottie from "lottie-react";
 import LoginLottie from "../../../public/animations/ecommerce.json";
 import Image from "next/image";
@@ -9,10 +9,14 @@ import { useAuthStore } from "@/store/useAuthStore";
 import LoginForm from "./login-form";
 import { useGeneralStore } from "@/store/useGeneralStore";
 import LoadingLottie from "@/components/loading";
-
+import Cookies from "js-cookie";
 const AuthPage = () => {
   const { section } = useAuthStore((state) => state);
   const { isLoading } = useGeneralStore((state) => state);
+
+  useEffect(() => {
+    Cookies.remove("token");
+  }, []);
 
   return (
     <main className="flex-center bg-everies-secondary-10">

@@ -1,15 +1,33 @@
 import { TProduct, TProductReviewResponse } from "@/lib/model";
 import { gateway } from "./api";
 import { TResponse } from "./response";
+import { AxiosError } from "axios";
+import Cookies from "js-cookie";
 
-export const getProducts = async (): Promise<TResponse<TProduct[]>> => {
-  const res = await gateway.get<TResponse<TProduct[]>>("/product/all");
-  return res.data;
+export const getProducts = async () => {
+  return await gateway
+    .get<TResponse<TProduct[]>>("/product/all", {
+      headers: {
+        token: Cookies.get("token") ?? "",
+      },
+    })
+    .then((res) => res.data)
+    .catch((err: AxiosError) => {
+      if (err.status === 401) {
+        window.location.href = "/auth";
+      } else {
+        return err;
+      }
+    });
 };
 
 export const getProductById = async (id: number) => {
   return gateway
-    .get<TResponse<TProduct>>(`/product/${id}`)
+    .get<TResponse<TProduct>>(`/product/${id}`, {
+      headers: {
+        token: Cookies.get("token") ?? "",
+      },
+    })
     .then((res) => {
       return res.data;
     })
@@ -25,7 +43,12 @@ export const getProductReviews = async ({
 }) => {
   return gateway
     .get<TResponse<TProductReviewResponse>>(
-      `/product/${product_id}/reviews?page=${page}`
+      `/product/${product_id}/reviews?page=${page}`,
+      {
+        headers: {
+          token: Cookies.get("token") ?? "",
+        },
+      }
     )
     .then((res) => {
       return res.data;
