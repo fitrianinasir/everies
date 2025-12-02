@@ -7,12 +7,16 @@ import RegisterForm from "./register-form";
 import Layout from "@/components/layout";
 import { useAuthStore } from "@/store/useAuthStore";
 import LoginForm from "./login-form";
+import { useGeneralStore } from "@/store/useGeneralStore";
+import LoadingLottie from "@/components/loading";
 
 const AuthPage = () => {
   const { section } = useAuthStore((state) => state);
+  const { isLoading } = useGeneralStore((state) => state);
 
   return (
     <main className="flex-center bg-everies-secondary-10">
+      {isLoading && <LoadingLottie />}
       <div className="px-6 w-[1440px] py-12 h-screen flex-center">
         <div className="hidden w-full md:flex flex-col items-center justify-center h-full">
           <div className="flex items-center flex-col">

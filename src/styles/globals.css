@@ -18,6 +18,10 @@ body {
   scrollbar-width: none; /* Firefox */
 }
 
+input::-ms-reveal {
+  display: none !important;
+}
+
 @theme inline {
   --text-2xs: 10px;
 
