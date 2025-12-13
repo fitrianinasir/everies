@@ -4,5 +4,6 @@ export type TResponse<T> = {
 };
 
 export type TUserToken = {
+  role: string;
   token: string;
 };

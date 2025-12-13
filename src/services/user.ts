@@ -12,6 +12,6 @@ export async function registerUser(data: TRegisterUser) {
 export async function loginUser(data: TLoginUser) {
   return gateway
     .post<TResponse<TUserToken>>("/auth/login", data)
-    .then((res) => res)
+    .then((res) => res.data)
     .catch((err) => err);
 }

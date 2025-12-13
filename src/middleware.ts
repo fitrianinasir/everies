@@ -11,7 +11,7 @@ export function middleware(req: NextRequest) {
     // Use req.nextUrl.clone() or construct a URL to avoid issues
     const url = req.nextUrl.clone();
     url.pathname = "/auth";
-    return NextResponse.redirect(url);
+    // return NextResponse.redirect(url);
   }
   return NextResponse.next();
 }

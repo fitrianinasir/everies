@@ -5,14 +5,31 @@ import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 
 export const getProducts = async () => {
-  return await gateway
+  return gateway
     .get<TResponse<TProduct[]>>("/product/all", {
       headers: {
         token: Cookies.get("token") ?? "",
       },
     })
     .then((res) => res.data)
-    .catch((err: AxiosError) => {
+    .catch((err) => {
+      if (err.status === 401) {
+        window.location.href = "/auth";
+      } else {
+        return err;
+      }
+    });
+};
+
+export const getProductsWithDetail = async () => {
+  return await gateway
+    .get<TResponse<TProduct[]>>("/product/all-details", {
+      headers: {
+        token: Cookies.get("token") ?? "",
+      },
+    })
+    .then((res) => res.data.data)
+    .catch((err) => {
       if (err.status === 401) {
         window.location.href = "/auth";
       } else {

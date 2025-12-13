@@ -11,13 +11,13 @@ import MobileSidebar from "./sidebar";
 import LogoImage from "./logo";
 import { useRouter } from "next/router";
 import { IoMdArrowBack } from "react-icons/io";
-
+import Cookies from "js-cookie";
 type NavbarProps = {
   backUrl?: string;
 };
 const Navbar = ({ backUrl }: NavbarProps) => {
   const { width } = useWindowSize();
-  const [show, setShow] = useState(false);
+  const token = Cookies.get("token");
   const [searchActive, setSearchActive] = useState(false);
 
   const router = useRouter();
@@ -43,7 +43,7 @@ const Navbar = ({ backUrl }: NavbarProps) => {
             </button>
           )}
           {width && width > 576 ? (
-            show ? (
+            token ? (
               <div className="flex items-center justify-center flex-row gap-3">
                 <div
                   className="flex flex-row items-center justify-center bg-everies-secondary-40 p-1.5 text-everies-primary-20 rounded-full cursor-pointer"
@@ -62,10 +62,24 @@ const Navbar = ({ backUrl }: NavbarProps) => {
                   className="text-everies-primary-20 size-5 cursor-pointer"
                   onClick={() => router.push("/bag")}
                 />
-                <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
+                <Popover>
+                  <PopoverTrigger>
+                    <GoPerson className="text-everies-primary-20 size-5 cursor-pointer" />
+                  </PopoverTrigger>
+                  <PopoverContent>
+                    <button
+                      className="cursor-pointer"
+                      onClick={() => (window.location.href = "/auth")}
+                    >
+                      Logout
+                    </button>
+                  </PopoverContent>
+                </Popover>
               </div>
             ) : (
-              <Button onClick={() => setShow(!show)}>LOGIN</Button>
+              <Button onClick={() => (window.location.href = "/auth")}>
+                LOGIN
+              </Button>
             )
           ) : (
             <MobileSidebar />

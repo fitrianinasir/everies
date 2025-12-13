@@ -32,6 +32,7 @@ const LoginForm = () => {
 
     loginUser(payload).then(async (res) => {
       Cookies.set("token", res.data.token);
+      Cookies.set("role", res.data.role);
       await router.push("/");
     });
   };
