@@ -1,5 +1,6 @@
 "use client";
 
+import { cn } from "@/lib/utils";
 import {
   CircleCheckIcon,
   InfoIcon,
@@ -9,7 +10,7 @@ import {
 } from "lucide-react";
 import { Toaster as Sonner, type ToasterProps } from "sonner";
 
-const Toaster = ({ ...props }: ToasterProps) => {
+const Toaster = ({ className, ...props }: ToasterProps) => {
   return (
     <Sonner
       richColors

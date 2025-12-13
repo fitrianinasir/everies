@@ -22,6 +22,11 @@ input::-ms-reveal {
   display: none !important;
 }
 
+input:-webkit-autofill {
+  -webkit-background-clip: text;
+  transition: background-color 5000s ease-in-out 0s;
+}
+
 @theme inline {
   --text-2xs: 10px;
 
@@ -38,6 +43,7 @@ input::-ms-reveal {
   --color-everies-secondary-20: #fcfbf4;
   --color-everies-secondary-30: #fefcf9;
   --color-everies-secondary-40: #dbe4c9;
+  --color-everies-secondary-50: #a1bc98;
 
   --color-everies-light-10: #faf7f3;
   --color-everies-light-20: #fcfaf7;

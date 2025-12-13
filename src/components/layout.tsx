@@ -38,7 +38,6 @@ const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
       )}
       {...props}
     >
-      <Toaster />
       <Navbar backUrl={backUrl} />
       {router.pathname === "/" && (
         <div className="w-full flex-center bg-everies-secondary-10">

@@ -1,14 +1,28 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { useRegisterUser } from "@/hooks/services/useAuthServices";
 import { TRegisterUser } from "@/services/request";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useGeneralStore } from "@/store/useGeneralStore";
 import React, { FormEvent, useEffect, useState } from "react";
+import { toast } from "sonner";
 
+const passwordValidator = (password: string) => {
+  const isValid =
+    /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[!@#$%^&*(),.?":{}|<>\\[\];'`~\-_=+\/]).+$/.test(
+      password
+    );
+  return password.length >= 8 && isValid;
+};
 const RegisterForm = () => {
   const { setSection } = useAuthStore((state) => state);
   const { setIsLoading } = useGeneralStore((state) => state);
+  const [passwordValid, setPasswordValid] = useState(true);
   const { mutateAsync: registerUser, isPending } = useRegisterUser();
 
   useEffect(() => {
@@ -28,7 +42,13 @@ const RegisterForm = () => {
       password: values.password as string,
     };
 
-    registerUser(payload);
+    registerUser(payload).then((res) => {
+      if (res.status === 201) {
+        setSection("login");
+      } else {
+        toast.error(res.message);
+      }
+    });
   };
   return (
     <form
@@ -46,7 +66,27 @@ const RegisterForm = () => {
         </div>
         <Input name="username" placeholder="username" />
         <Input name="email" placeholder="Email" />
-        <Input name="password" type="password" placeholder="Password" />
+        <Input
+          name="password"
+          id="password"
+          type="password"
+          placeholder="Password"
+          onChange={(e) => {
+            const password = e.target.value;
+            setPasswordValid(
+              password.length >= 8 && passwordValidator(password)
+            );
+          }}
+          isError={!passwordValid}
+          onBlur={() => {
+            const password = (
+              document.getElementById("password") as HTMLInputElement
+            )?.value;
+            if (passwordValidator(password)) return;
+            setPasswordValid(false);
+          }}
+          errorMessage="*Password length at least 8 characters, and must contain at least one uppercase letter, one lowercase letter, and one special character (!@#$%^&*)"
+        />
         <p className="text-xs text-right text-everies-primary-20">
           Already have an account?{" "}
           <span
