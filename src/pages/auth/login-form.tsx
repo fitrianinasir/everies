@@ -33,7 +33,9 @@ const LoginForm = () => {
     loginUser(payload).then(async (res) => {
       Cookies.set("token", res.data.token);
       Cookies.set("role", res.data.role);
-      await router.push("/");
+      const redirectPath = Cookies.get("redirect_after_login") || "/";
+      Cookies.remove("redirect_after_login");
+      router.push(redirectPath);
     });
   };
   return (

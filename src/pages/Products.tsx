@@ -1,17 +1,15 @@
-import { michroma } from "@/components/layout";
 import { cn } from "@/lib/utils";
 import ProductCard from "./product/ProductCard";
 import ProductLayout from "@/components/layout.product";
 import { useGetProducts } from "@/hooks/services/useGetProducts";
-
+import Image from "next/image";
+import ClothesImage from "../../public/images/everies/clothes.jpg";
 const Products = () => {
   const { data } = useGetProducts();
   return (
     <ProductLayout className="space-y-8">
       <div className="space-y-2">
-        <h1 className={cn("font-bold text-2xl", michroma.className)}>
-          New Arrivals
-        </h1>
+        <h1 className={cn("font-bold text-2xl font-michroma")}>New Arrivals</h1>
         <p className="text-sm max-w-lg">
           Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum velit
           incidunt iure laborum nesciunt. Non reiciendis, laudantium vel modi
@@ -30,6 +28,21 @@ const Products = () => {
         {data?.data.map((product) => (
           <ProductCard data={product} key={product.id} />
         ))}
+      </div>
+
+      <div className="grid grid-cols-3 gap-2">
+        <div className="">
+          <h1 className={cn("font-bold text-2xl font-michroma")}>CLOTHES</h1>
+          <Image
+            src={ClothesImage}
+            width={1000}
+            height={1000}
+            fetchPriority="high"
+            className="size-60"
+            alt="Clothes"
+          />
+        </div>
+        <div className="col-span-2">LIST PRODUK</div>
       </div>
     </ProductLayout>
   );

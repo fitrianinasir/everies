@@ -12,6 +12,7 @@ import LogoImage from "./logo";
 import { useRouter } from "next/router";
 import { IoMdArrowBack } from "react-icons/io";
 import Cookies from "js-cookie";
+import { cn } from "@/lib/utils";
 type NavbarProps = {
   backUrl?: string;
 };
@@ -21,16 +22,40 @@ const Navbar = ({ backUrl }: NavbarProps) => {
   const [searchActive, setSearchActive] = useState(false);
 
   const router = useRouter();
+
+  const submenuClassnames =
+    "hover:font-bold hover:text-everies-primary-20 cursor-pointer";
   return (
     <>
       <div className="fixed w-screen text-xs h-12 z-40 top-0 flex justify-center items-center p-8 bg-everies-secondary-10">
         <div className="flex flex-row w-full items-center justify-between max-w-[1440px]">
           {width && width > 576 ? (
-            <div className="flex items-center justify-center flex-row gap-3">
-              <p>SHOP</p>
-              <p>MEN</p>
-              <p>WOMEN</p>
-              <p>TRENDING</p>
+            <div className="flex items-end justify-center flex-row gap-3">
+              <LogoImage />
+              <p
+                className={cn("ml-4", submenuClassnames)}
+                onClick={() => router.push("/clothes")}
+              >
+                CLOTHES
+              </p>
+              <p
+                className={submenuClassnames}
+                onClick={() => router.push("/jewellery")}
+              >
+                JEWELLERY
+              </p>
+              <p
+                className={submenuClassnames}
+                onClick={() => router.push("/bags")}
+              >
+                BAGS
+              </p>
+              <p
+                className={submenuClassnames}
+                onClick={() => router.push("/shoes")}
+              >
+                SHOES
+              </p>
             </div>
           ) : !backUrl ? (
             <LogoImage />
@@ -88,7 +113,7 @@ const Navbar = ({ backUrl }: NavbarProps) => {
       </div>
       {searchActive && (
         <div
-          className="absolute flex flex-col justify-center items-center w-screen h-screen bg-everies-primary-10/30 backdrop-blur-xs z-40"
+          className="fixed inset-0 flex flex-col justify-center items-center w-screen h-screen bg-everies-primary-10/30 backdrop-blur-xs z-40"
           onClick={() => setSearchActive(false)}
         >
           <div

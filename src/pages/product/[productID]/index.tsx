@@ -56,6 +56,8 @@ import { Skeleton } from "@/components/ui/skeleton";
 import { format, parseISO } from "date-fns";
 import { useCreateUserCart } from "@/hooks/services/useUserServices";
 import { toast } from "sonner";
+import Cookies from "js-cookie";
+
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { productID } = context.params!;
   return {
@@ -66,12 +68,17 @@ export async function getServerSideProps(context: GetServerSidePropsContext) {
 }
 
 const ProductDetail = () => {
+  const router = useRouter();
   const { width } = useWindowSize();
   const [isFavorite, setIsFavorite] = useState(false);
-  const { product, setProduct, selectedColor, selectedSize } = useProductStore(
-    (state) => state
-  );
-  const { handleAddToCart } = useAddToCartHandler();
+  const {
+    product,
+    setProduct,
+    selectedColor,
+    setSelectedColor,
+    selectedSize,
+    setSelectedSize,
+  } = useProductStore((state) => state);
 
   const [quantity, setQuantity] = useState<number>(1);
   const [maxStock, setMaxStock] = useState<number | undefined>();
@@ -83,7 +90,12 @@ const ProductDetail = () => {
   );
 
   const [currPage, setCurrPage] = useState(1);
-  const router = useRouter();
+
+  useEffect(() => {
+    setSelectedColor("");
+    setSelectedSize("");
+    setQuantity(1);
+  }, []);
 
   const { data: result } = useGetProductById(Number(router.query.productID));
 
@@ -130,7 +142,12 @@ const ProductDetail = () => {
     };
 
     createUserCart(payload)
-      .then(() => {
+      .then((res) => {
+        if (res.status === 401) {
+          Cookies.set("redirect_after_login", router.asPath);
+          router.push("/auth");
+          return;
+        }
         const fromEl = document.getElementById("add-to-bag-btn");
         const toEl = document.getElementById("cart-icon");
 
@@ -149,6 +166,7 @@ const ProductDetail = () => {
         }
       })
       .catch(() => {
+        console.log("caleld?");
         toast.error("Failed to add to cart");
       });
   };
@@ -167,9 +185,13 @@ const ProductDetail = () => {
     ];
 
     localStorage.setItem("checkout_payload", JSON.stringify(payload));
+    if (Cookies.get("token") === undefined) {
+      Cookies.set("redirect_after_login", router.asPath);
+      router.push("/auth");
+      return;
+    }
     router.push("/checkout");
   };
-  // const isLoadingReviews = true;
 
   const limitPagination = width < 576 ? 3 : 7;
   const totalPage = reviews?.data.total_page || 0;
@@ -245,8 +267,9 @@ const ProductDetail = () => {
                 </div>
                 <div className="flex flex-row gap-5 max-w-sm">
                   <Button
-                    onClick={addToCartHandler}
                     variant="secondary"
+                    disabled={!selectedColor || !selectedSize}
+                    onClick={addToCartHandler}
                     className={cn(
                       "flex cursor-pointer items-center text-xs font-semibold hover:scale-110"
                     )}
@@ -255,9 +278,9 @@ const ProductDetail = () => {
                     <BsBag className="size-4 text-everies-primary-20" />
                   </Button>
                   <Button
-                    className="cursor-pointer text-xs font-semibold hover:scale-110"
-                    onClick={buyNowHandler}
                     disabled={!selectedColor || !selectedSize}
+                    onClick={buyNowHandler}
+                    className="cursor-pointer text-xs font-semibold hover:scale-110"
                   >
                     BUY NOW
                   </Button>
@@ -308,98 +331,100 @@ const ProductDetail = () => {
           />
         </>
       )}
-      <Pagination>
-        <PaginationContent>
-          <PaginationItem
-            disabled={currPage === 1}
-            onClick={() => {
-              const prevPage = currPage - 1;
-              if (prevPage < middlePaginationSectionState[0]) {
-                if (
-                  prevPage ===
-                  firstPaginationSection[firstPaginationSection.length - 1]
-                ) {
-                  setMiddlePaginationSectionState([]);
-                } else {
-                  const midd: number[] = [
-                    prevPage,
-                    ...middlePaginationSectionState,
-                  ].slice(0, -1);
-                  console.log(midd, prevPage);
-                  setMiddlePaginationSectionState(midd);
+      {reviews?.data.total_reviews! > 0 && (
+        <Pagination>
+          <PaginationContent>
+            <PaginationItem
+              disabled={currPage === 1}
+              onClick={() => {
+                const prevPage = currPage - 1;
+                if (prevPage < middlePaginationSectionState[0]) {
+                  if (
+                    prevPage ===
+                    firstPaginationSection[firstPaginationSection.length - 1]
+                  ) {
+                    setMiddlePaginationSectionState([]);
+                  } else {
+                    const midd: number[] = [
+                      prevPage,
+                      ...middlePaginationSectionState,
+                    ].slice(0, -1);
+                    console.log(midd, prevPage);
+                    setMiddlePaginationSectionState(midd);
+                  }
                 }
-              }
-              setCurrPage(currPage - 1);
-            }}
-          >
-            <PaginationPrevious />
-          </PaginationItem>
+                setCurrPage(currPage - 1);
+              }}
+            >
+              <PaginationPrevious />
+            </PaginationItem>
 
-          {/* if middlePagination exist, then cut firstPagination to 1,2,3 */}
-          {renderedFirstPagination.map((i) => (
-            <PaginationItem key={i} onClick={() => setCurrPage(i - 1)}>
-              <PaginationLink isActive={currPage === i}>{i}</PaginationLink>
-            </PaginationItem>
-          ))}
+            {/* if middlePagination exist, then cut firstPagination to 1,2,3 */}
+            {renderedFirstPagination.map((i) => (
+              <PaginationItem key={i} onClick={() => setCurrPage(i - 1)}>
+                <PaginationLink isActive={currPage === i}>{i}</PaginationLink>
+              </PaginationItem>
+            ))}
 
-          {(renderedFirstPagination.length === 3 ||
-            middlePaginationSectionState.length === 0) && (
-            <PaginationItem>
-              <PaginationEllipsis />
-            </PaginationItem>
-          )}
-          {middlePaginationSectionState.map((i) => (
-            <PaginationItem key={i} onClick={() => setCurrPage(i)}>
-              <PaginationLink isActive={currPage === i}>{i}</PaginationLink>
-            </PaginationItem>
-          ))}
-          {middlePaginationSectionState.length > 0 &&
-            middlePaginationSectionState[
-              middlePaginationSectionState.length - 1
-            ] <
-              lastPaginationSection[0] - 1 && (
+            {(renderedFirstPagination.length === 3 ||
+              middlePaginationSectionState.length === 0) && (
               <PaginationItem>
                 <PaginationEllipsis />
               </PaginationItem>
             )}
-          {lastPaginationSection.map((i) => (
-            <PaginationItem key={i} onClick={() => setCurrPage(i)}>
-              <PaginationLink isActive={currPage === i}>{i}</PaginationLink>
-            </PaginationItem>
-          ))}
-          <PaginationItem
-            disabled={currPage === reviews?.data.total_page}
-            onClick={() => {
-              const nextPage = currPage + 1;
-              if (
-                nextPage >
-                  firstPaginationSection[firstPaginationSection.length - 1] &&
-                (middlePaginationSectionState[2] + 1 <
-                  lastPaginationSection[0] ||
-                  middlePaginationSectionState.length === 0)
-              ) {
-                const midd: number[] = [
-                  ...middlePaginationSectionState,
-                  middlePaginationSectionState.length === 0
-                    ? nextPage
-                    : middlePaginationSectionState[
-                        middlePaginationSectionState.length - 1
-                      ] + 1,
-                ];
+            {middlePaginationSectionState.map((i) => (
+              <PaginationItem key={i} onClick={() => setCurrPage(i)}>
+                <PaginationLink isActive={currPage === i}>{i}</PaginationLink>
+              </PaginationItem>
+            ))}
+            {middlePaginationSectionState.length > 0 &&
+              middlePaginationSectionState[
+                middlePaginationSectionState.length - 1
+              ] <
+                lastPaginationSection[0] - 1 && (
+                <PaginationItem>
+                  <PaginationEllipsis />
+                </PaginationItem>
+              )}
+            {lastPaginationSection.map((i) => (
+              <PaginationItem key={i} onClick={() => setCurrPage(i)}>
+                <PaginationLink isActive={currPage === i}>{i}</PaginationLink>
+              </PaginationItem>
+            ))}
+            <PaginationItem
+              disabled={currPage === reviews?.data.total_page}
+              onClick={() => {
+                const nextPage = currPage + 1;
+                if (
+                  nextPage >
+                    firstPaginationSection[firstPaginationSection.length - 1] &&
+                  (middlePaginationSectionState[2] + 1 <
+                    lastPaginationSection[0] ||
+                    middlePaginationSectionState.length === 0)
+                ) {
+                  const midd: number[] = [
+                    ...middlePaginationSectionState,
+                    middlePaginationSectionState.length === 0
+                      ? nextPage
+                      : middlePaginationSectionState[
+                          middlePaginationSectionState.length - 1
+                        ] + 1,
+                  ];
 
-                setMiddlePaginationSectionState(
-                  midd.length < 3
-                    ? Array.from({ length: 3 }, (_, i) => midd[0] + i)
-                    : midd.slice(-3)
-                );
-              }
-              setCurrPage(nextPage);
-            }}
-          >
-            <PaginationNext />
-          </PaginationItem>
-        </PaginationContent>
-      </Pagination>
+                  setMiddlePaginationSectionState(
+                    midd.length < 3
+                      ? Array.from({ length: 3 }, (_, i) => midd[0] + i)
+                      : midd.slice(-3)
+                  );
+                }
+                setCurrPage(nextPage);
+              }}
+            >
+              <PaginationNext />
+            </PaginationItem>
+          </PaginationContent>
+        </Pagination>
+      )}
 
       {width < mobileSize && (
         <Footer
@@ -429,6 +454,12 @@ const ReviewSection = ({ reviews, isLoadingReviews }: ReviewSectionProps) => {
         </h1>
         {isLoadingReviews ? (
           <Skeleton className="h-3.5 w-96 rounded-full" />
+        ) : reviews.total_reviews === 0 ? (
+          <div className="p-8 sm:p-12">
+            <p className="text-xs flex items-center justify-center font-bold">
+              Belum ada review
+            </p>
+          </div>
         ) : (
           <div className="flex text-2xs items-center mt-1 flex-row gap-1 font-semibold">
             <FaStar className="size-4 sm:size-5  text-yellow-400" />

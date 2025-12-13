@@ -13,13 +13,7 @@ type TProductCard = {
 const ProductCard = ({ data }: TProductCard) => {
   const { width } = useWindowSize();
   return (
-    <Link
-      href={`/product/${data.id}`}
-      className="shadow hover:shadow-xl"
-      // className={`space-y-4 h-48 sm:h-72 flex justify-end items-center flex-col p-2 transition-all duration-300 bg-[length:175px_175px] sm:bg-[length:250px_250px] hover:sm:bg-[length:300px_300px] hover:bg-[length:192px_192px] bg-no-repeat bg-top`}
-      // className="size-48 bg-cover"
-      // style={{ backgroundImage: `url(${data.img[0]})` }}
-    >
+    <Link href={`/product/${data.id}`} className="shadow hover:shadow-xl">
       {/* Card Detail Product */}
       <div className="w-full h-48 overflow-hidden group">
         <div
