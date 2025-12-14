@@ -1,0 +1,52 @@
+{
+    "name": "Autumn Dress",
+    "preview_img": "/images/products/dress1.webp",
+    "price": 540000,
+    "rate": 4.7,
+    "sold": 60,
+    "total_review": 72,
+    "description": "A soft and elegant cream dress designed for comfort and effortless autumn style.",
+    "images": [
+        "/images/products/dress1.webp",
+        "/images/products/dress2.webp"
+    ],
+    "variation_by_color": [
+        {
+            "color": "Cream",
+            "preview_img": "/images/products/dress1.webp",
+            "stock": {
+                "S": 10,
+                "M": 7,
+                "L": 6,
+                "XL": 4
+            },
+            "is_sold_out": false
+        }
+    ],
+    "variation_by_size": [
+        {
+            "size": "S",
+            "preview_img": "/images/products/dress1.webp",
+            "stock": { "Cream": 10 },
+            "is_sold_out": false
+        },
+        {
+            "size": "M",
+            "preview_img": "/images/products/dress1.webp",
+            "stock": { "Cream": 7 },
+            "is_sold_out": false
+        },
+        {
+            "size": "L",
+            "preview_img": "/images/products/dress1.webp",
+            "stock": { "Cream": 6 },
+            "is_sold_out": false
+        },
+        {
+            "size": "XL",
+            "preview_img": "/images/products/dress1.webp",
+            "stock": { "Cream": 4 },
+            "is_sold_out": false
+        }
+    ]
+}

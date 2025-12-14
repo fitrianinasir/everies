@@ -1,0 +1,52 @@
+{
+    "name": "Winter Sweater",
+    "preview_img": "/images/products/sweaterA2.webp",
+    "price": 600000,
+    "rate": 4.8,
+    "sold": 75,
+    "total_review": 90,
+    "description": "A thick and warm brown sweater designed to keep you comfortable during cold winter days.",
+    "images": [
+        "/images/products/sweaterA2.webp",
+        "/images/products/sweaterA3.webp"
+    ],
+    "variation_by_color": [
+        {
+            "color": "Brown",
+            "preview_img": "/images/products/sweaterA2.webp",
+            "stock": {
+                "S": 14,
+                "M": 10,
+                "L": 7,
+                "XL": 5
+            },
+            "is_sold_out": false
+        }
+    ],
+    "variation_by_size": [
+        {
+            "size": "S",
+            "preview_img": "/images/products/sweaterA2.webp",
+            "stock": { "Brown": 14 },
+            "is_sold_out": false
+        },
+        {
+            "size": "M",
+            "preview_img": "/images/products/sweaterA2.webp",
+            "stock": { "Brown": 10 },
+            "is_sold_out": false
+        },
+        {
+            "size": "L",
+            "preview_img": "/images/products/sweaterA2.webp",
+            "stock": { "Brown": 7 },
+            "is_sold_out": false
+        },
+        {
+            "size": "XL",
+            "preview_img": "/images/products/sweaterA2.webp",
+            "stock": { "Brown": 5 },
+            "is_sold_out": false
+        }
+    ]
+}

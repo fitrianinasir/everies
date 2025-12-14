@@ -13,7 +13,7 @@ type TProductCard = {
 const ProductCard = ({ data }: TProductCard) => {
   const { width } = useWindowSize();
   return (
-    <Link href={`/product/${data.id}`} className="shadow hover:shadow-xl">
+    <Link href={`/product/${data.id}`} className="shadow h-fit hover:shadow-xl">
       {/* Card Detail Product */}
       <div className="w-full h-48 overflow-hidden group">
         <div

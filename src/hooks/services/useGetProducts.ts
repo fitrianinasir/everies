@@ -2,15 +2,16 @@ import {
   getProductById,
   getProducts,
   getProductsWithDetail,
+  TGetProductsParams,
 } from "@/services/product";
 import { useQuery } from "@tanstack/react-query";
 import { TProduct } from "@/lib/model";
 import { TResponse } from "@/services/response";
 
-export const useGetProducts = () => {
+export const useGetProducts = (params: TGetProductsParams) => {
   return useQuery<TResponse<TProduct[]>, Error>({
-    queryKey: ["products"],
-    queryFn: () => getProducts(),
+    queryKey: ["products", params.limit, params.orderBy],
+    queryFn: () => getProducts(params),
   });
 };
 

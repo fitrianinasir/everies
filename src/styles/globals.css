@@ -73,6 +73,11 @@ input:-webkit-autofill {
 }
 
 @layer utilities {
+  .bg-clothes {
+    background-image: url("/images/everies/clothes.jpg");
+    background-size: cover; /* Adjust as needed */
+    background-position: center; /* Adjust as needed */
+  }
   .flex-center {
     @apply flex justify-center items-center;
   }

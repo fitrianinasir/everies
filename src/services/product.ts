@@ -4,9 +4,17 @@ import { TResponse } from "./response";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 
-export const getProducts = async () => {
+export type TGetProductsParams = {
+  limit?: number;
+  orderBy?: "asc" | "desc";
+};
+export const getProducts = async ({ limit, orderBy }: TGetProductsParams) => {
+  const endpoint =
+    limit && orderBy
+      ? `/product/all?limit=${limit}&orderBy=${orderBy}`
+      : "/product/all";
   return gateway
-    .get<TResponse<TProduct[]>>("/product/all", {
+    .get<TResponse<TProduct[]>>(endpoint, {
       headers: {
         token: Cookies.get("token") ?? "",
       },

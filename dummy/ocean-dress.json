@@ -1,0 +1,53 @@
+{
+    "name": "Ocean Dress",
+    "preview_img": "/images/products/dressB1.webp",
+    "price": 460000,
+    "rate": 4.5,
+    "sold": 38,
+    "total_review": 44,
+    "description": "A refreshing baby blue dress inspired by ocean tones, perfect for sunny outings and vacations.",
+    "images": [
+        "/images/products/dressB1.webp",
+        "/images/products/dressB2.webp",
+        "/images/products/dressB3.webp"
+    ],
+    "variation_by_color": [
+        {
+            "color": "Baby Blue",
+            "preview_img": "/images/products/dressB1.webp",
+            "stock": {
+                "S": 9,
+                "M": 0,
+                "L": 6,
+                "XL": 3
+            },
+            "is_sold_out": false
+        }
+    ],
+    "variation_by_size": [
+        {
+            "size": "S",
+            "preview_img": "/images/products/dressB1.webp",
+            "stock": { "Baby Blue": 9 },
+            "is_sold_out": false
+        },
+        {
+            "size": "M",
+            "preview_img": "/images/products/dressB1.webp",
+            "stock": { "Baby Blue": 0 },
+            "is_sold_out": false
+        },
+        {
+            "size": "L",
+            "preview_img": "/images/products/dressB1.webp",
+            "stock": { "Baby Blue": 6 },
+            "is_sold_out": false
+        },
+        {
+            "size": "XL",
+            "preview_img": "/images/products/dressB1.webp",
+            "stock": { "Baby Blue": 3 },
+            "is_sold_out": false
+        }
+    ]
+}

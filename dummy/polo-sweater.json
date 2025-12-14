@@ -1,0 +1,52 @@
+{
+    "name": "Polo Sweater",
+    "preview_img": "/images/products/sweaterB1.webp",
+    "price": 320000,
+    "rate": 4.3,
+    "sold": 28,
+    "total_review": 33,
+    "description": "A casual brown polo-style sweater that blends comfort with a clean, modern look.",
+    "images": [
+        "/images/products/sweaterB1.webp",
+        "/images/products/sweaterB2.webp"
+    ],
+    "variation_by_color": [
+        {
+            "color": "Brown",
+            "preview_img": "/images/products/sweaterB1.webp",
+            "stock": {
+                "S": 11,
+                "M": 9,
+                "L": 6,
+                "XL": 4
+            },
+            "is_sold_out": false
+        }
+    ],
+    "variation_by_size": [
+        {
+            "size": "S",
+            "preview_img": "/images/products/sweaterB1.webp",
+            "stock": { "Brown": 11 },
+            "is_sold_out": false
+        },
+        {
+            "size": "M",
+            "preview_img": "/images/products/sweaterB1.webp",
+            "stock": { "Brown": 9 },
+            "is_sold_out": false
+        },
+        {
+            "size": "L",
+            "preview_img": "/images/products/sweaterB1.webp",
+            "stock": { "Brown": 6 },
+            "is_sold_out": false
+        },
+        {
+            "size": "XL",
+            "preview_img": "/images/products/sweaterB1.webp",
+            "stock": { "Brown": 4 },
+            "is_sold_out": false
+        }
+    ]
+}

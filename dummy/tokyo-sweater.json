@@ -1,0 +1,53 @@
+{
+    "name": "Tokyo Sweater",
+    "preview_img": "/images/products/cardi1.webp",
+    "price": 380000,
+    "rate": 4.6,
+    "sold": 42,
+    "total_review": 55,
+    "description": "A cozy and lightweight white sweater inspired by Tokyo street fashion, perfect for daily wear.",
+    "images": [
+        "/images/products/cardi1.webp",
+        "/images/products/cardi2.webp",
+        "/images/products/cardi3.webp"
+    ],
+    "variation_by_color": [
+        {
+            "color": "White",
+            "preview_img": "/images/products/cardi1.webp",
+            "stock": {
+                "S": 12,
+                "M": 8,
+                "L": 5,
+                "XL": 0
+            },
+            "is_sold_out": false
+        }
+    ],
+    "variation_by_size": [
+        {
+            "size": "S",
+            "preview_img": "/images/products/cardi1.webp",
+            "stock": { "White": 12 },
+            "is_sold_out": false
+        },
+        {
+            "size": "M",
+            "preview_img": "/images/products/cardi1.webp",
+            "stock": { "White": 8 },
+            "is_sold_out": false
+        },
+        {
+            "size": "L",
+            "preview_img": "/images/products/cardi1.webp",
+            "stock": { "White": 5 },
+            "is_sold_out": false
+        },
+        {
+            "size": "XL",
+            "preview_img": "/images/products/cardi1.webp",
+            "stock": { "White": 0 },
+            "is_sold_out": false
+        }
+    ]
+}

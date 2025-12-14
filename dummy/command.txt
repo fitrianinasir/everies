@@ -1,0 +1,80 @@
+Help me create each request body with this example
+{
+    "name": "Sakura Blazer",
+    "preview_img": "/images/products/blazer1.png",
+    "price": 420000,
+    "rate": 4.4,
+    "sold": 15,
+    "total_review": 20,
+    "description": "A stylish and comfortable blazer perfect for any occasion.",
+    "images": [
+        "/images/products/blazer1.png",
+        "/images/products/blazer2.png"
+    ],
+    "variation_by_color": [
+        {
+            "color": "Pink",
+            "preview_img": "/images/products/blazer1.png",
+            "stock": {
+                "S": 10,
+                "M": 5,
+                "L": 0
+            },
+            "is_sold_out": false
+        }
+    ],
+    "variation_by_size": [
+        {
+            "size": "S",
+            "preview_img": "/images/products/blazer1.png",
+            "stock": {
+                "Pink": 10
+            },
+            "is_sold_out": false
+        },
+        {
+            "size": "M",
+            "preview_img": "/images/products/blazer1.png",
+            "stock": {
+                "Pink": 5
+            },
+            "is_sold_out": false
+        },
+        {
+            "size": "L",
+            "preview_img": "/images/products/blazer1.png",
+            "stock": {
+                "Pink": 0
+            },
+            "is_sold_out": false
+        }
+    ]
+}
+
+
+
+for this product
+1. Tokyo Sweater, 
+color: white, size (S,M,L,XL)
+images: cardi1.webp, cardi2.webp, cardi3.webp
+
+2. Autumn Dress, 
+color: Cream, size (S,M,L,XL)
+images: dress1.webp, dress2.webp
+
+3. Ocean Dress, 
+color: Baby blue, size (S,M,L,XL)
+images: dressB1.webp, dressB2.webp, dressB3.webp
+
+4. Winter Sweater, 
+color: Brown, size (S,M,L,XL)
+images: sweaterA2.webp, sweaterA3.webp
+
+5. Polo Sweater, 
+color: Brown, size (S,M,L,XL)
+images: sweaterB1.webp, sweaterB2.webp
+
+with this condition:
+1. price (generate between 200000 to 600000 but with the ending 000), 
+2. generate the relevant description and rate/sold
+3. 2 of 5 products generate one of the color/size stock is 0, for example if L Pink is 0, or Brown XL is 0
