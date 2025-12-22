@@ -110,7 +110,9 @@ const ProductDetail = () => {
       setVariationByColor(
         variationByColorHandler(result.data.detail.variation_by_color)
       );
+      console.log("called>", result.data);
       if (result.data.detail.variation_by_size.length > 0) {
+        console.log("called??", result.data.detail);
         setVariationBySize(
           variationBySizeHandler(result.data.detail.variation_by_size)
         );

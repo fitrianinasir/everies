@@ -79,11 +79,9 @@ const Products = () => {
             "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
           )}
         >
-          {products?.data.jewellery
-            .filter((i) => i.category === "jewellery")
-            .map((product) => (
-              <ProductCard data={product} key={product.id} />
-            ))}
+          {products?.data.jewellery.map((product) => (
+            <ProductCard data={product} key={product.id} />
+          ))}
         </div>
         <div className="space-y-4">
           <h1
@@ -121,6 +119,32 @@ const Products = () => {
           {products?.data.bags.map((product) => (
             <ProductCard data={product} key={product.id} />
           ))}
+        </div>
+      </div>
+
+      <div className="flex flex-col-reverse gap-12 xl:flex-row">
+        <div
+          className={cn(
+            (products?.data.shoes || []).length > 1
+              ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
+              : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
+            "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
+          )}
+        >
+          {products?.data.shoes.map((product) => (
+            <ProductCard data={product} key={product.id} />
+          ))}
+        </div>
+        <div className="space-y-4">
+          <h1
+            className={cn(
+              "font-bold text-center text-2xl cursor-pointer font-michroma hover:font-bold hover:text-everies-pink-20"
+            )}
+            onClick={() => router.push("/products/jewelley")}
+          >
+            SHOES
+          </h1>
+          <div className="hidden xl:block bg-clothes w-64 h-[510px]"></div>
         </div>
       </div>
     </ProductLayout>
