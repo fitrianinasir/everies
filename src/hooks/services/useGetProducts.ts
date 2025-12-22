@@ -6,11 +6,11 @@ import {
 } from "@/services/product";
 import { useQuery } from "@tanstack/react-query";
 import { TProduct } from "@/lib/model";
-import { TResponse } from "@/services/response";
+import { THomeProducts, TResponse } from "@/services/response";
 
-export const useGetProducts = (params: TGetProductsParams) => {
-  return useQuery<TResponse<TProduct[]>, Error>({
-    queryKey: ["products", params.limit, params.orderBy],
+export const useGetProducts = <T>(params: TGetProductsParams) => {
+  return useQuery<TResponse<T>, Error>({
+    queryKey: ["products", params.newArrivals],
     queryFn: () => getProducts(params),
   });
 };

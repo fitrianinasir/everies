@@ -57,18 +57,25 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
         </>
       )}
       <div className="hidden relative sm:flex flex-row">
-        <div
-          className="absolute flex items-center justify-center text-white p-0.5 h-full hover:bg-black/30 bg-black/20 cursor-pointer"
-          onMouseEnter={() => setScrollDir("left")}
-          onMouseLeave={() => setScrollDir(null)}
-        >
-          <IoIosArrowBack />
-        </div>
+        {product?.detail?.images.length > 5 && (
+          <div
+            className="absolute flex items-center justify-center text-white p-0.5 h-full hover:bg-black/30 bg-black/20 cursor-pointer"
+            onMouseEnter={() => setScrollDir("left")}
+            onMouseLeave={() => setScrollDir(null)}
+          >
+            <IoIosArrowBack />
+          </div>
+        )}
         <div
           ref={containerRef}
           className="scrollbar-hide overflow-auto flex flex-row flex-wrap"
         >
-          <div className=" flex flex-row gap-3 px-4">
+          <div
+            className={cn(
+              "flex flex-row gap-3",
+              product?.detail?.images.length! > 5 && " px-4"
+            )}
+          >
             {product?.detail?.images?.map((image, index) => (
               <Image
                 aria-selected={index === activeImageIndex}
@@ -84,13 +91,15 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
             ))}
           </div>
         </div>
-        <div
-          className="absolute flex items-center justify-center text-white p-0.5 h-full right-0 hover:bg-black/30 bg-black/20 cursor-pointer"
-          onMouseEnter={() => setScrollDir("right")}
-          onMouseLeave={() => setScrollDir(null)}
-        >
-          <IoIosArrowForward />
-        </div>
+        {product.detail?.images.length > 5 && (
+          <div
+            className="absolute flex items-center justify-center text-white p-0.5 h-full right-0 hover:bg-black/30 bg-black/20 cursor-pointer"
+            onMouseEnter={() => setScrollDir("right")}
+            onMouseLeave={() => setScrollDir(null)}
+          >
+            <IoIosArrowForward />
+          </div>
+        )}
       </div>
     </div>
   );

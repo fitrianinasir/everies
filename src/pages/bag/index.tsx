@@ -122,7 +122,7 @@ const BagPage = () => {
                           i.product.detail.variation_by_color
                         )}
                         variationBySize={variationBySizeHandler(
-                          i.product.detail.variation_by_size
+                          i.product.detail.variation_by_size || []
                         )}
                         footerButton={<Button>UPDATE</Button>}
                       />
@@ -133,7 +133,7 @@ const BagPage = () => {
                             i.product.detail.variation_by_color
                           )}
                           variationBySize={variationBySizeHandler(
-                            i.product.detail.variation_by_size
+                            i.product.detail.variation_by_size || []
                           )}
                         />
                       </div>

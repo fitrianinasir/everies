@@ -1,20 +1,15 @@
 import { TProduct, TProductReviewResponse } from "@/lib/model";
 import { gateway } from "./api";
-import { TResponse } from "./response";
+import { THomeProducts, TResponse } from "./response";
 import { AxiosError } from "axios";
 import Cookies from "js-cookie";
 
 export type TGetProductsParams = {
-  limit?: number;
-  orderBy?: "asc" | "desc";
+  newArrivals: boolean;
 };
-export const getProducts = async ({ limit, orderBy }: TGetProductsParams) => {
-  const endpoint =
-    limit && orderBy
-      ? `/product/all?limit=${limit}&orderBy=${orderBy}`
-      : "/product/all";
+export const getProducts = async <T>({ newArrivals }: TGetProductsParams) => {
   return gateway
-    .get<TResponse<TProduct[]>>(endpoint, {
+    .get<TResponse<T>>(`/product/all?newArrivals=${newArrivals}`, {
       headers: {
         token: Cookies.get("token") ?? "",
       },

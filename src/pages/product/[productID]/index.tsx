@@ -110,9 +110,11 @@ const ProductDetail = () => {
       setVariationByColor(
         variationByColorHandler(result.data.detail.variation_by_color)
       );
-      setVariationBySize(
-        variationBySizeHandler(result.data.detail.variation_by_size)
-      );
+      if (result.data.detail.variation_by_size.length > 0) {
+        setVariationBySize(
+          variationBySizeHandler(result.data.detail.variation_by_size)
+        );
+      }
     }
   }, [result]);
 
