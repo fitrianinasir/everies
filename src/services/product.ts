@@ -24,6 +24,13 @@ export const getProducts = async <T>({ newArrivals }: TGetProductsParams) => {
     });
 };
 
+export const getProductsByCategory = (category: string) => {
+  return gateway
+    .get<TResponse<TProduct[]>>(`/product/category/${category}`, {})
+    .then((res) => res.data)
+    .catch((err) => err);
+};
+
 export const getProductsWithDetail = async () => {
   return await gateway
     .get<TResponse<TProduct[]>>("/product/all-details", {

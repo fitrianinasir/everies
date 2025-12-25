@@ -1,6 +1,7 @@
 import {
   getProductById,
   getProducts,
+  getProductsByCategory,
   getProductsWithDetail,
   TGetProductsParams,
 } from "@/services/product";
@@ -12,6 +13,13 @@ export const useGetProducts = <T>(params: TGetProductsParams) => {
   return useQuery<TResponse<T>, Error>({
     queryKey: ["products", params.newArrivals],
     queryFn: () => getProducts(params),
+  });
+};
+
+export const useGetProductsByCategory = (category: string) => {
+  return useQuery<TResponse<TProduct[]>, Error>({
+    queryKey: ["products-category", category],
+    queryFn: () => getProductsByCategory(category),
   });
 };
 
