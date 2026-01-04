@@ -29,6 +29,16 @@ input:-webkit-autofill {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+@keyframes wiggle {
+  0%,
+  100% {
+    transform: translateX(-1px);
+  }
+  50% {
+    transform: translateX(2px);
+  }
+}
+
 @theme inline {
   --text-2xs: 10px;
 
@@ -65,6 +75,8 @@ input:-webkit-autofill {
   --breakpoint-xl: 1048px;
 
   --font-bitcount: var(--font-bitcount);
+
+  --animate-wiggle: wiggle 1s ease-in-out infinite;
 }
 
 @layer components {

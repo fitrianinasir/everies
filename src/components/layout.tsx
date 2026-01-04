@@ -48,9 +48,9 @@ const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
       )}
       {...props}
     >
-      <Navbar backUrl={backUrl} />
+      {/* <Navbar backUrl={backUrl} /> */}
       {router.pathname === "/" && (
-        <div className="w-full flex-center bg-everies-secondary-10">
+        <div className="w-full flex-center bg-white">
           <Banner />
         </div>
       )}
