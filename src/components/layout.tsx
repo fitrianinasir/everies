@@ -2,7 +2,12 @@ import { cn } from "@/lib/utils";
 import React from "react";
 import Navbar from "./navbar";
 import Banner from "./banner";
-import { Montserrat, Bitcount_Grid_Double, Michroma } from "next/font/google";
+import {
+  Montserrat,
+  Bitcount_Grid_Double,
+  Michroma,
+  Meddon,
+} from "next/font/google";
 import { useRouter } from "next/router";
 import { CartFlyAnimationLayer } from "./pages/CartFlyAnimationLayer";
 import { Toaster } from "./ui/sonner";
@@ -25,6 +30,11 @@ export const michroma = Michroma({
   display: "swap",
 });
 
+export const meddon = Meddon({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+});
 interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   backUrl?: string;
 }

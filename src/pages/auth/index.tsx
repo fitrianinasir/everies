@@ -34,7 +34,7 @@ const AuthPage = () => {
             <Lottie
               animationData={LoginLottie}
               loop
-              className="h-[28rem] w-[28rem]"
+              className="w-[20rem] h-[20rem] lg:w-[28rem] lg:h-[28rem]"
             />
           </div>
           <DownloadAppSection />

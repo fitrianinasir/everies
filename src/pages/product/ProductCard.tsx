@@ -15,7 +15,7 @@ const ProductCard = ({ data }: TProductCard) => {
   return (
     <Link href={`/product/${data.id}`} className="shadow h-fit hover:shadow-xl">
       {/* Card Detail Product */}
-      <div className="w-full h-48 overflow-hidden group">
+      <div className="w-full h-60 md:h-40 overflow-hidden group">
         <div
           className="w-full h-full bg-cover bg-center transition-transform duration-300 ease-in-out group-hover:scale-110"
           style={{ backgroundImage: `url(${data.preview_img})` }}
@@ -24,7 +24,9 @@ const ProductCard = ({ data }: TProductCard) => {
 
       <div className="space-y-1 md:space-y-2 w-full xl:max-w-full bg-white rounded-sm p-2">
         <div>
-          <h1 className="text-xs sm:text-sm font-semibold">{data.name}</h1>
+          <h1 className="text-xs sm:text-sm font-semibold truncate">
+            {data.name}
+          </h1>
           <p className="text-xs sm:text-sm">{formatToRupiah(data.price)}</p>
         </div>
         <div className="flex-row flex justify-between text-2xs sm:text-xs font-semibold items-start sm:items-center">

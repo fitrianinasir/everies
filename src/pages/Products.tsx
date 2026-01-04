@@ -16,18 +16,16 @@ const Products = () => {
     newArrivals: false,
   });
   return (
-    <ProductLayout className="space-y-32 xl:space-y-64">
+    <ProductLayout className="space-y-48">
       <div className="space-y-8">
         {" "}
         <div className="space-y-2">
-          <h1 className={cn("font-bold text-2xl font-michroma")}>
+          <h1 className={cn("font-bold text-2xl lg:text-4xl font-michroma")}>
             New Arrivals
           </h1>
-          <p className="text-sm max-w-lg">
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Cum velit
-            incidunt iure laborum nesciunt. Non reiciendis, laudantium vel modi
-            velit dolorem, nihil voluptatem quaerat adipisci numquam sunt
-            quibusdam eos hic.
+          <p className="text-xs lg:text-base max-w-lg">
+            New arrivals dropping now! Fresh styles for the fashion-forward
+            woman.
           </p>
         </div>
         <div
@@ -44,109 +42,32 @@ const Products = () => {
         </div>
       </div>
 
-      <div className="flex flex-col gap-12 xl:flex-row">
-        <div className="space-y-4">
+      {Object.keys(products?.data || []).map((category, list) => (
+        <div className="flex flex-col gap-16">
           <h1
             className={cn(
-              "font-bold text-center text-2xl cursor-pointer font-michroma hover:font-bold hover:text-everies-pink-20"
+              "font-bold text-center text-5xl text-everies-primary-10 tracking-widest cursor-pointer font-meddon hover:scale-110 transition-all"
             )}
-            onClick={() => router.push("/products/clothes")}
+            onClick={() => router.push(category)}
           >
-            CLOTHES
+            {category}
           </h1>
-          <div className="hidden xl:block bg-clothes w-64 h-[510px]"></div>
-        </div>
-        <div
-          className={cn(
-            (products?.data.clothes || []).length > 1
-              ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
-              : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
-            "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
-          )}
-        >
-          {products?.data.clothes.map((product) => (
-            <ProductCard data={product} key={product.id} />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col-reverse gap-12 xl:flex-row">
-        <div
-          className={cn(
-            (products?.data.jewellery || []).length > 1
-              ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
-              : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
-            "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
-          )}
-        >
-          {products?.data.jewellery.map((product) => (
-            <ProductCard data={product} key={product.id} />
-          ))}
-        </div>
-        <div className="space-y-4">
-          <h1
+          <div
             className={cn(
-              "font-bold text-center text-2xl cursor-pointer font-michroma hover:font-bold hover:text-everies-pink-20"
+              (products?.data[category as keyof THomeProducts] || []).length > 1
+                ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
+                : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
+              "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
             )}
-            onClick={() => router.push("/products/jewelley")}
           >
-            JEWELLERY
-          </h1>
-          <div className="hidden xl:block bg-clothes w-64 h-[510px]"></div>
-        </div>
-      </div>
-
-      <div className="flex flex-col gap-12 xl:flex-row">
-        <div className="space-y-4">
-          <h1
-            className={cn(
-              "font-bold text-center text-2xl cursor-pointer font-michroma hover:font-bold hover:text-everies-pink-20"
+            {(products?.data[category as keyof THomeProducts] || []).map(
+              (product) => (
+                <ProductCard data={product} key={product.id} />
+              )
             )}
-            onClick={() => router.push("/products/clothes")}
-          >
-            BAGS
-          </h1>
-          <div className="hidden xl:block bg-clothes w-64 h-[510px]"></div>
+          </div>
         </div>
-        <div
-          className={cn(
-            (products?.data.bags || []).length > 1
-              ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
-              : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
-            "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
-          )}
-        >
-          {products?.data.bags.map((product) => (
-            <ProductCard data={product} key={product.id} />
-          ))}
-        </div>
-      </div>
-
-      <div className="flex flex-col-reverse gap-12 xl:flex-row">
-        <div
-          className={cn(
-            (products?.data.shoes || []).length > 1
-              ? " [grid-template-columns:repeat(auto-fit,minmax(10rem,1fr))]"
-              : "grid-cols-1 xs:grid-cols-2 sm:grid-cols-3",
-            "w-full grid md:grid-cols-4 xl:grid-cols-5 gap-3 md:gap-4"
-          )}
-        >
-          {products?.data.shoes.map((product) => (
-            <ProductCard data={product} key={product.id} />
-          ))}
-        </div>
-        <div className="space-y-4">
-          <h1
-            className={cn(
-              "font-bold text-center text-2xl cursor-pointer font-michroma hover:font-bold hover:text-everies-pink-20"
-            )}
-            onClick={() => router.push("/products/jewelley")}
-          >
-            SHOES
-          </h1>
-          <div className="hidden xl:block bg-clothes w-64 h-[510px]"></div>
-        </div>
-      </div>
+      ))}
     </ProductLayout>
   );
 };

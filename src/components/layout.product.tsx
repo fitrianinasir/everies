@@ -5,7 +5,7 @@ const ProductLayout = ({
   ...props
 }: React.HTMLAttributes<HTMLDivElement>) => {
   return (
-    <main className={cn("bg-white mt-8", className)} {...props}>
+    <main className={cn("bg-white", className)} {...props}>
       {children}
     </main>
   );

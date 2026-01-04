@@ -1,43 +1,18 @@
-import React from "react";
-
-import { cn } from "@/lib/utils";
-import { bitcount } from "./layout";
-
 const Banner = () => {
   return (
-    <div className="relative h-[40vh] xl:h-[50vh] mt-16 w-full max-w-[1440px] gap-6 flex-col bg-[url('/images/banner2.png')] bg-no-repeat bg-position-[center_top_5rem] xl:bg-position-[center_top_5rem] bg-contain flex items-center justify-start">
-      <div className="flex h-full justify-between py-8 xl:pt-0 flex-col gap-4 items-center">
-        <h1
-          className={cn(
-            "text-2xl xl:text-6xl tracking-[6px] xl:tracking-[12px] text-everies-primary-10"
-          )}
-        >
-          SUPER BRAND DAY
-        </h1>
-        <h2 className="text-sm xl:text-lg tracking-widest bg-everies-primary-20 text-everies-light-10 rounded-full px-6 py-2">
-          Special discount up to 62%
-        </h2>
-      </div>
-      <div className="absolute bottom-24 xl:bottom-1/3 hidden xl:flex flex-row justify-between items-center w-full max-w-[calc(100%-120px)]">
-        <h1
-          className={cn(
-            "text-4xl cursor-pointer  text-everies-primary-20",
-            bitcount.className
-          )}
-        >
-          SHOP <br />
-          NOW
-        </h1>
-        <div
-          className={cn(
-            "text-4xl text-right font-bitcount flex-center cursor-pointer  text-everies-primary-20",
-            bitcount.className
-          )}
-        >
-          {/* <AiFillShopping className="size-10" /> */}
-          <div className="w-24 ">
-            <span style={{ wordBreak: "break-word" }}>CATEGORIES</span>
-          </div>
+    <div className="relative h-[31rem] xl:h-[32rem] w-screen max-w-[1440px] bg-[url('/images/bannernew3.jpg')] sm:bg-center bg-position-[center_left_-12vw] bg-no-repeat bg-cover  flex items-center justify-start">
+      <div className="sm:hidden bg-black/40 z-0 absolute inset-0"></div>
+      <div className="absolute flex justify-center items-center sm:justify-end bottom-12 sm:right-12 xl:right-1/10 sm:top-1/2 sm:bottom-1/2 w-full z-50">
+        <div className="text-center sm:text-right">
+          <p
+            className="font-meddon text-5xl md:text-7xl xl:text-8xl p-3 bg-gradient-to-r from-everies-secondary-40 to-everies-secondary-50 sm:from-everies-primary-30 sm:to-everies-primary-20
+           bg-clip-text text-transparent"
+          >
+            Everies
+          </p>
+          <p className="text-everies-secondary-10 px-3 text-sm sm:text-everies-primary-20 xl:text-xl">
+            Fashion Collection
+          </p>
         </div>
       </div>
     </div>
