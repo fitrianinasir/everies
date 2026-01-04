@@ -12,8 +12,8 @@ const LogoImage = ({ variant = "primary" }: LogoImageProps) => {
   return (
     <Image
       src={variant === "primary" ? PrimaryLogo : SecondaryLogo}
-      width={100}
-      height={100}
+      width={variant === "primary" ? 100 : 150}
+      height={variant === "primary" ? 100 : 150}
       alt="Everies"
       className="cursor-pointer"
       onClick={() => router.push("/")}

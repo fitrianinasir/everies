@@ -32,6 +32,7 @@
     "js-cookie": "^3.0.5",
     "lottie-react": "^2.4.1",
     "lucide-react": "^0.539.0",
+    "motion": "^12.23.26",
     "next": "15.4.6",
     "react": "19.1.0",
     "react-countdown": "^2.3.6",

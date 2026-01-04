@@ -15,8 +15,10 @@ import Cookies from "js-cookie";
 import { cn } from "@/lib/utils";
 type NavbarProps = {
   backUrl?: string;
+  className?: string;
+  showCategories?: boolean;
 };
-const Navbar = ({ backUrl }: NavbarProps) => {
+const Navbar = ({ backUrl, className, showCategories = true }: NavbarProps) => {
   const { width } = useWindowSize();
   const token = Cookies.get("token");
   const [searchActive, setSearchActive] = useState(false);
@@ -27,9 +29,15 @@ const Navbar = ({ backUrl }: NavbarProps) => {
     "hover:font-bold hover:text-everies-secondary-30 cursor-pointer";
   return (
     <>
-      <div className="fixed w-screen text-xs h-12 z-40 top-0 flex justify-center items-center p-8 bg-everies-secondary-10 sm:bg-transparent">
+      <div
+        className={cn(
+          "fixed w-screen text-xs h-12 z-50 top-0 flex justify-center items-center p-8 bg-everies-secondary-10",
+          showCategories ? "p-8" : "p-10",
+          className
+        )}
+      >
         <div className="flex flex-row w-full items-center justify-between max-w-[1440px]">
-          {width && width > 576 ? (
+          {width && width > 576 && showCategories ? (
             <div className="flex items-end justify-center flex-row gap-3">
               <LogoImage />
               <p
@@ -58,7 +66,7 @@ const Navbar = ({ backUrl }: NavbarProps) => {
               </p>
             </div>
           ) : !backUrl ? (
-            <LogoImage />
+            <LogoImage variant={showCategories ? "primary" : "secondary"} />
           ) : (
             <button
               className="flex flex-row items-center gap-1 text-sm"
