@@ -1,10 +1,7 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@import url("https://fonts.googleapis.com/css2?family=Lato:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Bungee:wght@400;700&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Michroma&display=swap");
-@import url("https://fonts.googleapis.com/css2?family=Michroma&family=Meddon&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap");
 
 body {
   font-family: "Lato", Arial, Helvetica, sans-serif;
@@ -75,18 +72,8 @@ input:-webkit-autofill {
   --breakpoint-xl: 1048px;
 
   --font-bitcount: var(--font-bitcount);
-
+  --font-nova: var(--font-nova);
   --animate-wiggle: wiggle 1s ease-in-out infinite;
-}
-
-@layer components {
-  .font-michroma {
-    font-family: "Michroma", sans-serif;
-  }
-
-  .font-meddon {
-    font-family: "Meddon", cursive;
-  }
 }
 
 @layer utilities {
@@ -110,4 +97,22 @@ input:-webkit-autofill {
   .h1-bold {
     @apply text-xs md:text-sm font-bold text-everies-primary-20;
   }
+}
+
+.swiper {
+  width: 100%;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+.swiper-slide {
+  background-position: center;
+  background-size: cover;
+  width: 300px;
+  height: 300px;
+}
+
+.swiper-slide img {
+  display: block;
+  width: 100%;
 }

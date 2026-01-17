@@ -1,40 +1,10 @@
 import { cn } from "@/lib/utils";
 import React from "react";
-import Navbar from "./navbar";
 import Banner from "./banner";
-import {
-  Montserrat,
-  Bitcount_Grid_Double,
-  Michroma,
-  Meddon,
-} from "next/font/google";
+import { Montserrat, Michroma, Meddon, Nova_Flat } from "next/font/google";
 import { useRouter } from "next/router";
 import { CartFlyAnimationLayer } from "./pages/CartFlyAnimationLayer";
-import { Toaster } from "./ui/sonner";
 
-export const monsterrat = Montserrat({
-  weight: ["400"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export const bitcount = Bitcount_Grid_Double({
-  weight: ["400"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export const michroma = Michroma({
-  weight: ["400"],
-  subsets: ["latin"],
-  display: "swap",
-});
-
-export const meddon = Meddon({
-  weight: ["400"],
-  subsets: ["latin"],
-  display: "swap",
-});
 interface LayoutProps extends React.HTMLAttributes<HTMLDivElement> {
   backUrl?: string;
 }
@@ -42,10 +12,7 @@ const Layout = ({ backUrl, children, className, ...props }: LayoutProps) => {
   const router = useRouter();
   return (
     <main
-      className={cn(
-        "flex flex-col justify-center items-center w-full",
-        monsterrat.className
-      )}
+      className={cn("flex flex-col justify-center items-center w-full")}
       {...props}
     >
       {/* <Navbar backUrl={backUrl} /> */}

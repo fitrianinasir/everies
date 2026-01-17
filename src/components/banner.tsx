@@ -9,7 +9,7 @@ const Banner = () => {
   const tabList = ["clothes", "jewellery", "bags", "shoes"];
 
   return (
-    <div className="relative h-screen w-screen max-w-[1440px] max-h-[960px] bg-[url('/images/bannernew3.jpg')] sm:bg-center bg-no-repeat bg-cover">
+    <div className="relative h-screen w-screen max-w-[2440px] max-h-[960px] bg-[url('/images/bannernew3.jpg')] sm:bg-center bg-no-repeat bg-cover">
       <div className="bg-black/70 z-0 absolute inset-0"></div>
       <div className="absolute px-6 flex flex-col bottom-36 gap-6 justify-start items-start w-full z-0">
         <div className="text-left">

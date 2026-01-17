@@ -6,6 +6,22 @@ import Banner from "@/components/banner";
 import Navbar from "@/components/navbar";
 import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
+import ProductsV2 from "./ProductsV2";
+import ProductsV3 from "./ProductsV3";
+import { Montserrat, Nova_Flat } from "next/font/google";
+
+export const monsterrat = Montserrat({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+});
+
+export const nova = Nova_Flat({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-nova",
+});
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
   const { req } = context;
@@ -34,13 +50,16 @@ export default function Home({ role }: { role: string | null }) {
 
   return (
     <div
-      className="flex flex-col justify-center items-center w-full"
+      className={cn(
+        "flex flex-col justify-center items-center w-full",
+        nova.variable,
+      )}
       onScroll={(e) => console.log(e)}
     >
       <Navbar
         className={cn(
           "transition-all ease-in-out duration-300",
-          showNavbar ? "bg-everies-secondary-10" : "bg-transparent"
+          showNavbar ? "bg-everies-secondary-10" : "bg-transparent",
         )}
         showCategories={showNavbar}
       />
@@ -49,7 +68,7 @@ export default function Home({ role }: { role: string | null }) {
         <Banner />
       </div>
       <div className="w-full max-w-[1440px] p-4 sm:p-8">
-        <Products />
+        <ProductsV3 />
       </div>
     </div>
   );
