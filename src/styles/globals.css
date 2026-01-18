@@ -1,10 +1,9 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
-@import url("https://fonts.googleapis.com/css2?family=Nova+Flat&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Funnel+Sans:ital,wght@0,300..800;1,300..80&Nova+Flat&display=swap");
 
 body {
-  font-family: "Lato", Arial, Helvetica, sans-serif;
   overflow-x: hidden;
 }
 
@@ -73,6 +72,7 @@ input:-webkit-autofill {
 
   --font-bitcount: var(--font-bitcount);
   --font-nova: var(--font-nova);
+  --font-funnel-sans: var(--font-funnel-sans);
   --animate-wiggle: wiggle 1s ease-in-out infinite;
 }
 

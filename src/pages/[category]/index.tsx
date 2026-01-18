@@ -21,13 +21,13 @@ const ProductCategoryPage = ({ category }: { category: string }) => {
     console.log(data);
   }, [data]);
   return (
-    <Layout className="mt-32 space-y-24">
-      <div className="relative bg-clothes w-full h-64 bg-cover ">
+    <Layout className="mt-18 space-y-12">
+      <div className="relative bg-clothes w-full h-96 bg-cover ">
         <div className="absolute inset-0 text-[60px] text-white font-bold font-michroma bg-black/50 flex items-center justify-center uppercase">
           {category}
         </div>
       </div>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 xl:grid-cols-6 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
         {data?.data.map((product) => (
           <ProductCard data={product} key={product.id} />
         ))}

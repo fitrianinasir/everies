@@ -11,19 +11,19 @@ type CounterProps = {
 const CounterMedium = ({ quantity, setQuantity, maxStock }: CounterProps) => {
   return (
     <div>
-      <div className="flex flex-row gap-2 text-lg font-extrabold text-everies-pink-10">
+      <div className="flex flex-row gap-2 text-lg font-extrabold text-everies-primary-20">
         <button
           onClick={() => quantity > 0 && setQuantity(quantity - 1)}
           className={cn(
             "cursor-pointer",
-            quantity === 0 && "pointer-events-none text-gray-400"
+            quantity === 0 && "pointer-events-none text-gray-400",
           )}
         >
           -
         </button>
         <div className="w-14">
           <input
-            className="h-8 w-full rounded-md border-2 border-everies-pink-10 text-center text-xs font-extrabold outline-none"
+            className="h-8 w-full rounded-md border-2 border-everies-primary-20 text-center text-xs font-extrabold outline-none"
             value={quantity.toString()}
             onChange={(e) => {
               if (maxStock) {
@@ -46,7 +46,7 @@ const CounterMedium = ({ quantity, setQuantity, maxStock }: CounterProps) => {
       <span
         className={cn(
           "text-3xs text-red-800",
-          quantity === maxStock ? "flex" : "hidden h-5"
+          quantity === maxStock ? "flex" : "hidden h-5",
         )}
       >
         *Anda hanya dapat memesan dengan batas maksimum {maxStock} item
@@ -64,7 +64,7 @@ const CounterSmall = ({
 }: CounterProps) => {
   return (
     <div>
-      <div className="flex flex-row items-end gap-1 text-lg text-everies-pink-10 md:gap-2">
+      <div className="flex flex-row items-end gap-1 text-lg text-everies-primary-20 md:gap-2">
         <button
           onClick={() => {
             quantity > 0 && setQuantity(quantity - 1);
@@ -72,14 +72,14 @@ const CounterSmall = ({
           }}
           className={cn(
             "cursor-pointer",
-            quantity === 0 && "pointer-events-none text-everies-dark-10/10"
+            quantity === 0 && "pointer-events-none text-everies-dark-10/10",
           )}
         >
           -
         </button>
         <div className="w-10 md:w-14">
           <input
-            className="h-6 w-full rounded-md border-2 border-everies-pink-10 text-center text-xs font-bold outline-none md:h-8 md:font-extrabold"
+            className="h-6 w-full rounded-md border-2 border-everies-primary-20 text-center text-base outline-none md:h-8"
             value={quantity.toString()}
             onChange={(e) => {
               if (parseInt(e.target.value) > 100) {
@@ -103,7 +103,7 @@ const CounterSmall = ({
       <span
         className={cn(
           "text-3xs text-red-800",
-          quantity === 100 ? "flex" : "hidden h-5"
+          quantity === 100 ? "flex" : "hidden h-5",
         )}
       >
         *Anda hanya dapat memesan dengan batas maksimum 100 item

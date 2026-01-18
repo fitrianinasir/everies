@@ -83,10 +83,10 @@ const ProductDetail = () => {
   const [quantity, setQuantity] = useState<number>(1);
   const [maxStock, setMaxStock] = useState<number | undefined>();
   const [variationByColor, setVariationByColor] = useState<TVariationByColor[]>(
-    []
+    [],
   );
   const [variationBySize, setVariationBySize] = useState<TVariationBySize[]>(
-    []
+    [],
   );
 
   const [currPage, setCurrPage] = useState(1);
@@ -108,13 +108,13 @@ const ProductDetail = () => {
     if (result && result.data) {
       setProduct(result.data);
       setVariationByColor(
-        variationByColorHandler(result.data.detail.variation_by_color)
+        variationByColorHandler(result.data.detail.variation_by_color),
       );
       console.log("called>", result.data);
       if (result.data.detail.variation_by_size.length > 0) {
         console.log("called??", result.data.detail);
         setVariationBySize(
-          variationBySizeHandler(result.data.detail.variation_by_size)
+          variationBySizeHandler(result.data.detail.variation_by_size),
         );
       }
     }
@@ -126,11 +126,11 @@ const ProductDetail = () => {
         colors: variationByColor || [],
         selectedColor: selectedColor,
         selectedSize: selectedSize,
-      })
+      }),
     );
   }, [selectedColor, selectedSize]);
 
-  const mobileSize = 576;
+  const mobileSize = 748;
 
   const { triggerFly, setFlyValue } = useCartFlyStore((s) => s);
 
@@ -197,11 +197,11 @@ const ProductDetail = () => {
     router.push("/checkout");
   };
 
-  const limitPagination = width < 576 ? 3 : 7;
+  const limitPagination = width < 748 ? 3 : 7;
   const totalPage = reviews?.data.total_page || 0;
   const firstPaginationSection = Array.from(
     { length: totalPage },
-    (_, i) => i + 1
+    (_, i) => i + 1,
   ).slice(0, limitPagination);
   const lastPaginationSection =
     totalPage > limitPagination ? [totalPage! - 1, totalPage] : [];
@@ -211,28 +211,29 @@ const ProductDetail = () => {
 
   const renderedFirstPagination =
     middlePaginationSectionState.length > 0
-      ? firstPaginationSection.slice(0, width < 576 ? 0 : -4)
+      ? firstPaginationSection.slice(0, width < 748 ? 0 : -4)
       : firstPaginationSection;
 
+  console.log(variationBySize);
   return (
     <Layout className="sm:pb-8 pb-16 mt-16" backUrl="/">
-      <div className="flex flex-col sm:flex-row gap-4 sm:mb-10">
-        <ImagesSection id="image-section" className="" />
-        <div className="col-span-2 flex flex-col w-full gap-1">
-          <div className="flex flex-col justify-between md:justify-normal gap-5 h-full pb-5 sm:pb-0">
+      <div className="flex flex-col w-full md:flex-row gap-4 lg:gap-12 sm:mb-10">
+        <ImagesSection id="image-section" className="md:w-1/2" />
+        <div className="col-span-2 flex flex-col gap-1  md:w-1/2 ">
+          <div className="flex flex-col justify-between lg:justify-normal gap-14 h-full pb-5 sm:pb-0">
             {/* TITLE SECTION */}
             <div className="max-w-xl space-y-3">
               <div className="flex flex-row justify-between">
                 <div>
-                  <h1 className="font-bold text-sm md:text-xl">
+                  <h1 className="text-everies-primary-10 text-2xl md:text-3xl">
                     {product.name}
                   </h1>
                   <div className="flex flex-row gap-2 items-center">
                     <GeneratedStars
                       stars={product.rate}
-                      size={width >= 576 ? "default" : "small"}
+                      size={width >= 748 ? "default" : "small"}
                     />
-                    <span className="text-xs font-semibold text-gray-500">
+                    <span className="text-xs text-gray-500">
                       {product.sold} Sold
                     </span>
                   </div>
@@ -249,23 +250,39 @@ const ProductDetail = () => {
                   />
                 )}
               </div>
-              <p className="bg-everies-pink-20  text-everies-dark-30 rounded-xl px-4 py-3 font-bold text-sm md:text-base">
+              <p className=" text-everies-primary-20 rounded-xl font-medium text-xl md:text-2xl">
                 {formatToRupiah(product.price)}
               </p>
+              {width >= 926 && (
+                <>
+                  <hr className="border-gray-300 h-[1px]" />
+                  <div className="mb-5">
+                    <h1 className="font-medium text-base text-everies-primary-20">
+                      Deskripsi
+                    </h1>
+                    <span className="text-sm">
+                      {product.detail.description}
+                    </span>
+                  </div>
+                  <hr className="border-gray-300 h-[1px]" />
+                </>
+              )}
               <VariationColor variation={variationByColor} />
-              <VariationSize variation={variationBySize} />
+              {variationBySize.length > 0 && (
+                <VariationSize variation={variationBySize} />
+              )}
             </div>
             {width >= mobileSize && (
-              <div className="flex text-sm flex-col gap-3">
+              <div className="flex text-base flex-col gap-3">
                 <div className="grid grid-cols-2 gap-x-8 gap-y-1 max-w-fit">
-                  <p className="h1-bold">Atur Kuantitas</p>
-                  <p className="h1-bold">Subtotal</p>
+                  <p className="text-everies-primary-20">Atur Kuantitas</p>
+                  <p className="text-everies-primary-20">Subtotal</p>
                   <CounterSmall
                     quantity={quantity}
                     setQuantity={setQuantity}
                     maxStock={maxStock}
                   />
-                  <div className="text-everies-pink-20 font-extrabold flex items-end">
+                  <div className="text-everies-primary-20 text-xl flex items-end">
                     {formatToRupiah(quantity * (product?.price || 0))}
                   </div>
                 </div>
@@ -274,8 +291,9 @@ const ProductDetail = () => {
                     variant="secondary"
                     disabled={!selectedColor || !selectedSize}
                     onClick={addToCartHandler}
+                    size="lg"
                     className={cn(
-                      "flex cursor-pointer items-center text-xs font-semibold hover:scale-110"
+                      "flex text-base items-center hover:scale-110",
                     )}
                   >
                     ADD TO BAG{" "}
@@ -284,7 +302,8 @@ const ProductDetail = () => {
                   <Button
                     disabled={!selectedColor || !selectedSize}
                     onClick={buyNowHandler}
-                    className="cursor-pointer text-xs font-semibold hover:scale-110"
+                    className="text-base hover:scale-110"
+                    size="lg"
                   >
                     BUY NOW
                   </Button>
@@ -292,49 +311,25 @@ const ProductDetail = () => {
               </div>
             )}
           </div>
-          {width < 576 && (
-            <Accordion type="single" collapsible>
-              <AccordionItem value="item-1">
-                <AccordionTrigger className="text-everies-pink-20">
-                  Deskripsi
-                </AccordionTrigger>
-                <AccordionContent>
-                  Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-                  Consequatur autem atque reprehenderit perspiciatis harum,
-                  nihil quam aliquid quos et officiis repellat iusto, quod
-                  laboriosam eveniet id sequi qui illo provident.
-                </AccordionContent>
-              </AccordionItem>
-            </Accordion>
-          )}
-
-          {width < 576 && (
-            <ReviewSection
-              reviews={reviews?.data || initResponseReviews}
-              isLoadingReviews={isLoadingReviews}
-            />
-          )}
         </div>
       </div>
-      {width >= 576 && (
-        <>
-          <div className="mb-5">
-            <h1 className="font-bold text-sm text-everies-pink-20">
-              Deskripsi
-            </h1>
-            <span className="text-xs">
-              Lorem ipsum dolor sit amet consectetur adipisicing elit. Et quo
-              sequi, blanditiis harum nemo commodi omnis sunt aut qui
-              consectetur repudiandae laudantium deleniti maxime perferendis hic
-              architecto totam beatae dolore.
-            </span>
-          </div>
-          <ReviewSection
-            reviews={reviews?.data || initResponseReviews}
-            isLoadingReviews={isLoadingReviews}
-          />
-        </>
-      )}
+
+      <>
+        {width < 926 && (
+          <Accordion type="single" collapsible>
+            <AccordionItem value="item-1">
+              <AccordionTrigger className="text-everies-primary-20">
+                Deskripsi
+              </AccordionTrigger>
+              <AccordionContent>{product.detail.description}</AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        )}
+        <ReviewSection
+          reviews={reviews?.data || initResponseReviews}
+          isLoadingReviews={isLoadingReviews}
+        />
+      </>
       {reviews?.data.total_reviews! > 0 && (
         <Pagination>
           <PaginationContent>
@@ -418,7 +413,7 @@ const ProductDetail = () => {
                   setMiddlePaginationSectionState(
                     midd.length < 3
                       ? Array.from({ length: 3 }, (_, i) => midd[0] + i)
-                      : midd.slice(-3)
+                      : midd.slice(-3),
                   );
                 }
                 setCurrPage(nextPage);
@@ -453,9 +448,7 @@ const ReviewSection = ({ reviews, isLoadingReviews }: ReviewSectionProps) => {
   return (
     <>
       <div className="space-y-2">
-        <h1 className="font-bold text-xs sm:text-sm text-everies-pink-20">
-          Penilaian Produk
-        </h1>
+        <h1 className="text-base text-everies-primary-20">Penilaian Produk</h1>
         {isLoadingReviews ? (
           <Skeleton className="h-3.5 w-96 rounded-full" />
         ) : reviews.total_reviews === 0 ? (

@@ -46,9 +46,9 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
 
   return (
     <div
-      className={cn("grid grid-cols-1 gap-2 max-w-full md:max-w-sm", className)}
+      className={cn("flex flex-col h-fit gap-2 lg:w-sm max-w-full", className)}
     >
-      {width && width >= 576 ? (
+      {width && width >= 748 ? (
         <ImagesDetail />
       ) : (
         <>
@@ -56,10 +56,10 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
           {mobileImagesPreview && <ImagesDetailMobile />}
         </>
       )}
-      <div className="hidden relative sm:flex flex-row">
+      <div className="hidden h-fit relative sm:flex flex-row">
         {product?.detail?.images.length > 5 && (
           <div
-            className="absolute flex items-center justify-center text-white p-0.5 h-full hover:bg-black/30 bg-black/20 cursor-pointer"
+            className="absolute flex items-center justify-center text-white p-0.5 h-[calc(100%-8px)] top-1 hover:bg-black/30 bg-black/20 cursor-pointer"
             onMouseEnter={() => setScrollDir("left")}
             onMouseLeave={() => setScrollDir(null)}
           >
@@ -72,8 +72,8 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
         >
           <div
             className={cn(
-              "flex flex-row gap-3",
-              product?.detail?.images.length! > 5 && " px-4"
+              "flex flex-row gap-3 p-1",
+              product?.detail?.images.length! > 5 && "px-4",
             )}
           >
             {product?.detail?.images?.map((image, index) => (
@@ -85,7 +85,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
                 height={100}
                 onMouseEnter={() => setActiveImageIndex(index)}
                 className={cn(
-                  "rounded-md cursor-pointer aria-selected:outline-2 aria-selected:outline-amber-400"
+                  "rounded-md cursor-pointer aria-selected:outline-2 aria-selected:outline-amber-400",
                 )}
               />
             ))}
@@ -93,7 +93,7 @@ const ImagesSection = ({ className }: ImagesSectionProps) => {
         </div>
         {product.detail?.images.length > 5 && (
           <div
-            className="absolute flex items-center justify-center text-white p-0.5 h-full right-0 hover:bg-black/30 bg-black/20 cursor-pointer"
+            className="absolute h-[calc(100%-8px)] flex items-center justify-center text-white p-0.5  right-0 top-1 hover:bg-black/30 bg-black/20 cursor-pointer"
             onMouseEnter={() => setScrollDir("right")}
             onMouseLeave={() => setScrollDir(null)}
           >

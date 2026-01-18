@@ -26,14 +26,14 @@ const Navbar = ({ backUrl, className, showCategories = true }: NavbarProps) => {
   const router = useRouter();
 
   const submenuClassnames =
-    "hover:font-bold hover:text-everies-secondary-30 cursor-pointer";
+    "hover:scale-105 text-everies-primary-30 hover:text-everies-primary-20 cursor-pointer";
   return (
     <>
       <div
         className={cn(
-          "fixed w-screen text-xs h-12 z-50 top-0 flex justify-center items-center p-8 bg-everies-secondary-10",
+          "fixed w-screen text-xs h-12 z-50 top-0 30 flex justify-center items-center p-8 bg-everies-secondary-10",
           showCategories ? "p-8" : "p-10",
-          className
+          className,
         )}
       >
         <div className="flex flex-row w-full items-center justify-between max-w-[1440px]">

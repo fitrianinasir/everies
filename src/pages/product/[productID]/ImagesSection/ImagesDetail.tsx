@@ -14,7 +14,7 @@ import { IoIosArrowBack } from "react-icons/io";
 
 const ImagesDetail = () => {
   const { activeImageIndex, setActiveImageIndex, product } = useProductStore(
-    (state) => state
+    (state) => state,
   );
 
   return (
@@ -25,7 +25,6 @@ const ImagesDetail = () => {
       <DialogContent className="flex w-full">
         <ImageItem className="w-96" />
         <div className="space-y-4">
-          <h1>Annisa Blouse</h1>
           <div className="grid grid-cols-4 gap-2">
             {product?.detail?.images?.map((image, index) => (
               <Image
@@ -34,7 +33,7 @@ const ImagesDetail = () => {
                 src={image}
                 alt="Product Image"
                 className={cn(
-                  "cursor-pointer aria-selected:outline-2 aria-selected:outline-amber-400"
+                  "cursor-pointer size-full aria-selected:outline-2 aria-selected:outline-amber-400",
                 )}
                 width={100}
                 height={100}

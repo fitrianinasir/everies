@@ -8,7 +8,7 @@ import { useEffect, useRef, useState } from "react";
 import { cn } from "@/lib/utils";
 import ProductsV2 from "./ProductsV2";
 import ProductsV3 from "./ProductsV3";
-import { Montserrat, Nova_Flat } from "next/font/google";
+import { Funnel_Sans, Montserrat, Nova_Flat } from "next/font/google";
 
 export const monsterrat = Montserrat({
   weight: ["400"],
@@ -21,6 +21,13 @@ export const nova = Nova_Flat({
   subsets: ["latin"],
   display: "swap",
   variable: "--font-nova",
+});
+
+export const funnelSans = Funnel_Sans({
+  weight: ["400"],
+  subsets: ["latin"],
+  display: "swap",
+  variable: "--font-funnel-sans",
 });
 
 export async function getServerSideProps(context: GetServerSidePropsContext) {
@@ -53,6 +60,7 @@ export default function Home({ role }: { role: string | null }) {
       className={cn(
         "flex flex-col justify-center items-center w-full",
         nova.variable,
+        funnelSans.variable,
       )}
       onScroll={(e) => console.log(e)}
     >

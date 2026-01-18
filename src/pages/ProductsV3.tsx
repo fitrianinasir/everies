@@ -4,15 +4,19 @@ import { cn } from "@/lib/utils";
 import { THomeProducts } from "@/services/response";
 import React from "react";
 import ProductCard from "./product/ProductCard";
-import SubBanner from "../../public/images/sub-banner.jpg";
 import { Button } from "@/components/ui/button";
 import ProductHighlight from "./product/ProductHighlight";
 import { useWindowSize } from "@/hooks/useWindowSize";
-import Image from "next/image";
-import Slider, { Settings } from "react-slick";
 
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay } from "swiper/modules";
+
+// Import Swiper styles
+import "swiper/css";
+import "swiper/css/pagination";
+import "swiper/css/navigation";
 
 const ProductsV3 = () => {
   const { width } = useWindowSize();
@@ -105,16 +109,6 @@ export default ProductsV3;
 
 const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
   const { width } = useWindowSize();
-  const settings: Settings = {
-    // dots: true,
-    infinite: true,
-    slidesToShow: 3,
-    slidesToScroll: 1,
-    autoplay: true,
-    speed: 6000,
-    // autoplaySpeed: 1000,
-    cssEase: "linear",
-  };
   switch (category) {
     case "clothes":
       return (
@@ -207,10 +201,19 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
       );
     case "bags":
       return (
-        <Slider {...settings}>
-          <div>
+        <Swiper
+          slidesPerView={width < 748 ? 2 : 3}
+          spaceBetween={0}
+          className="mySwiper"
+          freeMode={true}
+          autoplay={{ delay: 0 }}
+          speed={4000}
+          loop
+          modules={[Autoplay]}
+        >
+          <SwiperSlide className="">
             <div
-              className="w-full h-96 relative bg-center rounded-md bg-cover transition-transform duration-300 ease-in-out"
+              className="w-full h-60 md:h-96 relative bg-center bg-cover transition-transform duration-300 ease-in-out"
               style={{
                 backgroundImage: `url("https://i.pinimg.com/1200x/7b/73/21/7b7321719961f61a85900e6e1748dbd5.jpg")`,
               }}
@@ -219,10 +222,10 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
                 A bag that carries elegance everywhere
               </p>
             </div>
-          </div>
-          <div>
+          </SwiperSlide>
+          <SwiperSlide className="">
             <div
-              className="w-full h-96 relative bg-position-[center_bottom_-3rem] rounded-md bg-cover transition-transform duration-300 ease-in-out"
+              className="w-full h-60 md:h-96 relative bg-center bg-cover transition-transform duration-300 ease-in-out"
               style={{
                 backgroundImage: `url("https://i.pinimg.com/1200x/b4/83/6f/b4836f7a345b5f2e0d1fe7c3de19c5d0.jpg")`,
               }}
@@ -231,10 +234,10 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
                 Your bag, your timeless statement of style
               </p>
             </div>
-          </div>
-          <div>
+          </SwiperSlide>
+          <SwiperSlide className="">
             <div
-              className="w-full h-96 relative bg-position-[center_bottom_-1rem] rounded-md bg-cover transition-transform duration-300 ease-in-out"
+              className="w-full h-60 md:h-96 relative bg-center bg-cover transition-transform duration-300 ease-in-out"
               style={{
                 backgroundImage: `url("https://i.pinimg.com/736x/a5/0b/9c/a50b9c50dbffd2b69c9681f02b73f37d.jpg")`,
               }}
@@ -243,10 +246,10 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
                 Bags made to match every vibe
               </p>
             </div>
-          </div>
-          <div>
+          </SwiperSlide>
+          <SwiperSlide className="">
             <div
-              className="w-full h-96 relative bg-position-[center_top_-3rem] rounded-md bg-cover transition-transform duration-300 ease-in-out"
+              className="w-full h-60 md:h-96 relative bg-center bg-cover transition-transform duration-300 ease-in-out"
               style={{
                 backgroundImage: `url("https://i.pinimg.com/1200x/03/8f/8d/038f8d01c7e753c577d558fd4340fcd2.jpg")`,
               }}
@@ -255,10 +258,10 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
                 Every bag holds a story worth carrying
               </p>
             </div>
-          </div>
-          <div>
+          </SwiperSlide>
+          <SwiperSlide className="">
             <div
-              className="w-full h-96 relative bg-center rounded-md bg-cover transition-transform duration-300 ease-in-out"
+              className="w-full h-60 md:h-96 relative bg-center bg-cover transition-transform duration-300 ease-in-out"
               style={{
                 backgroundImage: `url("https://i.pinimg.com/736x/36/c8/1f/36c81f2b4be4cc82748cabb708ad227b.jpg")`,
               }}
@@ -267,10 +270,10 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
                 Designed for every day, made for you
               </p>
             </div>
-          </div>
-          <div>
+          </SwiperSlide>
+          <SwiperSlide className="">
             <div
-              className="w-full h-96 relative bg-center rounded-md bg-cover transition-transform duration-300 ease-in-out"
+              className="w-full h-60 md:h-96 relative bg-center bg-cover transition-transform duration-300 ease-in-out"
               style={{
                 backgroundImage: `url("https://i.pinimg.com/736x/3e/f3/4a/3ef34a04e740f5ee996aac3d39d9036e.jpg")`,
               }}
@@ -279,8 +282,8 @@ const BannerCatagory = ({ category }: { category: keyof THomeProducts }) => {
                 Bags built for hustle, styled for life
               </p>
             </div>
-          </div>
-        </Slider>
+          </SwiperSlide>
+        </Swiper>
       );
     default:
       return <div className=""></div>;
